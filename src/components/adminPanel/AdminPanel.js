@@ -45,7 +45,7 @@ function a11yProps(index) {
   };
 }
 
-export default function VerticalTabs({ toast }) {
+export default function VerticalTabs({ toast ,allcatagories}) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -175,7 +175,7 @@ export default function VerticalTabs({ toast }) {
         <AdminList {...{ toast }} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <ProductList {...{ toast }} />
+        <ProductList {...{ toast,allcatagories }} />
       </TabPanel>
       <TabPanel value={value} index={3}>
         <CategoryList {...{ toast }} />

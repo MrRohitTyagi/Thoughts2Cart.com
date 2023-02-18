@@ -104,8 +104,8 @@ const Navbar = ({
             <Tooltip title="Tap for more">
               <Avatar
                 sx={{
-                  height: "4vw",
-                  width: "4vw",
+                  height: "3.5vw",
+                  width: "3.5vw",
                   border: "1px solid #EED971FF",
                   cursor: "pointer",
                 }}
@@ -120,7 +120,7 @@ const Navbar = ({
           <Button>
             <Badge badgeContent={4} color="primary">
               <ShoppingCartIcon
-                sx={{ height: "3vw", width: "3vw", color: "#f9f6ed" }}
+                sx={{ height: "2.5vw", width: "2.7vw", color: "#f9f6ed" }}
               />
             </Badge>
           </Button>

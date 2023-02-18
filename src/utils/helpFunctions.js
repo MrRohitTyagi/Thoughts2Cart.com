@@ -3,6 +3,7 @@ import axios from "axios";
 // import "jspdf-autotable";
 
 const URL = "https://thoughts2-cart-backend.vercel.app/api/v1/";
+// const URL = "http://localhost:4000/api/v1/";
 
 async function caller(type, extendexURL, body) {
   switch (type) {

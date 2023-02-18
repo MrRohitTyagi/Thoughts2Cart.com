@@ -21,6 +21,7 @@ const validationSchema = yup.object({
   name: yup.string().required("name is required"),
   email: yup.string().required("email is required"),
   password: yup.string(),
+  address: yup.string(),
   phone: yup
     .string()
     .max(10, "Invalid Phone Number")
@@ -38,13 +39,14 @@ const EditUserForm = ({
   const [profilePicData, setprofilePicData] = useState("");
   const formik = useFormik({
     initialValues: {
-      name: userEditLayer.name || "",
-      email: userEditLayer.email || "",
-      phone: userEditLayer.phone || "",
-      role: userEditLayer.role || "",
-      profile: userEditLayer.profile || "",
-      password: userEditLayer.password || "",
-      id: userEditLayer._id || "",
+      name: userEditLayer?.name || "",
+      email: userEditLayer?.email || "",
+      phone: userEditLayer?.phone || "",
+      role: userEditLayer?.role || "",
+      profile: userEditLayer?.profile || "",
+      password: userEditLayer?.password || "",
+      address: userEditLayer?.address || "",
+      id: userEditLayer?._id || "",
       isPassChanded: false,
     },
     validationSchema: validationSchema,
@@ -155,6 +157,21 @@ const EditUserForm = ({
               }}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
+            />
+            <TextField
+              fullWidth
+              id="address"
+              name="address"
+              label="Address"
+              value={formik.values.address}
+              onChange={(e) => {
+                formik.setFieldValue("address", e.target.value);
+
+                if (formik.values.isPassChanded === false)
+                  formik.setFieldValue("isPassChanded", true);
+              }}
+              error={formik.touched.address && Boolean(formik.errors.address)}
+              helperText={formik.touched.address && formik.errors.address}
             />
             <Box style={{ position: "relative" }} direction="row">
               <TextField

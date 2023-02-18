@@ -1,25 +1,7 @@
-import Electronics from "../assets/electronics.jpg";
-import Fashion from "../assets/fashion.jpg";
-import Mobiles from "../assets/mobiles.jpg";
-import FItness from "../assets/fitness.jpg";
-import Skin from "../assets/skincare.jpg";
-import Health from "../assets/health.png";
-import Games from "../assets/games.webp";
-import Kids from "../assets/kids.webp";
 import { Box, Text } from "grommet";
 import { Avatar, MenuItem, Select, Tooltip } from "@mui/material";
 import { CoatCheck, Edit, Trash } from "grommet-icons";
 
-export const catagories = [
-  { name: "Electronics", img: Electronics },
-  { name: "Fashion", img: Fashion },
-  { name: "Mobiles", img: Mobiles },
-  { name: "FItness", img: FItness },
-  { name: "Skin Care", img: Skin },
-  { name: "Health", img: Health },
-  { name: "Games", img: Games },
-  { name: "Kids", img: Kids },
-];
 export const usercolumns = [
   {
     property: "Actions",

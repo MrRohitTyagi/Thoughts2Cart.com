@@ -11,8 +11,6 @@ import { AdminSettingsContext } from "../../App";
 const AdminSettings = ({ toast }) => {
   const { adminSettings, setadminSettings } = useContext(AdminSettingsContext);
   let isChanged = useRef(adminSettings);
-  console.log(adminSettings);
-  console.log(isChanged.current);
 
   useEffect(() => {
     (async function getsetting() {

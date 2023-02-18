@@ -6,7 +6,6 @@ import { AdminSettingsContext } from "../../App";
 
 const MainScreen = ({ userDetails, navigate, toast, allcatagories }) => {
   const { adminSettings } = useContext(AdminSettingsContext);
-  console.log(adminSettings);
 
   useEffect(() => {
     Emitter.on("FIRST_EMIT", (val) => console.log(val));

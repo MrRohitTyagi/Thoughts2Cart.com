@@ -70,6 +70,7 @@ const SignupForm = ({ setSigninLayer, toast }) => {
         toast.warn("Something went Wrong");
       }
     } catch (error) {
+      console.log(error);
       toast.error("Incorrect email or password");
     }
   }
@@ -103,6 +104,7 @@ const SignupForm = ({ setSigninLayer, toast }) => {
       setuserDetails(data);
       setSigninLayer(false);
     } catch ({ response }) {
+      console.log(response);
       toast.error(response.data);
     }
   };

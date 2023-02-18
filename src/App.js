@@ -46,11 +46,6 @@ const App = () => {
   const [userDetails, setuserDetails] = useState("");
   const [userAddress, setuserAddress] = useState("");
   const [adminSettings, setadminSettings] = useState({});
-  console.log(
-    "%c adminSettings ",
-    "color: blue;border:1px solid blue",
-    adminSettings
-  );
 
   function welcoometoast(data) {
     toast((t) => {
@@ -152,7 +147,7 @@ const App = () => {
 
               <Route
                 path="/admin-panel"
-                element={<AdminPanel {...{ toast }} />}
+                element={<AdminPanel {...{ toast, allcatagories }} />}
               />
               <Route path="*" element={<>404 page not found</>} />
             </Routes>

@@ -10,7 +10,7 @@ import EditProductForm from "./EditProductForm";
 import DataTable from "../../../../VersitileComponents/datatable/Datatable";
 import { profileconumns } from "../../../../utils/constants";
 
-const ProductList = ({ toast }) => {
+const ProductList = ({ toast,allcatagories }) => {
   const [productsList, setproductsList] = useState("");
   const [editProductLayer, seteditProductLayer] = useState("");
   const [search, setsearch] = useState("");
@@ -91,7 +91,7 @@ const ProductList = ({ toast }) => {
       />
       {editProductLayer && (
         <EditProductForm
-          {...{ editProductLayer, seteditProductLayer, toast }}
+          {...{ editProductLayer, seteditProductLayer, toast ,allcatagories}}
         />
       )}
     </Box>

@@ -28,7 +28,6 @@ const CategoryList = ({ toast }) => {
   };
 
   const handleSearch = (q) => {
-    console.log(q);
     if (!q) {
       fetchAllCategory();
       return;
@@ -100,6 +99,9 @@ const CategoryList = ({ toast }) => {
         <CategoryForm
           {...{
             toast,
+            categoryEditLayer,
+            fetchAllCategory,
+            setcategoryEditLayer,
           }}
         />
       )}

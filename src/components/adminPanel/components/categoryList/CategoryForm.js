@@ -6,16 +6,8 @@ import * as yup from "yup";
 import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
-import TagFacesIcon from "@mui/icons-material/TagFaces";
 
-import {
-  Button,
-  IconButton,
-  TextField,
-  Avatar,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Button, IconButton, TextField, Avatar } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 import {
@@ -41,15 +33,17 @@ const EditCategoryForm = ({
   fetchAllCategory,
   toast,
 }) => {
-  const [chipData, setChipData] = React.useState(categoryEditLayer.subCategory);
+  const [chipData, setChipData] = React.useState(
+    categoryEditLayer?.subCategory || []
+  );
   const [profilePicData, setprofilePicData] = useState("");
 
   const formik = useFormik({
     initialValues: {
-      name: categoryEditLayer.name || "",
-      image: categoryEditLayer.image || "",
-      id: categoryEditLayer._id || "",
-      subCategory: categoryEditLayer.subCategory || [],
+      name: categoryEditLayer?.name || "",
+      image: categoryEditLayer?.image || "",
+      id: categoryEditLayer?._id || "",
+      subCategory: categoryEditLayer?.subCategory || [],
       tempIng: "",
     },
     validationSchema: validationSchema,
@@ -90,7 +84,6 @@ const EditCategoryForm = ({
     }
   }
 
-  console.log(formik.values);
   return (
     <Layer
       onEsc={() => {
@@ -129,7 +122,7 @@ const EditCategoryForm = ({
         </Text>
         <Avatar
           style={{ position: "absolute", top: "5px", right: "5px" }}
-          src={formik.values.tempIng || categoryEditLayer.image}
+          src={formik.values.tempIng || categoryEditLayer?.image || ""}
         />
 
         <form id="form" onSubmit={formik.handleSubmit}>
@@ -189,7 +182,7 @@ const EditCategoryForm = ({
               Sub Categories
             </Text>
             <ChipsArray
-              subs={categoryEditLayer.subCategory}
+              subs={categoryEditLayer?.subCategory || []}
               setFieldValue={formik.setFieldValue}
               chipData={chipData}
               setChipData={setChipData}
@@ -295,6 +288,7 @@ function ChipsArray({ setFieldValue, subs, chipData, setChipData, toast }) {
           <Button
             onClick={() => {
               let val = document.getElementById("subCategoryAdd").value;
+              if (val === "") return;
               if (chipData.includes(val)) {
                 toast.error("Sub Categories is already present");
               } else {

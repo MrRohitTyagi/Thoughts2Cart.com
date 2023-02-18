@@ -1,11 +1,13 @@
-import { Box, Layer, Text, Grid, Image, Select, Carousel } from "grommet";
 import React from "react";
-import { StyledButton } from "../../../../assets/StyledItems";
-import { Button, MenuItem, TextField } from "@mui/material";
-import ForwardIcon from "@mui/icons-material/Forward";
+import { Box, Layer, Text, Grid, Select, ThemeContext } from "grommet";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { catagories } from "../../../../utils/constants";
+
+import { CaretDownFill } from "grommet-icons";
+import { StyledButton } from "../../../../assets/StyledItems";
+import { Button, TextField } from "@mui/material";
+import ForwardIcon from "@mui/icons-material/Forward";
+
 import {
   createNewProduct,
   deletProduct,
@@ -19,13 +21,19 @@ const validationSchema = yup.object({
   numberOfReviews: yup.string().required("This is a required field"),
   stock: yup.string().required("stock is required"),
   rating: yup.string().required("rating is required"),
+  category: yup.string().required("category is required"),
 
   warranty: yup.number().required("Warranty is required"),
   deliveryTime: yup.number().required("Delivery Time is required"),
   offers: yup.string(),
   discount: yup.number(),
 });
-const EditProductForm = ({ editProductLayer, seteditProductLayer, toast }) => {
+const EditProductForm = ({
+  editProductLayer,
+  seteditProductLayer,
+  toast,
+  allcatagories,
+}) => {
   const formik = useFormik({
     initialValues: {
       title: editProductLayer.title || "",
@@ -52,8 +60,6 @@ const EditProductForm = ({ editProductLayer, seteditProductLayer, toast }) => {
     seteditProductLayer(false);
     toast.success("Product Update success");
   };
-  console.log(formik.errors);
-  console.log(formik.values);
   return (
     <Layer
       onEsc={() => {
@@ -114,10 +120,13 @@ const EditProductForm = ({ editProductLayer, seteditProductLayer, toast }) => {
             />
 
             <Select
+              icon={<CaretDownFill />}
+              emptySearchMessage="No categories found"
+              dropHeight="small"
               size="small"
               name="category"
               valueKey={{ key: "name", reduce: true }}
-              options={catagories}
+              options={allcatagories.results || []}
               value={formik.values.category}
               label="Category"
               labelKey="name"

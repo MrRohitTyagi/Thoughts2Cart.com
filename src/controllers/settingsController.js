@@ -9,7 +9,6 @@ export async function fetchAdminSettinsg() {
 }
 
 export async function saveAdminSettinsg(body) {
-  console.log(body);
   let { data } = await caller("post", `save-siteSettings`, body);
   return data;
 }
