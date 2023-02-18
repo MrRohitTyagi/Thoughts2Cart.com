@@ -1,8 +1,8 @@
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
 import { Box, DataTable } from "grommet";
 import React from "react";
-import GetAppIcon from "@mui/icons-material/GetApp";
-import { exportPDF } from "../../utils/helpFunctions";
+// import GetAppIcon from "@mui/icons-material/GetApp";
+// import { exportPDF } from "../../utils/helpFunctions";
 const Datatable = ({ columns, onRowclick, data, pad }) => {
   return (
     <Box style={{ position: "relative" }} width={"80vw"}>
@@ -17,7 +17,7 @@ const Datatable = ({ columns, onRowclick, data, pad }) => {
         columns={columns}
         data={data || []}
       />
-      <Button
+      {/* <Button
         onClick={() => {
           let headers = columns.map((ele) => {
             return String(ele.property).toUpperCase();
@@ -29,7 +29,7 @@ const Datatable = ({ columns, onRowclick, data, pad }) => {
         startIcon={<GetAppIcon />}
       >
         Export Data
-      </Button>
+      </Button> */}
     </Box>
   );
 };

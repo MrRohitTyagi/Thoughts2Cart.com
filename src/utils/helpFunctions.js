@@ -1,8 +1,8 @@
 import axios from "axios";
-import jsPDF from "jspdf";
-import "jspdf-autotable";
+// import jsPDF from "jspdf";
+// import "jspdf-autotable";
 
-const URL = "http://localhost:4000/api/v1/";
+const URL = "https://thoughts2-cart-backend.vercel.app/api/v1/";
 
 async function caller(type, extendexURL, body) {
   switch (type) {
@@ -42,33 +42,33 @@ async function addressFinder({ lat, long }) {
   );
   return data;
 }
-const exportPDF = ({ title, headers, data }) => {
-  const unit = "pt";
-  const size = "A4"; // Use A1, A2, A3 or A4
-  const orientation = "portrait"; // portrait or landscape
+// const exportPDF = ({ title, headers, data }) => {
+//   const unit = "pt";
+//   const size = "A4"; // Use A1, A2, A3 or A4
+//   const orientation = "portrait"; // portrait or landscape
 
-  const marginLeft = 40;
-  const doc = new jsPDF(orientation, unit, size);
-  try {
-    doc.setFontSize(15);
-    const dataToConvert = data.map((ele, i) => {
-      return Object.values(ele);
-    });
+//   const marginLeft = 40;
+//   const doc = new jsPDF(orientation, unit, size);
+//   try {
+//     doc.setFontSize(15);
+//     const dataToConvert = data.map((ele, i) => {
+//       return Object.values(ele);
+//     });
 
-    // return;
-    let content = {
-      startY: 50,
-      head: headers,
-      body: dataToConvert,
-    };
+//     // return;
+//     let content = {
+//       startY: 50,
+//       head: headers,
+//       body: dataToConvert,
+//     };
 
-    doc.text(title, marginLeft, 40);
-    doc.autoTable(content);
-    doc.save("report.pdf");
-  } catch (error) {
-    console.log(error);
-  }
-};
+//     doc.text(title, marginLeft, 40);
+//     doc.autoTable(content);
+//     doc.save("report.pdf");
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 // example
 
 // exportPDF({
@@ -92,6 +92,6 @@ export {
   uploadImage,
   encodeImageFileAsURL,
   addressFinder,
-  exportPDF,
+  // exportPDF,
 };
 export default caller;
