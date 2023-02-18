@@ -3,15 +3,11 @@ import { Box, Grommet, Text } from "grommet";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { getUser } from "./controllers/userController";
 import { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import ProfileOptions from "./components/profile/ProfileOptions";
-// import { toast } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 import { addressFinder } from "./utils/helpFunctions";
 import Navbar from "./components/Navbar";
 import MainScreen from "./components/productpage/MainScreen";
 import AdminPanel from "./components/adminPanel/AdminPanel";
-import { useMemo } from "react";
 import { grommet } from "grommet/themes";
 import UserPanel from "./userPanel/UserPanel";
 import { getAllcategory } from "./controllers/categoryController";
@@ -77,18 +73,16 @@ const App = () => {
 
   useEffect(() => {
     let id = localStorage.getItem("userId");
-    if (!id) return;
     (async function fetchUser() {
+      let { data: settings } = await fetchAdminSettinsg();
+      setadminSettings(settings);
+      if (!id) return;
       let { data } = await getUser({ id: id });
       if (data.success) {
         setuserDetails(data.user);
         welcoometoast(data);
         if (data.user.role === "admin") {
-          localStorage.setItem("admin-settings-id", "63f03b189619f30d7dec1def");
-          let { data } = await fetchAdminSettinsg("63f03b189619f30d7dec1def");
-          setadminSettings(data);
         } else {
-          localStorage.removeItem("admin-settings-id");
         }
       }
     })();

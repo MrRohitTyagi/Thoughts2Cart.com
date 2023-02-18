@@ -19,7 +19,7 @@ const UserList = ({ toast }) => {
     let { data } = await getAllUsers();
 
     let UserData = data.results.filter((ele) => ele.role !== "admin");
-    setuserList(UserData);
+    setuserList(UserData.reverse());
   }
   useEffect(() => {
     fetchAllUsers();

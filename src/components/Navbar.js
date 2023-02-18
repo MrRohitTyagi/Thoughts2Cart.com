@@ -48,7 +48,7 @@ const Navbar = ({
           <Image
             style={{ cursor: "pointer" }}
             src={logo}
-            height="30vw"
+            height="40vw"
             margin={{ top: "10px" }}
             onClick={() => {
               navigate("/");
@@ -120,7 +120,7 @@ const Navbar = ({
           <Button>
             <Badge badgeContent={4} color="primary">
               <ShoppingCartIcon
-                sx={{ height: "3vw", width: "3vw", color: "#5C4033" }}
+                sx={{ height: "3vw", width: "3vw", color: "#f9f6ed" }}
               />
             </Badge>
           </Button>

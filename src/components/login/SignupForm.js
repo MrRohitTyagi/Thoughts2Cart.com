@@ -23,11 +23,6 @@ const validationSchema = yup.object({
   type: yup.string(),
   email: yup.string().required("Email is required"),
 
-  password: yup
-    .string()
-    .min(4, "Password too short")
-    .required("Password is required"),
-
   phone: yup.string().when("type", {
     is: (type) => type === "SIGNUP",
     then: (schema) =>
@@ -35,6 +30,14 @@ const validationSchema = yup.object({
         .max(10, "Invalid Phone Number")
         .min(10, "Invalid Phone Number")
         .required("Phone is required"),
+  }),
+  password: yup.string().when("type", {
+    is: (type) => type === "SIGNUP",
+    then: (schema) =>
+      schema
+        .max(20, "Invalid Phone Number")
+        .min(5, "Invalid Phone Number")
+        .required("Password is required"),
   }),
 });
 
@@ -100,7 +103,6 @@ const SignupForm = ({ setSigninLayer, toast }) => {
       setuserDetails(data);
       setSigninLayer(false);
     } catch ({ response }) {
-
       toast.error(response.data);
     }
   };

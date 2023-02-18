@@ -1,6 +1,6 @@
+import React, { useEffect, useContext, useRef } from "react";
 import { Button } from "@mui/material";
-import { Box, TextArea } from "grommet";
-import React, { useEffect, useState, useContext } from "react";
+import { Box } from "grommet";
 import {
   fetchAdminSettinsg,
   saveAdminSettinsg,
@@ -10,12 +10,13 @@ import { AdminSettingsContext } from "../../App";
 
 const AdminSettings = ({ toast }) => {
   const { adminSettings, setadminSettings } = useContext(AdminSettingsContext);
-
-  let id = localStorage.getItem("admin-settings-id");
+  let isChanged = useRef(adminSettings);
+  console.log(adminSettings);
+  console.log(isChanged.current);
 
   useEffect(() => {
     (async function getsetting() {
-      let { data } = await fetchAdminSettinsg(id);
+      let { data } = await fetchAdminSettinsg();
       setadminSettings(data);
     })();
   }, []);
@@ -51,24 +52,14 @@ const AdminSettings = ({ toast }) => {
         }}
       />
       <Button
+        disabled={
+          JSON.stringify(isChanged.current) === JSON.stringify(adminSettings)
+        }
         variant="contained"
         color="success"
         sx={{ position: "absolute", right: "15px", bottom: "15px" }}
         onClick={async () => {
-          try {
-            let { data } = await saveAdminSettinsg({
-              data: adminSettings,
-              id: id,
-            });
-            console.log(
-              "%c data ",
-              "color: green;border:1px solid green",
-              data
-            );
-            toast.success("Settings Saved Successfully!");
-          } catch (error) {
-            toast.error(error.message || "Unabel to save save settings");
-          }
+          saveSettings(adminSettings, toast, isChanged);
         }}
       >
         Save Settings
@@ -76,5 +67,16 @@ const AdminSettings = ({ toast }) => {
     </Box>
   );
 };
+async function saveSettings(adminSettings, toast, isChanged) {
+  try {
+    let { data } = await saveAdminSettinsg({
+      data: adminSettings,
+      id: "63f03b189619f30d7dec1def",
+    });
 
+    toast.success("Settings Saved Successfully!");
+  } catch (error) {
+    toast.error(error.message || "Unabel to save save settings");
+  }
+}
 export default AdminSettings;

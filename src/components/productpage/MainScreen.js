@@ -1,11 +1,11 @@
 import { Box, Carousel, Image } from "grommet";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import Categorys from "./Categorys";
 import { Emitter } from "../../utils/eventemmiter";
 import { AdminSettingsContext } from "../../App";
 
 const MainScreen = ({ userDetails, navigate, toast, allcatagories }) => {
-  const { adminSettings, setadminSettings } = useContext(AdminSettingsContext);
+  const { adminSettings } = useContext(AdminSettingsContext);
   console.log(adminSettings);
 
   useEffect(() => {
@@ -14,20 +14,25 @@ const MainScreen = ({ userDetails, navigate, toast, allcatagories }) => {
 
   return (
     <Box id="allMightyBox">
-      <Box>
+      <Box style={{ position: "relative" }}>
         <Categorys {...{ Emitter, allcatagories }} />
-      </Box>
-      <Box>
-        <Box overflow="hidden" margin={{ vertical: "small" }}>
-          <Carousel fill width={"100%"} controls="arrows" play={5000}>
-            {adminSettings?.images?.map((ele) => (
-              <div className="image">
-                <Image fit="cover" src={ele} />
-                <div class="fade"></div>
-              </div>
-            ))}
-          </Carousel>
+
+        <Box style={{ position: "absolute", top: "100%", zIndex: 0 }}>
+          <Box id="bgCarousel" overflow="hidden">
+            <Carousel fill width={"100%"} controls="arrows" play={5000}>
+              {adminSettings?.images?.map((ele) => (
+                <div className="image">
+                  <Image fit="cover" src={ele} />
+                  <div class="fade"></div>
+                </div>
+              ))}
+            </Carousel>
+          </Box>
         </Box>
+      </Box>
+      <Box style={{ zIndex: 2 }} height="50vh"></Box>
+      <Box id="productListing" style={{ zIndex: 3 }}>
+        kk
       </Box>
     </Box>
   );
