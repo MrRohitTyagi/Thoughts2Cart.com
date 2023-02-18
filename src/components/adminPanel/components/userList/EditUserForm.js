@@ -18,7 +18,7 @@ import {
 } from "../../../../controllers/userController";
 
 const validationSchema = yup.object({
-  name: yup.string().required("name is required"),
+  name: yup.string().max(20, "Name too long").required("name is required"),
   email: yup.string().required("email is required"),
   password: yup.string(),
   address: yup.string(),
@@ -55,25 +55,30 @@ const EditUserForm = ({
     },
   });
   async function handleProfileUpdate({ password, profile }) {
-    toast.loading(
-      <Box direction="row">
-        <Text>Submitting Please wait</Text>
-      </Box>
-    );
-    let url = "";
-    if (password === "") {
-      return toast.error("password is required");
-    }
+    try {
+      toast.loading(
+        <Box direction="row">
+          <Text>Submitting Please wait</Text>
+        </Box>
+      );
+      let url = "";
+      if (password === "") {
+        return toast.error("password is required");
+      }
 
-    if (profilePicData) {
-      url = await uploadImage(profilePicData);
-      setprofilePicData(null);
+      if (profilePicData) {
+        url = await uploadImage(profilePicData);
+        setprofilePicData(null);
+      }
+      await regesterUser({ ...arguments[0], profile: url ? url : profile });
+      formik.setFieldValue("isPassChanded", false);
+      await fetchAllUsers();
+      setuserEditLayer(false);
+      toast.success("Profile updated successfully");
+    } catch ({ response }) {
+      toast.error(response?.data || "Something went wrong");
+      console.log(response);
     }
-    await regesterUser({ ...arguments[0], profile: url ? url : profile });
-    formik.setFieldValue("isPassChanded", false);
-    await fetchAllUsers();
-    setuserEditLayer(false);
-    toast.success("Profile updated successfully");
   }
 
   return (

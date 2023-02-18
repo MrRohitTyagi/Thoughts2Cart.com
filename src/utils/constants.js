@@ -101,15 +101,15 @@ export const usercolumns = [
   },
 
   {
-    property: "createdAT",
+    property: "address",
     header: (
       <Text alignSelf="center" weight={"bold"}>
-        Created AT
+        Address
       </Text>
     ),
     render: (data) => (
       <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.createdAT.split(".")[0]}
+        {data?.address ? data?.address?.slice(0, 20) + "..." : "NA"}
       </Text>
     ),
   },
