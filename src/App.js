@@ -1,99 +1,195 @@
-import React, { useState } from "react";
-import { Box, Image, Button, Text } from "grommet";
-import { Alarm } from "grommet-icons";
+import React, { useEffect, useContext, createContext } from "react";
+import { Box, Grommet, Text } from "grommet";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { getUser } from "./controllers/userController";
+import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import ProfileOptions from "./components/profile/ProfileOptions";
+// import { toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
+import { addressFinder } from "./utils/helpFunctions";
+import Navbar from "./components/Navbar";
+import MainScreen from "./components/productpage/MainScreen";
+import AdminPanel from "./components/adminPanel/AdminPanel";
+import { useMemo } from "react";
+import { grommet } from "grommet/themes";
+import UserPanel from "./userPanel/UserPanel";
+import { getAllcategory } from "./controllers/categoryController";
+import { Avatar } from "@mui/material";
+import { deepMerge } from "grommet/utils";
+import { fetchAdminSettinsg } from "./controllers/settingsController";
 
-function App() {
-  const [userName, setuser] = useState("Rohit");
-  const [punchedin, setpunchedin] = useState(false);
-  const [time, settime] = useState(0);
+export const UserDetailsContext = createContext();
+export const AdminSettingsContext = createContext();
+const customBreakpoints = deepMerge(grommet, {
+  global: {
+    breakpoints: {
+      xsmall: {
+        value: 700,
+      },
+      small: {
+        value: 900,
+      },
+      medium: {
+        value: 1200,
+      },
+      middle: {
+        value: 1500,
+      },
+      large: {
+        value: 2000,
+      },
+    },
+  },
+});
+const App = () => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-  let timeMaker = () => {
-    let cs = new Date().getSeconds();
-    let ch = new Date().getHours();
-    let cm = new Date().getMinutes();
+  const [allcatagories, setallcatagories] = useState([]);
+  const [userDetails, setuserDetails] = useState("");
+  const [userAddress, setuserAddress] = useState("");
+  const [adminSettings, setadminSettings] = useState({});
+  console.log(
+    "%c adminSettings ",
+    "color: blue;border:1px solid blue",
+    adminSettings
+  );
 
-    let data = JSON.parse(localStorage.getItem("ptime"));
-    return data ? `${ch - data.hr} ${cm - data.min} ${cs - data.sec}` : "null";
-  };
-  console.log(timeMaker());
+  function welcoometoast(data) {
+    toast((t) => {
+      t.duration = 5000;
+      return (
+        <span>
+          <Box direction="row">
+            <Avatar src={data.user.profile} />
+            <Box direction="column" margin={{ left: "10px" }}>
+              <Text size="small">
+                Hi {data.user.name} Welcome Thoughts2Cart.com
+              </Text>
+              <Text size="small">Happy Shopping !</Text>
+            </Box>
+          </Box>
+        </span>
+      );
+    });
+  }
+
+  useEffect(() => {
+    let id = localStorage.getItem("userId");
+    if (!id) return;
+    (async function fetchUser() {
+      let { data } = await getUser({ id: id });
+      if (data.success) {
+        setuserDetails(data.user);
+        welcoometoast(data);
+        if (data.user.role === "admin") {
+          localStorage.setItem("admin-settings-id", "63f03b189619f30d7dec1def");
+          let { data } = await fetchAdminSettinsg("63f03b189619f30d7dec1def");
+          setadminSettings(data);
+        } else {
+          localStorage.removeItem("admin-settings-id");
+        }
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async function fetchAllCatagory() {
+      let { data } = await getAllcategory();
+      setallcatagories(data);
+    })();
+  }, []);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(async (posi) => {
+      let { data } = await addressFinder({
+        lat: posi.coords.latitude,
+        long: posi.coords.longitude,
+      });
+      setuserAddress(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (userDetails) {
+      if (
+        (userDetails.role !== "admin" || !userDetails) &&
+        pathname === "/admin-panel"
+      ) {
+        navigate("/");
+      }
+    }
+  });
 
   return (
-    <Box
-      height="100vh"
-      width="100vw"
-      background={"black"}
-      alignContent="center"
-      flex
-      justify="center"
-    >
-      <Box
-        overflow={"hidden"}
-        round="small"
-        elevation="large"
-        style={{ margin: "auto" }}
-        height={"80vh"}
-        background="grey"
-        width="300px"
-        direction="column"
+    <Grommet theme={customBreakpoints}>
+      <AdminSettingsContext.Provider
+        value={{ adminSettings, setadminSettings }}
       >
-        <Box height={"30%"}>
-          <Image
-            height={"100%"}
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn2QnZ1IMQtvsRnzI73YfJQq7BIa8wCSctng&usqp=CAU"
-          />
-        </Box>
-        {!!userName &&
-          (!punchedin ? (
-            <Box
-              height={"15%"}
-              flex
-              justify="center"
-              style={{ textAlign: "center" }}
-            >
-              <Text>Welcome {userName}</Text>
-              <Text>Ready to start your day ?</Text>
-            </Box>
-          ) : (
-            <Box
-              height={"15%"}
-              flex
-              justify="center"
-              style={{ textAlign: "center" }}
-            >
-              <Text size="40px">00:00</Text>
-              <Text></Text>
-            </Box>
-          ))}
-        <Box height={"30%"}>
-          <Image
-            height={"80%"}
-            src={localStorage.getItem("map")}
-            margin={{ horizontal: "20px", vertical: "10px" }}
-          />
-        </Box>
-        <Box flex justify="center" height={"25%"}>
-          <Button
-            style={{ width: "60%", borderRadius: "5px", margin: "auto" }}
-            primary
-            color={"green"}
-            onClick={() => {
-              setpunchedin((prev) => !prev);
-              let a = new Date();
-              localStorage.setItem(
-                "ptime",
-                JSON.stringify({
-                  min: a.getMinutes(),
-                  hr: a.getMinutes(),
-                  sec: a.getSeconds(),
-                })
-              );
+        <UserDetailsContext.Provider value={{ userDetails, setuserDetails }}>
+          <Box width={"100vw"} height={{ min: "100vh" }} background={"#F9F6EE"}>
+            <Navbar
+              {...{
+                userDetails,
+                setuserDetails,
+                navigate,
+                toast,
+                userAddress,
+              }}
+            />
+            <Routes>
+              <Route
+                path="/viewProfile"
+                element={
+                  <UserPanel
+                    {...{ userDetails, setuserDetails, navigate, toast }}
+                  />
+                }
+              />
+              <Route
+                path="/"
+                element={
+                  <MainScreen
+                    {...{ userDetails, navigate, toast, allcatagories }}
+                  />
+                }
+              />
+
+              <Route
+                path="/admin-panel"
+                element={<AdminPanel {...{ toast }} />}
+              />
+              <Route path="*" element={<>404 page not found</>} />
+            </Routes>
+          </Box>
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+            gutter={8}
+            containerClassName=""
+            containerStyle={{}}
+            toastOptions={{
+              className: "",
+              duration: 2000,
+              style: {
+                border: "1px solid #713200",
+                padding: "16px",
+                color: "black",
+              },
+              success: {
+                duration: 2000,
+                theme: {
+                  primary: "green",
+                  secondary: "black",
+                },
+              },
             }}
-            label={!punchedin ? "Punch In" : "Punch out"}
           />
-        </Box>
-      </Box>
-    </Box>
+        </UserDetailsContext.Provider>
+      </AdminSettingsContext.Provider>
+    </Grommet>
   );
-}
+};
 
 export default App;
