@@ -6,7 +6,7 @@ export const getAllProducts = async (params) => {
   return data;
 };
 export const deletProduct = async (id) => {
-  let data = await caller("delete", `/products/delete`, {
+  let data = await caller("delete", `products/delete`, {
     data: { id: id },
   });
   return data;
@@ -27,7 +27,7 @@ export const createNewProduct = async ({
   deliveryTime,
   warranty,
 }) => {
-  let data = await caller("post", "/products/new", {
+  let data = await caller("post", "products/new", {
     id,
     title,
     description,
