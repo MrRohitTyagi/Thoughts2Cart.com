@@ -68,16 +68,14 @@ const App = () => {
 
   useEffect(() => {
     let id = localStorage.getItem("userId");
+
     (async function fetchUser() {
-      let { data: settings } = await fetchAdminSettinsg();
-      setadminSettings(settings);
-      if (!id) return;
       let { data } = await getUser({ id: id });
+      console.log(data);
       if (data.success) {
         setuserDetails(data.user);
         welcoometoast(data);
         if (data.user.role === "admin") {
-        } else {
         }
       }
     })();
@@ -85,8 +83,11 @@ const App = () => {
 
   useEffect(() => {
     (async function fetchAllCatagory() {
-      let { data } = await getAllcategory();
-      setallcatagories(data);
+      let { data: settings } = await fetchAdminSettinsg();
+      setadminSettings(settings);
+
+      let { data: categories } = await getAllcategory();
+      setallcatagories(categories);
     })();
   }, []);
 
@@ -117,7 +118,7 @@ const App = () => {
         value={{ adminSettings, setadminSettings }}
       >
         <UserDetailsContext.Provider value={{ userDetails, setuserDetails }}>
-          <Box width={"100vw"} height={{ min: "100vh" }} background={"#F9F6EE"}>
+          <Box height={{ min: "100vh" }} background={"#F9F6EE"}>
             <Navbar
               {...{
                 userDetails,

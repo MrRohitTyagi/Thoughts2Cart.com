@@ -3,7 +3,8 @@ html {
   margin: 0;
   box-sizing: border-box;
   font-family: cursive !important;
-  background: "#F9F6EE";
+  background: "#F9F6EE" !important;
+  
 }
 *,
 *::after,

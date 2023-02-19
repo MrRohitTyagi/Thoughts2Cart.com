@@ -225,15 +225,15 @@ export const profileconumns = [
     ),
   },
   {
-    property: "createdAT",
+    property: "title",
     header: (
       <Text alignSelf="center" weight={"bold"}>
-        Created AT
+        Title
       </Text>
     ),
     render: (data) => (
       <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.createdAT.split(".")[0]}
+        {data.title.slice(0, 15)}
       </Text>
     ),
   },

@@ -114,19 +114,6 @@ export default function VerticalTabs({ toast ,allcatagories}) {
           }
           {...a11yProps(2)}
         />
-        {/* <Tab
-          sx={{ borderBottom: "1px solid #5C4033" }}
-          label={
-            <Text
-              style={{ textAlign: "center" }}
-              alignSelf="start"
-              color={"#5C4033"}
-            >
-              • Delete Prooduct
-            </Text>
-          }
-          {...a11yProps(3)}
-        /> */}
         <Tab
           sx={{ borderBottom: "1px solid #5C4033" }}
           label={
@@ -183,12 +170,13 @@ export default function VerticalTabs({ toast ,allcatagories}) {
       <TabPanel value={value} index={4}>
         <AdminSettings {...{ toast }} />
       </TabPanel>
-      <TabPanel value={value} index={5}>
+
+      {/* <TabPanel value={value} index={5}>
         item six
       </TabPanel>
       <TabPanel value={value} index={6}>
         Item Seven
-      </TabPanel>
+      </TabPanel> */}
     </Box>
   );
 }
