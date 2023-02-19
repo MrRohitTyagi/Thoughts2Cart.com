@@ -23,10 +23,16 @@ const validationSchema = yup.object({
   rating: yup.string().required("rating is required"),
   category: yup.string().required("category is required"),
 
-  warranty: yup.number().required("Warranty is required"),
-  deliveryTime: yup.number().required("Delivery Time is required"),
+  warranty: yup
+    .number("invalid Warranty")
+    .positive("invalid Warranty")
+    .required("Warranty is required"),
+  deliveryTime: yup
+    .number("invalid delivery time")
+    .positive("invalid delivery time")
+    .required("Delivery Time is required"),
   offers: yup.string(),
-  discount: yup.number(),
+  discount: yup.number("invalid Discount").positive("invalid Discount"),
 });
 const EditProductForm = ({
   editProductLayer,
@@ -56,9 +62,14 @@ const EditProductForm = ({
   });
 
   const handleSubmit = async (values) => {
-    await createNewProduct(values);
-    seteditProductLayer(false);
-    toast.success("Product Update success");
+    try {
+      await createNewProduct(values);
+      seteditProductLayer(false);
+      toast.success("Product Update success");
+    } catch (error) {
+      toast.error(error.message || "Something went wrong");
+      console.log(error);
+    }
   };
   return (
     <Layer

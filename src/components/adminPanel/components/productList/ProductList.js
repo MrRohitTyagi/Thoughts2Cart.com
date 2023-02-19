@@ -17,7 +17,7 @@ const ProductList = ({ toast,allcatagories }) => {
 
   async function fetchAllproducts() {
     let { data } = await getAllProducts();
-    setproductsList(data.results);
+    setproductsList(data.results.reverse());
   }
 
   useEffect(() => {

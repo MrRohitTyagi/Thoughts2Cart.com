@@ -2,7 +2,7 @@ import caller from "../utils/helpFunctions";
 import axios from "axios";
 
 export const getAllProducts = async (params) => {
-  let data = await caller("get", "products", null);
+  let data = await caller("get", "products/all", null);
   return data;
 };
 export const deletProduct = async (id) => {

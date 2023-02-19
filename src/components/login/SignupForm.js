@@ -36,7 +36,7 @@ const validationSchema = yup.object({
     then: (schema) =>
       schema
         .max(20, "Invalid Phone Number")
-        .min(5, "Invalid Phone Number")
+        .min(5, "Password too short")
         .required("Password is required"),
   }),
 });
