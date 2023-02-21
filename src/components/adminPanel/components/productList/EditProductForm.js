@@ -245,8 +245,8 @@ const EditProductForm = ({
                 <Text alignSelf="center" size="small">
                   {`${
                     formik?.values?.images?.length > 0
-                      ? `${formik.values.images.length} Selected`
-                      : `${editProductLayer.images.length} Images`
+                      ? `${formik?.values?.images?.length || 0} Selected`
+                      : `${editProductLayer?.images?.length || 0} Images`
                   }`}
                 </Text>
               </Box>
