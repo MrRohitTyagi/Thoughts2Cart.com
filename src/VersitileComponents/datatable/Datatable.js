@@ -27,8 +27,8 @@ const Datatable = ({
   };
 
   return (
-    <Box pad="small">
-      <Box direction="row" justify="between" pad={{ bottom: "small" }}>
+    <Box pad="small" overflow={'hidden'}>
+      <Box direction="row" justify="between" pad={{ bottom: "small" }}style={{overflow:'hidden'}}>
         <TextField
           value={search}
           onChange={(e) => {
@@ -75,15 +75,18 @@ const Datatable = ({
       </Box>
       <Box
         height={{ max: "75vh" }}
+        width={{ max: "90vw" }}
         overflow={{ horizontal: "auto" }}
       >
         <DataTable
-          verticalAlign={"middle"}
+          style={{ overflowX: "scroll" }}
+          size="large"
+          // verticalAlign={"middle"}
           onClickRow={({ datum }) => {
             return onRowclick(datum);
           }}
-          paginate={true}
-          width={{ min: "80vw" }}
+          // paginate={true}
+          // width={{ min: "80vw" }}
           border
           columns={columns}
           data={data || []}

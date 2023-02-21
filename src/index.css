@@ -4,7 +4,7 @@ html {
   box-sizing: border-box;
   font-family: cursive !important;
   background: "#F9F6EE" !important;
-  overflow-x: auto;
+  scroll-behavior: smooth;
 }
 *,
 *::after,

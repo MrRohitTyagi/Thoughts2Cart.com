@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const URL = "https://thoughts2-cart-backend.vercel.app/api/v1/";
 // const URL = "http://localhost:4000/api/v1/";
@@ -34,6 +35,31 @@ function encodeImageFileAsURL(element) {
   data.append("upload_preset", "tpteieaa");
   return data;
 }
+function encodeImageFileAsURLForMultiupload(element) {
+  var data = new FormData();
+  data.append("file", element);
+  data.append("upload_preset", "tpteieaa");
+  return data;
+}
+
+async function multiupload(files) {
+  if (files === "") return;
+  if (files.length > 4) {
+    toast.error("Cannot upload more than 4 images");
+    return;
+  }
+  let imageArray = [];
+
+  for (let i = 0; i < files.length; i++) {
+    const image = files[i];
+    let profileData = encodeImageFileAsURLForMultiupload(image);
+    if (profileData) {
+      let url = await uploadImage(profileData);
+      imageArray.push(url);
+    }
+  }
+  return imageArray;
+}
 
 async function addressFinder({ lat, long }) {
   let data = await axios.get(
@@ -53,5 +79,6 @@ export {
   uploadImage,
   encodeImageFileAsURL,
   addressFinder,
+  multiupload,
 };
 export default caller;

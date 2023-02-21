@@ -3,11 +3,13 @@ import { Box, Layer, Text, Grid, Select, ThemeContext } from "grommet";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-import { CaretDownFill } from "grommet-icons";
+import { CaretDownFill, View } from "grommet-icons";
 import { StyledButton } from "../../../../assets/StyledItems";
 import { Button, TextField } from "@mui/material";
 import ForwardIcon from "@mui/icons-material/Forward";
-
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { multiupload } from "../../../../utils/helpFunctions";
+import { deleteImage } from "../../../../controllers/ImageController";
 import {
   createNewProduct,
   deletProduct,
@@ -18,7 +20,6 @@ const validationSchema = yup.object({
   category: yup.string().required("category is required"),
   description: yup.string().required("description is required"),
   price: yup.string().required("price is required"),
-  numberOfReviews: yup.string().required("This is a required field"),
   stock: yup.string().required("stock is required"),
   rating: yup.string().required("rating is required"),
   category: yup.string().required("category is required"),
@@ -47,9 +48,8 @@ const EditProductForm = ({
       category: editProductLayer.category || "",
       description: editProductLayer.description || "",
       price: editProductLayer.price || "",
-      numberOfReviews: editProductLayer.numberOfReviews || "",
       stock: editProductLayer.stock || "",
-      images: editProductLayer.images || [],
+      images: [],
       rating: editProductLayer.rating || "",
 
       deliveryTime: editProductLayer.deliveryTime || "",
@@ -63,7 +63,17 @@ const EditProductForm = ({
 
   const handleSubmit = async (values) => {
     try {
-      await createNewProduct(values);
+      toast.loading("Submitting Product");
+      let urls = await multiupload(Object.values(formik.values.images));
+      await createNewProduct({
+        ...values,
+        images: urls ? urls : editProductLayer.images,
+      });
+      if (urls?.length > 0 && editProductLayer?.images?.length > 0) {
+        editProductLayer.images.map(async (ele) => {
+          await deleteImage(ele);
+        });
+      }
       seteditProductLayer(false);
       toast.success("Product Update success");
     } catch (error) {
@@ -181,22 +191,6 @@ const EditProductForm = ({
 
               <TextField
                 type={"number"}
-                id="numberOfReviews"
-                name="numberOfReviews"
-                label="Number of reviews"
-                value={formik.values.numberOfReviews}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.numberOfReviews &&
-                  Boolean(formik.errors.numberOfReviews)
-                }
-                helperText={
-                  formik.touched.numberOfReviews &&
-                  formik.errors.numberOfReviews
-                }
-              />
-              <TextField
-                type={"number"}
                 id="stock"
                 name="stock"
                 label="Stock"
@@ -205,6 +199,7 @@ const EditProductForm = ({
                 error={formik.touched.stock && Boolean(formik.errors.stock)}
                 helperText={formik.touched.stock && formik.errors.stock}
               />
+
               <TextField
                 type={"number"}
                 id="rating"
@@ -215,6 +210,46 @@ const EditProductForm = ({
                 error={formik.touched.rating && Boolean(formik.errors.rating)}
                 helperText={formik.touched.rating && formik.errors.rating}
               />
+              <Box border round="xxsmall">
+                <Box direction="row" width={"100%"} justify="between">
+                  <Button
+                    color="info"
+                    component="label"
+                    variant="contained"
+                    size="small"
+                    sx={{ width: "79%" }}
+                  >
+                    <input
+                      hidden
+                      multiple
+                      accept="image/*"
+                      type="file"
+                      onChange={async (e) => {
+                        formik.setFieldValue("images", e.target.files);
+                      }}
+                    />
+                    Upload images <CloudUploadIcon sx={{ marginLeft: "5px" }} />
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      formik.setFieldValue("images", "");
+                    }}
+                    sx={{ width: "19%" }}
+                    size="small"
+                    variant="contained"
+                    color="error"
+                  >
+                    x
+                  </Button>
+                </Box>
+                <Text alignSelf="center" size="small">
+                  {`${
+                    formik?.values?.images?.length > 0
+                      ? `${formik.values.images.length} Selected`
+                      : `${editProductLayer.images.length} Images`
+                  }`}
+                </Text>
+              </Box>
             </Grid>
             <Grid
               columns={[

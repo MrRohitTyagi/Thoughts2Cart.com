@@ -11,6 +11,7 @@ import CategoryList from "./components/categoryList/CategoryList";
 import AdminList from "./components/AdminList";
 import AdminSettings from "./AdminSettings";
 import UserSettings from "../../userPanel/UserSettings";
+import { IconButton } from "@mui/material";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,7 +46,7 @@ function a11yProps(index) {
   };
 }
 
-export default function VerticalTabs({ toast ,allcatagories}) {
+export default function VerticalTabs({ toast, allcatagories }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -140,7 +141,7 @@ export default function VerticalTabs({ toast ,allcatagories}) {
           }
           {...a11yProps(5)}
         />
-        {/* <Tab
+        <Tab
           sx={{ borderBottom: "1px solid #5C4033" }}
           label={
             <Text
@@ -148,11 +149,11 @@ export default function VerticalTabs({ toast ,allcatagories}) {
               alignSelf="start"
               color={"#5C4033"}
             >
-              • 
+              • Upload TRY
             </Text>
           }
           {...a11yProps(6)}
-        /> */}
+        />
       </Tabs>
 
       <TabPanel value={value} index={0}>
@@ -162,7 +163,7 @@ export default function VerticalTabs({ toast ,allcatagories}) {
         <AdminList {...{ toast }} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <ProductList {...{ toast,allcatagories }} />
+        <ProductList {...{ toast, allcatagories }} />
       </TabPanel>
       <TabPanel value={value} index={3}>
         <CategoryList {...{ toast }} />
@@ -170,11 +171,13 @@ export default function VerticalTabs({ toast ,allcatagories}) {
       <TabPanel value={value} index={4}>
         <AdminSettings {...{ toast }} />
       </TabPanel>
+      {/* 
+      <TabPanel value={value} index={5}>
+      
+        
+      </TabPanel> */}
 
-      {/* <TabPanel value={value} index={5}>
-        item six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
+      {/* <TabPanel value={value} index={6}>
         Item Seven
       </TabPanel> */}
     </Box>

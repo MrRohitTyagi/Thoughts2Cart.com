@@ -246,9 +246,9 @@ export const profileconumns = [
       </Text>
     ),
     render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
+      <Box alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
         {data?.images?.length > 0 ? (
-          <Box direction="row" gap="10px" alignSelf="center">
+          <Box direction="row" gap="2px" alignSelf="center">
             {data.images.map((ele) => (
               <Avatar src={ele} />
             ))}
@@ -258,7 +258,7 @@ export const profileconumns = [
             <CoatCheck />
           </Box>
         )}
-      </Text>
+      </Box>
     ),
   },
 ];
