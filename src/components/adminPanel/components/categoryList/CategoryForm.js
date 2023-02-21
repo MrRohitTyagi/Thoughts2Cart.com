@@ -54,11 +54,6 @@ const EditCategoryForm = ({
   });
   async function handleProfileUpdate({ image, name, subCategory, id }) {
     try {
-      toast.loading(
-        <Box direction="row">
-          <Text>Submitting Please wait</Text>
-        </Box>
-      );
       let url = "";
 
       if (profilePicData) {
@@ -69,6 +64,7 @@ const EditCategoryForm = ({
       if (url === "" && image === "") {
         return toast.error("Image is required");
       }
+      toast.loading("Submitting Please wait");
       await regestercategory({
         id: id,
         name: name,

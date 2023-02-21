@@ -74,9 +74,8 @@ const Datatable = ({
         </Button>
       </Box>
       <Box
-        // width={{ max: "80vw" }}
-        // height={{ max: "75vh" }}
-        overflow={{ horizontal: "scroll" }}
+        height={{ max: "75vh" }}
+        overflow={{ horizontal: "auto" }}
       >
         <DataTable
           verticalAlign={"middle"}

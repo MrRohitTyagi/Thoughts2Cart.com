@@ -67,6 +67,7 @@ const App = () => {
   }
 
   useEffect(() => {
+    setuserDetails("LOADING");
     let id = localStorage.getItem("userId");
 
     (async function fetchUser() {
@@ -75,8 +76,8 @@ const App = () => {
       if (data.success) {
         setuserDetails(data.user);
         welcoometoast(data);
-        if (data.user.role === "admin") {
-        }
+      } else {
+        setuserDetails("NOT_FOUND");
       }
     })();
   }, []);
