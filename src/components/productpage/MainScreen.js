@@ -26,7 +26,7 @@ const MainScreen = ({ userDetails, navigate, toast, allcatagories }) => {
             showIndicators={false}
             showThumbs={false}
             showArrows={false}
-            interval={7000}
+            interval={5000}
           >
             {adminSettings?.images?.map((ele) => (
               <div className="image">

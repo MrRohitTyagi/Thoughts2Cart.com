@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Image, Text } from "grommet";
+import { Box, Image, Text, Spinner } from "grommet";
 import {
   TextField,
   InputAdornment,
@@ -14,12 +14,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import logo from "../assets/logo.png";
 import SignupForm from "./login/SignupForm";
 import ProfileDrawer from "./profile/ProfileDrawer";
-import styled from "styled-components";
-const StyledButton = styled(Button)`
-  background: #5c4033 !important;
-  color: #F2F2F2;
-  border: 2px solid #5c4033;
-`;
+import { HoverBorderBox } from "../utils/customComponents";
+import CartItems from "./CartItems";
 
 const Navbar = ({
   userDetails,
@@ -30,6 +26,7 @@ const Navbar = ({
 }) => {
   const [profileDrawerlayer, setprofileDrawerlayer] = useState(false);
   const [SigninLayer, setSigninLayer] = useState(false);
+  const [cartLayer, setcartLayer] = useState(false);
   const handleSignin = () => {
     setSigninLayer(true);
   };
@@ -44,80 +41,90 @@ const Navbar = ({
         border={{ color: "lightblue", side: "bottom" }}
         pad={{ horizontal: "small" }}
       >
-        <Box direction="row" align=" center" justify="between">
-          <Image
-            style={{ cursor: "pointer" }}
-            src={logo}
-            height="40vw"
-            margin={{ top: "10px" }}
-            onClick={() => {
-              navigate("/");
-            }}
-          />
-          <TextField
-            variant="standard"
-            placeholder="Search"
-            style={{ color: "red !important" }}
-            sx={{
-              pl: 2,
-              m: 1.5,
-              height: "30%",
-              width: "30vw",
-              border: "1px solid #5C4033",
-              borderRadius: "3px",
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon
-                    sx={{ height: "2vw", width: "3vw", color: "#5C4033" }}
-                  />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
+        {/* <Box direction="row" align=" center" justify="between"> */}
+        <Image
+          style={{ cursor: "pointer" }}
+          src={logo}
+          height="40vw"
+          margin={{ top: "10px" }}
+          onClick={() => {
+            navigate("/");
+          }}
+        />
+        <TextField
+          variant="standard"
+          placeholder="Search"
+          style={{ color: "red !important" }}
+          sx={{
+            pl: 2,
+            m: 1.5,
+            height: "30%",
+            width: "30vw",
+            border: "1px solid #5C4033",
+            borderRadius: "3px",
+          }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon
+                  sx={{ height: "2vw", width: "3vw", color: "#5C4033" }}
+                />
+              </InputAdornment>
+            ),
+          }}
+        />
+        {/* </Box> */}
         <Box direction="row" align="center" gap="30px">
-          <Box direction="row" align="center" gap="30px">
-            {userDetails?.name ? (
-              <Text size="1.3vw">Hello! {userDetails?.name}</Text>
-            ) : (
+          <HoverBorderBox
+            direction="row"
+            align="center"
+            style={{ cursor: "pointer", boxShadow: "none" }}
+            gap="30px"
+            onClick={() => {
+              if (userDetails._id) {
+                setprofileDrawerlayer((prev) => !prev);
+              } else {
+                handleSignin();
+              }
+            }}
+          >
+            {userDetails === "LOADING" ? (
+              <Box direction="row" gap="10px">
+                <Text size="1.3vw" style={{ marginRight: "5px" }}>
+                  Fetching Details
+                </Text>
+                <Spinner />
+              </Box>
+            ) : userDetails === "NOT_FOUND" || !userDetails ? (
               <>
                 <Text size="1.3vw" style={{ marginRight: "5px" }}>
                   Hello!
                 </Text>
-                <StyledButton
-                  variant="outlined"
-                  sx={{
-                    width: "80%",
-                    background: "#5C4033",
-                    color: "#F2F2F2",
-                  }}
-                  onClick={() => {
-                    handleSignin();
-                  }}
-                >
-                  Sign In
-                </StyledButton>
+                <Text color={"blue"}>Sign In !</Text>
               </>
+            ) : (
+              <Text size="1.3vw" style={{ marginRight: "5px" }}>
+                Hello! {userDetails.name}
+              </Text>
             )}
             <Tooltip title="Tap for more">
               <Avatar
                 sx={{
-                  height: "3.5vw",
-                  width: "3.5vw",
+                  height: "3.2vw",
+                  width: "3.2vw",
                   border: "1px solid #EED971FF",
                   cursor: "pointer",
-                }}
-                onClick={() => {
-                  setprofileDrawerlayer((prev) => !prev);
                 }}
                 alt={<AccountCircleIcon />}
                 src={userDetails.profile}
               />
             </Tooltip>
-          </Box>
-          <Button>
+          </HoverBorderBox>
+          <Button
+            onClick={() => {
+              setcartLayer(true);
+            }}
+          >
             <Badge badgeContent={4} color="primary">
               <ShoppingCartIcon
                 sx={{ height: "2.5vw", width: "2.7vw", color: "#f9f6ed" }}
@@ -127,6 +134,11 @@ const Navbar = ({
         </Box>
       </Box>
       {SigninLayer && <SignupForm {...{ setSigninLayer, toast }} />}
+      {cartLayer && (
+        <CartItems
+          {...{ userDetails, setuserDetails, toast, cartLayer, setcartLayer }}
+        />
+      )}
       {profileDrawerlayer && (
         <ProfileDrawer
           {...{

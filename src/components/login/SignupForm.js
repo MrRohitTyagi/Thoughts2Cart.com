@@ -150,7 +150,7 @@ const SignupForm = ({ setSigninLayer, toast }) => {
               setSigninLayer(false);
             }}
             style={{
-              background: "#ded5bf",
+              background: "#F2F2F2",
               minWidth: "600px",
               maxWidth: "600px",
               height: "100vh",

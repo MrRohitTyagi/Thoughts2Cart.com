@@ -53,7 +53,7 @@ const App = () => {
 
   function welcoometoast(data) {
     toast((t) => {
-      t.duration = 5000;
+      t.duration = 2000;
       return (
         <span>
           <Box direction="row">

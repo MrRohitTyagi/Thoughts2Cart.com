@@ -25,15 +25,10 @@ const EachProductScreen = () => {
   const [currentImage, setcurrentImage] = useState("");
 
   let { id } = useParams();
-  console.log(
-    "%c currentImage ",
-    "color: red;border:1px solid red",
-    currentImage
-  );
+ 
   useEffect(() => {
     (async function fetchSingleProduct() {
       let { data } = await getSingleProduct(id);
-      console.log(data);
       setproductDetails(data.response);
     })();
   }, []);
@@ -79,7 +74,7 @@ const EachProductScreen = () => {
             </Box>
           </Box>
         ) : (
-          <>no</>
+          <>No Image</>
         )}
         <Box>{!!productDetails && <MiddleSection ele={productDetails} />}</Box>
         <Box>
@@ -211,6 +206,7 @@ function MiddleSection({ ele }) {
   return (
     <Box style={{ flexWrap: "wrap" }} direction="column">
       <Text size="large">{ele.description}</Text>
+      
       <Box direction="row" align="center">
         <Rating
           sx={{ py: "10px", alignSelf: "start" }}

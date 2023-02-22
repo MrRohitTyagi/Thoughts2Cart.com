@@ -43,6 +43,8 @@ const EditUserForm = ({
       email: userEditLayer?.email || "",
       phone: userEditLayer?.phone || "",
       role: userEditLayer?.role || "",
+      wishlist: userEditLayer?.wishlist || [],
+      
       profile: userEditLayer?.profile || "",
       password: userEditLayer?.password || "",
       address: userEditLayer?.address || "",
@@ -54,6 +56,7 @@ const EditUserForm = ({
       return handleProfileUpdate(values);
     },
   });
+
   async function handleProfileUpdate({ password, profile }) {
     try {
       toast.loading(
@@ -262,6 +265,7 @@ const EditUserForm = ({
             )}
             <Button
               // onClick={() => handleProfileUpdate(formik.values)}
+              disabled={formik.isSubmitting}
               type="submit"
               variant="contained"
               color="success"

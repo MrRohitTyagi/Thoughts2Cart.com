@@ -4,9 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getCategorisedProducts } from "../../controllers/productController";
 import MobileCard from "../../VersitileComponents/productCards/MobileCard";
 
-const URL = "https://thoughts2-cart-backend.vercel.app/api/v1/";
-// const URL = "http://localhost:4000/api/v1/";
-
 const CategoryPage = () => {
   const navigate = useNavigate();
   let { name: currentCategory } = useParams();

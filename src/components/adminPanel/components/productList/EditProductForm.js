@@ -347,7 +347,12 @@ const EditProductForm = ({
             >
               Delete Product
             </Button>
-            <Button variant="contained" color="success" type="submit">
+            <Button
+              variant="contained"
+              color="success"
+              type="submit"
+              disabled={formik.isSubmitting}
+            >
               {editProductLayer._id ? "Update" : "Create"} Product
             </Button>
           </Box>

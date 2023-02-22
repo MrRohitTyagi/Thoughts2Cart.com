@@ -1,9 +1,20 @@
 import { Button, Rating } from "@mui/material";
-import { Deliver, Favorite, ShareOption } from "grommet-icons";
-import { Card, CardBody, CardFooter, Image, Text } from "grommet/components";
+import { Favorite, ShareOption, Home } from "grommet-icons";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Image,
+  Text,
+  Box,
+} from "grommet/components";
 import React from "react";
 import styled from "styled-components";
 import { dateNDaysAhead } from "../../utils/helpFunctions";
+import toast from "react-hot-toast";
+import { UserDetailsContext } from "../../App";
+import { useContext } from "react";
+import { handleAddtoCart } from "../../utils/helpFunctions";
 
 let EnhancedCard = styled(Card)`
   border: none;
@@ -17,18 +28,29 @@ let EnhancedCard = styled(Card)`
 `;
 
 const MobileCard = ({ ele, onClick }) => {
+  let { userDetails, setuserDetails } = useContext(UserDetailsContext);
+
+  //  const handleAddtoCart = async (ele, userDetails,setuserDetails) => {
+  //     let updatedUserDetails = {
+  //       ...userDetails,
+  //       wishlist: [...(userDetails.wishlist || []), ele],
+  //       id: userDetails._id,
+  //     };
+  //     let { data } = await regesterUser(updatedUserDetails);
+  //     setuserDetails(data);
+  //   };
+
   return (
     <EnhancedCard
-    style={{borderRadius:'5px'}}
+      style={{ borderRadius: "5px" }}
       border="none"
       height="540px"
       width="320px"
       background="light-1"
       margin={"small"}
-      onClick={() => onClick(ele)}
     >
       {/* <CardHeader pad="medium">Header</CardHeader> */}
-      <CardBody pad="medium">
+      <CardBody pad="medium" onClick={() => onClick(ele)}>
         <Image src={ele.images[0]} fit style={{ paddingBottom: "10px" }} />
         <Text size="small">{ele.description}</Text>
         <Text size="small" textAlign="center" alignSelf="start">
@@ -66,17 +88,22 @@ const MobileCard = ({ ele, onClick }) => {
             <del> {Number(ele.price) + (100 * Number(ele.discount)) / 100}</del>
           </Text>
         </Text>
-        <Text size="small">
-          <Deliver size="15px" color="navy" />
-          {"  "} Get it by
-          <strong> {dateNDaysAhead(ele.deliveryTime)} </strong>
-        </Text>
+        <Box align="center" direction="row">
+          <Text size="small">
+            <Home size="15px" color="navy" /> Get it by
+            <strong> {dateNDaysAhead(ele.deliveryTime)} </strong>
+          </Text>
+        </Box>
       </CardBody>
       <CardFooter pad={{ horizontal: "small" }} background="light-2">
         <Button>
           <Favorite color="red" />
         </Button>
+
         <Button
+          onClick={() => {
+            handleAddtoCart(ele, userDetails, setuserDetails);
+          }}
           sx={{ scale: "0.9" }}
           size="small"
           variant="contained"
@@ -84,7 +111,15 @@ const MobileCard = ({ ele, onClick }) => {
         >
           Add to cart
         </Button>
-        <Button>
+
+        <Button
+          onClick={() => {
+            navigator.clipboard.writeText(
+              `https://thoughts2-cart-com.vercel.app/product/${ele._id}`
+            );
+            toast.success("Product URL copied to clipboard");
+          }}
+        >
           <ShareOption color="plain" />
         </Button>
       </CardFooter>

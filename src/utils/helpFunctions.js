@@ -1,5 +1,6 @@
 import axios from "axios";
 import toast from "react-hot-toast";
+import { regesterUser } from "../controllers/userController";
 
 const URL = "https://thoughts2-cart-backend.vercel.app/api/v1/";
 // const URL = "http://localhost:4000/api/v1/";
@@ -108,6 +109,17 @@ function dateNDaysAhead(n) {
 
   return `(${weekday}) ${day}, ${month}`;
 }
+const handleAddtoCart = async (ele, userDetails, setuserDetails) => {
+  let updatedUserDetails = {
+    ...userDetails,
+    wishlist: [...(userDetails.wishlist || []), ele],
+    id: userDetails._id,
+  };
+  let { data } = await regesterUser(updatedUserDetails);
+  setuserDetails(data);
+  toast.success("Item Added to cart !");
+};
+
 export {
   dateNDaysAhead,
   matchPasswords,
@@ -116,5 +128,6 @@ export {
   encodeImageFileAsURL,
   addressFinder,
   multiupload,
+  handleAddtoCart,
 };
 export default caller;

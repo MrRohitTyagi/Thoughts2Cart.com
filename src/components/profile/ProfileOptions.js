@@ -8,19 +8,21 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Formik } from "formik";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import CircularProgress from "@mui/material/CircularProgress";
-import { regesterUser } from "../../controllers/userController";
+import { getUser, regesterUser } from "../../controllers/userController";
 
 import { deleteUser } from "../../controllers/userController";
 import { matchPasswords } from "../../utils/helpFunctions";
 import { encodeImageFileAsURL, uploadImage } from "../../utils/helpFunctions";
+import { useEffect } from "react";
 
-const ProfileOptions = ({ userDetails, setuserDetails, navigate, toast }) => {
+const ProfileOptions = ({ navigate, toast }) => {
+  const [userDetails, setuserDetails] = useState("");
   const [changepasswordlayer, setchangepasswordlayer] = useState(false);
   const [profileData, setprofileData] = useState("");
   const [validationMsg, setvalidationMsg] = useState("pending");
 
   const handleProfileUpdate = async (
-    { name, phone, email, id, profile, editable, password },
+    { name, phone, email, id, profile, editable, password, role, wishlist },
     setFieldValue
   ) => {
     let profileUrl = "";
@@ -32,11 +34,13 @@ const ProfileOptions = ({ userDetails, setuserDetails, navigate, toast }) => {
 
     let { data } = await regesterUser({
       password,
+      role,
       name,
       phone,
       email,
       id,
       profile: profileUrl || profile,
+      wishlist,
     });
     setuserDetails(data);
     setprofileData();
@@ -67,6 +71,19 @@ const ProfileOptions = ({ userDetails, setuserDetails, navigate, toast }) => {
       }, 2000);
     }
   };
+  useEffect(() => {
+    // setuserDetails("LOADING");
+    let id = localStorage.getItem("userId");
+
+    (async function fetchUser() {
+      let { data } = await getUser({ id: id });
+      if (data.success) {
+        setuserDetails(data.user);
+      } else {
+        // setuserDetails("NOT_FOUND");
+      }
+    })();
+  }, []);
   return userDetails ? (
     <Box pad={"large"} animation={{ type: "fadeIn", duration: "1000" }}>
       <Box direction="row" gap="40px">
@@ -77,7 +94,9 @@ const ProfileOptions = ({ userDetails, setuserDetails, navigate, toast }) => {
               password: userDetails.password || "",
               name: userDetails.name || "",
               profile: userDetails.profile || "",
+              wishlist: userDetails.wishlist || [],
               phone: userDetails.phone || "",
+              role: userDetails.role || "user",
               profileData: "",
               id: userDetails._id || "",
               editable: false,
@@ -92,7 +111,6 @@ const ProfileOptions = ({ userDetails, setuserDetails, navigate, toast }) => {
               setFieldError,
               errors,
             }) => {
-             
               return (
                 <form onSubmit={handleSubmit}>
                   <Box direction="row" gap="40px">
@@ -224,7 +242,7 @@ const ProfileOptions = ({ userDetails, setuserDetails, navigate, toast }) => {
                         <Button
                           onClick={async () => {
                             await deleteUser(userDetails._id);
-                            toast.success('Account Deleted Successfully!')
+                            toast.success("Account Deleted Successfully!");
                             setuserDetails("");
                             localStorage.removeItem("userId");
                             setTimeout(() => {
