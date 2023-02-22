@@ -28,7 +28,6 @@ const Navbar = ({
   toast,
   userAddress,
 }) => {
-  console.log(userDetails);
   const [profileDrawerlayer, setprofileDrawerlayer] = useState(false);
   const [SigninLayer, setSigninLayer] = useState(false);
   const handleSignin = () => {

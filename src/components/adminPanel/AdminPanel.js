@@ -60,7 +60,6 @@ export default function VerticalTabs({ toast, allcatagories }) {
         bgcolor: "#F9F6EE",
         color: "#5C4033",
         display: "flex",
-        height: 224,
         width: "100%",
       }}
     >

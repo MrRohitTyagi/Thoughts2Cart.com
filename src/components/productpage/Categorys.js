@@ -1,11 +1,14 @@
-import { Box, Image, Text, Carousel, ResponsiveContext } from "grommet";
+import { Box, Image, Text, ResponsiveContext } from "grommet";
 import React, { useEffect, useState } from "react";
-import { ZoomBox } from "../../utils/customComponents";
+import { ZoomBox, ZoomImage } from "../../utils/customComponents";
 import { CaretDownFill } from "grommet-icons";
+
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 const BasicCard = ({ ele, size }) => {
   return (
     <ZoomBox direction="column" align="center" gap="5px">
-      <Image
+      <ZoomImage
         style={{
           borderRadius: "5px",
 
@@ -49,7 +52,14 @@ const Categorys = ({ Emitter, allcatagories }) => {
   return (
     <>
       <Box overflow="hidden">
-        <Carousel controls="arrows" margin={"10px"}>
+        <Carousel
+          emulateTouch
+          swipeable
+          onClickItem={(e) => {
+          }}
+          showStatus={false}
+          showIndicators={false}
+        >
           {finalCategoryArray?.map((ele) => (
             <Box
               direction="row"

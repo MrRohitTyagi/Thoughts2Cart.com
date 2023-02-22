@@ -1,5 +1,6 @@
 import caller from "../utils/helpFunctions";
 import axios from "axios";
+import { data } from "./sampledata";
 
 export const getAllProducts = async (params) => {
   let data = await caller("get", "products/all", null);
@@ -44,22 +45,27 @@ export const createNewProduct = async ({
   });
   return data;
 };
-
 const add20products = () => {
-  axios.get("https://fakestoreapi.com/products").then(({ data }) => {
+  try {
     data.forEach((ele) => {
+      console.log(ele);
       createNewProduct({
-        title: ele.title,
-        id: "",
-        description: ele.description,
-        price: ele.price,
-        rating: ele.rating.rate,
-        category: ele.category,
-        images: [ele.image, ele.image, ele.image],
-        stock: ele.rating.count - 20,
-        numberOfReviews: ele.rating.count,
+        title: ele.product_title.slice(0, 20),
+        category: "mobiles",
+        description: ele.product_title,
+        price: Math.ceil(Number(ele?.product_price?.replace("$", ""))) || 850,
+        rating: ele?.product_star_rating || 3,
+        images: [ele.product_photo, ele.product_photo, ele.product_photo],
+        stock: ele.product_num_offers || 5,
+        discount: Math.floor(Math.random() * 50) || 15,
+        offers: "",
+        deliveryTime: Math.floor(Math.random() * 10) || 1,
+        numberOfReviews: Math.floor(Math.random() * 100) || 50,
+        warranty: 1,
       });
     });
-  });
+  } catch (error) {
+    console.log(error);
+  }
 };
-// add20products()
+// add20products();

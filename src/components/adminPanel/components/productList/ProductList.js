@@ -25,7 +25,7 @@ const ProductList = ({ toast, allcatagories }) => {
   };
 
   return productsList?.length > 0 ? (
-    <Box>
+    <Box >
       <DataTable
         searchKey="title"
         createNewText="Create new product"

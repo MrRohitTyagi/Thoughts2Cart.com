@@ -1,18 +1,21 @@
 import { Button, InputAdornment, TextField } from "@mui/material";
-import { Box, DataTable } from "grommet";
-import { Close, FormSearch, Search } from "grommet-icons";
+import { Box } from "grommet";
+import { Close, Search } from "grommet-icons";
 import React, { useState } from "react";
+
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+
 const Datatable = ({
   columns,
   onRowclick,
   data,
-  pad,
   createNewClick,
   stateToBeUpdated,
   createNewText,
   fetch,
   searchKey = "name",
 }) => {
+  const [pageSize, setPageSize] = useState(10);
   const [search, setsearch] = useState("");
 
   const handleSearch = (q) => {
@@ -25,10 +28,14 @@ const Datatable = ({
       stateToBeUpdated(filterArr);
     }
   };
-
   return (
-    <Box pad="small" overflow={'hidden'}>
-      <Box direction="row" justify="between" pad={{ bottom: "small" }}style={{overflow:'hidden'}}>
+    <Box pad="small" overflow={"hidden"}>
+      <Box
+        direction="row"
+        justify="between"
+        pad={{ bottom: "small" }}
+        style={{ overflow: "hidden" }}
+      >
         <TextField
           value={search}
           onChange={(e) => {
@@ -74,22 +81,34 @@ const Datatable = ({
         </Button>
       </Box>
       <Box
-        height={{ max: "75vh" }}
-        width={{ max: "90vw" }}
-        overflow={{ horizontal: "auto" }}
+        style={{ display: "flex", height: "80%", width: "100%", flexGrow: 1 }}
       >
-        <DataTable
-          style={{ overflowX: "scroll" }}
-          size="large"
-          // verticalAlign={"middle"}
-          onClickRow={({ datum }) => {
-            return onRowclick(datum);
+        <DataGrid
+          components={{ Toolbar: GridToolbar }}
+          pageSize={pageSize}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          sx={{
+            minWidth: "70vw",
+            boxShadow: 2,
+            border: 2,
+            borderColor: "#121921",
+            "& .MuiDataGrid-cell:hover": {
+              color: "primary.main",
+            },
           }}
-          // paginate={true}
-          // width={{ min: "80vw" }}
-          border
+          onRowClick={({ row }) => {
+            return onRowclick(row);
+          }}
+          autoHeight
+          rows={
+            data.map((ele, i) => {
+              return { ...ele, id: i };
+            }) || []
+          }
           columns={columns}
-          data={data || []}
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+          disableSelectionOnClick
+          experimentalFeatures={{ newEditingApi: true }}
         />
       </Box>
     </Box>

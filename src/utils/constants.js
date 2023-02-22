@@ -4,13 +4,10 @@ import { CoatCheck, Edit, Trash } from "grommet-icons";
 
 export const usercolumns = [
   {
-    property: "Actions",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Actions
-      </Text>
-    ),
-    render: (data) => (
+    field: "Actions",
+    width: 80,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Actions</Text>,
+    renderCell: ({ row }) => (
       <Box alignSelf="center" align="center" direction="row" gap="10px">
         <Tooltip title="Edit">
           <Edit color="black" size="18px" />
@@ -22,107 +19,60 @@ export const usercolumns = [
     ),
   },
   {
-    property: "name",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Name
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.name}
-      </Text>
-    ),
+    field: "name",
+    width: 100,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}}  alignSelf="center">Name</Text>,
+    valueGetter: (params) => `${params.row.name || ""}`,
   },
   {
-    property: "email",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Email
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.email}
-      </Text>
-    ),
+    field: "email",
+    width: 180,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Email</Text>,
+    valueGetter: (params) => {
+      return `${params.row.email || ""}`;
+    },
   },
   {
-    property: "profile",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Profile
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        <Avatar src={data.profile} alt={"NA"} />
-      </Text>
-    ),
+    field: "profile",
+    width: 80,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Profile</Text>,
+    renderCell: (params) => {
+      return <Avatar src={params.row.profile} />;
+    },
   },
   {
-    property: "phone",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Phone
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.phone}
-      </Text>
-    ),
+    field: "phone",
+    width: 120,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Phone</Text>,
   },
   {
-    property: "role",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Role
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.role}
-      </Text>
-    ),
+    field: "role",
+    width: 80,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Role</Text>,
   },
   {
-    property: "password",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Password
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.password.slice(0, 15)}
-      </Text>
-    ),
+    field: "password",
+    width: 150,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Password</Text>,
   },
 
   {
-    property: "address",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Address
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data?.address ? data?.address?.slice(0, 20) + "..." : "NA"}
+    field: "address",
+    width: 160,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Address</Text>,
+    renderCell: ({ row }) => (
+      <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
+        {row?.address ? row?.address?.slice(0, 20) + "..." : "NA"}
       </Text>
     ),
   },
 ];
 export const profileconumns = [
   {
-    property: "Actions",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Actions
-      </Text>
-    ),
-    render: (data) => (
+    field: "actions",
+    width: 80,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Actions</Text>,
+    renderCell: (data) => (
       <Box alignSelf="center" align="center" direction="row" gap="10px">
         <Tooltip title="Edit">
           <Edit color="black" size="18px" />
@@ -134,122 +84,63 @@ export const profileconumns = [
     ),
   },
   {
-    property: "price",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Price
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.price}
-      </Text>
-    ),
+    field: "price",
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Price</Text>,
+    width: 80,
   },
   {
-    property: "rating",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Rating
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.rating}
-      </Text>
-    ),
+    field: "rating",
+    width: 100,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Rating</Text>,
   },
   {
-    property: "stock",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Stock
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.stock}
-      </Text>
-    ),
+    field: "stock",
+    width: 80,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Stock</Text>,
   },
   {
-    property: "category",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Category
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.category}
-      </Text>
-    ),
+    field: "category",
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Category</Text>,
   },
   {
-    property: "discount",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Discount
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.discount} %
-      </Text>
-    ),
+    field: "discount",
+    width: 100,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Discount</Text>,
+    valueGetter: ({ row }) => {
+      return `${row.discount || ""} (%)`;
+    },
   },
   {
-    property: "warranty",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        warranty
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.warranty} (Years)
-      </Text>
-    ),
+    field: "warranty",
+    width: 100,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">warranty</Text>,
+    valueGetter: ({ row }) => {
+      return `${row.warranty || ""} (years)`;
+    },
   },
   {
-    property: "deliveryTime",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Delivery Time
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.deliveryTime} (Days)
-      </Text>
-    ),
+    field: "deliveryTime",
+    width: 100,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Delivery Time</Text>,
+    valueGetter: ({ row }) => {
+      return `${row.deliveryTime || ""} (days)`;
+    },
   },
   {
-    property: "title",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Title
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.title.slice(0, 15)}
-      </Text>
-    ),
+    field: "title",
+    width: 150,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Title</Text>,
   },
 
   {
-    property: "image",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Images
-      </Text>
-    ),
-    render: (data) => (
+    field: "image",
+    width: 200,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Images</Text>,
+    renderCell: ({ row }) => (
       <Box alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data?.images?.length > 0 ? (
+        {row?.images?.length > 0 ? (
           <Box direction="row" gap="2px" alignSelf="center">
-            {data.images.map((ele) => (
+            {row.images.map((ele) => (
               <Avatar src={ele} />
             ))}
           </Box>
@@ -264,13 +155,10 @@ export const profileconumns = [
 ];
 export const categorycolumns = [
   {
-    property: "Actions",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Actions
-      </Text>
-    ),
-    render: (data) => (
+    field: "Actions",
+    width: 120,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Actions</Text>,
+    renderCell: (data) => (
       <Box alignSelf="center" align="center" direction="row" gap="10px">
         <Tooltip title="Edit">
           <Edit color="black" size="18px" />
@@ -282,52 +170,33 @@ export const categorycolumns = [
     ),
   },
   {
-    property: "name",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Name
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data.name}
-      </Text>
-    ),
+    field: "name",
+    width: 150,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Name</Text>,
   },
   {
-    property: "_id",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        ID
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        {data._id.slice(0, 15)}
-      </Text>
-    ),
+    field: "_id",
+    width: 220,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">ID</Text>,
   },
 
   {
-    property: "subCategory",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Sub Categories
-      </Text>
-    ),
-    render: (data) => {
+    field: "subCategory",
+    width: 350,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Sub Categories</Text>,
+    renderCell: ({ row }) => {
       return (
-        <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
+        <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
           <Select
             size="small"
             sx={{ width: "200px" }}
-            defaultValue={data.subCategory[0]}
+            defaultValue={row.subCategory[0]}
             labelId="demo-multiple-name-label"
             id="demo-multiple-name"
-            value={data.subCategory[0] || "No Sub Category"}
+            value={row.subCategory[0] || "No Sub Category"}
           >
-            {data.subCategory.length > 0 ? (
-              data.subCategory.map((name) => (
+            {row.subCategory.length > 0 ? (
+              row.subCategory.map((name) => (
                 <MenuItem key={name} value={name}>
                   {name}
                 </MenuItem>
@@ -341,15 +210,12 @@ export const categorycolumns = [
     },
   },
   {
-    property: "image",
-    header: (
-      <Text alignSelf="center" weight={"bold"}>
-        Image
-      </Text>
-    ),
-    render: (data) => (
-      <Text alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
-        <Avatar src={data.image} alt={"NA"} />
+    field: "image",
+    width: 200,
+    headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Image</Text>,
+    renderCell: ({ row }) => (
+      <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
+        <Avatar src={row.image} alt={"NA"} />
       </Text>
     ),
   },

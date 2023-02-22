@@ -72,7 +72,6 @@ const App = () => {
 
     (async function fetchUser() {
       let { data } = await getUser({ id: id });
-      console.log(data);
       if (data.success) {
         setuserDetails(data.user);
         welcoometoast(data);
