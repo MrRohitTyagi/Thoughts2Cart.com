@@ -1,22 +1,26 @@
-import React, { useEffect, useContext, createContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { Box, Grommet, Text } from "grommet";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import { getUser } from "./controllers/userController";
-import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { addressFinder } from "./utils/helpFunctions";
+import { grommet } from "grommet/themes";
+import { Avatar } from "@mui/material";
+import { deepMerge } from "grommet/utils";
+
 import Navbar from "./components/Navbar";
 import MainScreen from "./components/productpage/MainScreen";
 import AdminPanel from "./components/adminPanel/AdminPanel";
-import { grommet } from "grommet/themes";
 import UserPanel from "./userPanel/UserPanel";
+import CategoryPage from "./components/ProductCategoryScreen";
+import EachProductScreen from "./components/EachproductScreen";
+
+import { getUser } from "./controllers/userController";
+import { addressFinder } from "./utils/helpFunctions";
 import { getAllcategory } from "./controllers/categoryController";
-import { Avatar } from "@mui/material";
-import { deepMerge } from "grommet/utils";
 import { fetchAdminSettinsg } from "./controllers/settingsController";
 
 export const UserDetailsContext = createContext();
 export const AdminSettingsContext = createContext();
+
 const customBreakpoints = deepMerge(grommet, {
   global: {
     breakpoints: {
@@ -118,7 +122,7 @@ const App = () => {
         value={{ adminSettings, setadminSettings }}
       >
         <UserDetailsContext.Provider value={{ userDetails, setuserDetails }}>
-          <Box height={{ min: "100vh" }} background={"#F9F6EE"}>
+          <Box height={{ min: "100vh" }} background={"#F2F2F2"}>
             <Navbar
               {...{
                 userDetails,
@@ -149,6 +153,14 @@ const App = () => {
               <Route
                 path="/admin-panel"
                 element={<AdminPanel {...{ toast, allcatagories }} />}
+              />
+              <Route
+                path="/category/:name"
+                element={<CategoryPage {...{ toast, allcatagories }} />}
+              />
+              <Route
+                path="/product/:id"
+                element={<EachProductScreen {...{ toast, allcatagories }} />}
               />
               <Route path="*" element={<>404 page not found</>} />
             </Routes>

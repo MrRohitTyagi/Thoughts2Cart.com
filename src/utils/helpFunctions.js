@@ -73,7 +73,43 @@ const RandomProfileGenerator = async () => {
   let profile = data.results[0];
   return profile.picture.large;
 };
+function dateNDaysAhead(n) {
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const today = new Date();
+  const futureDate = new Date(today);
+  futureDate.setDate(today.getDate() + n);
+
+  const year = futureDate.getFullYear();
+  const month = months[futureDate.getMonth()];
+  const day = futureDate.getDate().toString().padStart(2, "0");
+  const weekday = weekdays[futureDate.getDay()];
+
+  return `(${weekday}) ${day}, ${month}`;
+}
 export {
+  dateNDaysAhead,
   matchPasswords,
   RandomProfileGenerator,
   uploadImage,

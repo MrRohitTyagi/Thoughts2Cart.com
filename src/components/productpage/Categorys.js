@@ -2,12 +2,20 @@ import { Box, Image, Text, ResponsiveContext } from "grommet";
 import React, { useEffect, useState } from "react";
 import { ZoomBox, ZoomImage } from "../../utils/customComponents";
 import { CaretDownFill } from "grommet-icons";
-
+import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-const BasicCard = ({ ele, size }) => {
+
+const BasicCard = ({ ele, size, navigate }) => {
   return (
-    <ZoomBox direction="column" align="center" gap="5px">
+    <ZoomBox
+      direction="column"
+      align="center"
+      gap="5px"
+      onClick={() => {
+        navigate(`/category/${ele.name}`);
+      }}
+    >
       <ZoomImage
         style={{
           borderRadius: "5px",
@@ -35,6 +43,7 @@ const BasicCard = ({ ele, size }) => {
 };
 
 const Categorys = ({ Emitter, allcatagories }) => {
+  const navigate = useNavigate();
   const [finalCategoryArray, setfinalCategoryArray] = useState([]);
   const size = React.useContext(ResponsiveContext);
   let divider =
@@ -55,8 +64,7 @@ const Categorys = ({ Emitter, allcatagories }) => {
         <Carousel
           emulateTouch
           swipeable
-          onClickItem={(e) => {
-          }}
+          onClickItem={(e) => {}}
           showStatus={false}
           showIndicators={false}
         >
@@ -67,7 +75,7 @@ const Categorys = ({ Emitter, allcatagories }) => {
               gap={ele.length < divider ? "40px" : "20px"}
             >
               {ele?.map((ele) => {
-                return <BasicCard {...{ ele, size }} />;
+                return <BasicCard {...{ ele, size, navigate }} />;
               })}
             </Box>
           ))}

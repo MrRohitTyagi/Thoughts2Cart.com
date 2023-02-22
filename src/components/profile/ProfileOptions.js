@@ -261,7 +261,7 @@ const ProfileOptions = ({ userDetails, setuserDetails, navigate, toast }) => {
                       style={{
                         height: "300px",
                         width: "400px",
-                        background: "#F9F6EE",
+                        background: "#F2F2F2",
                       }}
                     >
                       <Box

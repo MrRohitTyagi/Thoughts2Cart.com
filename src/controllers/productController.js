@@ -6,6 +6,14 @@ export const getAllProducts = async (params) => {
   let data = await caller("get", "products/all", null);
   return data;
 };
+export const getSingleProduct = async (id) => {
+  let data = await caller("get", `products/GetDetails/${id}`, null);
+  return data;
+};
+export const getCategorisedProducts = async (params) => {
+  let data = await caller("get", `products/category/${params}`, null);
+  return data;
+};
 export const deletProduct = async (id) => {
   let data = await caller("delete", `products/delete`, {
     data: { id: id },

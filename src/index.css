@@ -2,16 +2,19 @@ html {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: cursive !important;
-  background: "#F9F6EE" !important;
+  /* font-family: cursive !important; */
+  background: "#F2F2F2" !important;
   scroll-behavior: smooth;
+}
+html ::-webkit-scrollbar {
+  display: none;
 }
 *,
 *::after,
 *::before {
   padding: 0;
   margin: 0;
-  font-family: cursive !important;
+  /* font-family: cursive !important; */
   box-sizing: border-box;
 }
 .image {

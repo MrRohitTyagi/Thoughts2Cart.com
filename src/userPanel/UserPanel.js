@@ -57,7 +57,7 @@ export default function UserPanel({
     <Box
       sx={{
         flexGrow: 1,
-        bgcolor: "#F9F6EE",
+        bgcolor: "#F2F2F2",
         color: "#5C4033",
         display: "flex",
         height: 224,

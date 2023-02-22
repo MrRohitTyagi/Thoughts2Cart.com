@@ -169,14 +169,14 @@ const SignupForm = ({ setSigninLayer, toast }) => {
                 zIndex: 0,
                 top: "-5px",
                 background: "#5C4033",
-                color: "#F9F6EE",
+                color: "#F2F2F2",
               }}
               startIcon={<CloseIcon />}
             ></StyledButton>
             <form onSubmit={handleSubmit}>
               <Box
                 overflow={{ vertical: "auto" }}
-                background={"#F9F6EE"}
+                background={"#F2F2F2"}
                 animation={{ duration: 500, type: "fadeIn" }}
                 direction="column"
                 justify="evenly"
@@ -311,7 +311,7 @@ const SignupForm = ({ setSigninLayer, toast }) => {
                       sx={{
                         width: "80%",
                         background: "#5C4033",
-                        color: "#F9F6EE",
+                        color: "#F2F2F2",
                       }}
                       variant="contained"
                       type="submit"
@@ -323,7 +323,7 @@ const SignupForm = ({ setSigninLayer, toast }) => {
                       sx={{
                         width: "80%",
                         background: "#5C4033",
-                        color: "#F9F6EE",
+                        color: "#F2F2F2",
                       }}
                       variant="contained"
                       type="submit"
@@ -350,7 +350,7 @@ const SignupForm = ({ setSigninLayer, toast }) => {
                       sx={{
                         width: "80%",
                         background: "#5C4033",
-                        color: "#F9F6EE",
+                        color: "#F2F2F2",
                       }}
                       variant="contained"
                     >
@@ -365,7 +365,7 @@ const SignupForm = ({ setSigninLayer, toast }) => {
                       sx={{
                         width: "80%",
                         background: "#5C4033",
-                        color: "#F9F6EE",
+                        color: "#F2F2F2",
                       }}
                       variant="contained"
                     >

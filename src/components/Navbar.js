@@ -17,7 +17,7 @@ import ProfileDrawer from "./profile/ProfileDrawer";
 import styled from "styled-components";
 const StyledButton = styled(Button)`
   background: #5c4033 !important;
-  color: #f9f6ee;
+  color: #F2F2F2;
   border: 2px solid #5c4033;
 `;
 
@@ -91,7 +91,7 @@ const Navbar = ({
                   sx={{
                     width: "80%",
                     background: "#5C4033",
-                    color: "#F9F6EE",
+                    color: "#F2F2F2",
                   }}
                   onClick={() => {
                     handleSignin();

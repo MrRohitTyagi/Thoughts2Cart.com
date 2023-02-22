@@ -36,7 +36,7 @@ const TemporaryDrawer = ({
         style={{ height: "100vh" }}
       >
         <Box
-          sx={{ width: 350, background: "#F9F6EE", height: "100%" }}
+          sx={{ width: 350, background: "#F2F2F2", height: "100%" }}
           role="presentation"
         >
           <List>

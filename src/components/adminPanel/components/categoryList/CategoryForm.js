@@ -105,7 +105,7 @@ const EditCategoryForm = ({
 
       <Box
         style={{ position: "relative" }}
-        background={"#F9F6EE"}
+        background={"#F2F2F2"}
         round="small"
         margin={"small"}
         elevation={"large"}
