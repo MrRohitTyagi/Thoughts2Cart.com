@@ -7,7 +7,7 @@ import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 
-import { Button, IconButton, TextField, Avatar } from "@mui/material";
+import { Button, IconButton, TextField, Avatar, Divider } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 import {
@@ -181,12 +181,7 @@ const EditCategoryForm = ({
                 <CloudUploadIcon />
               </IconButton>
             </Box>
-            <Text
-              style={{ borderBottom: "2px solid black" }}
-              alignSelf="center"
-            >
-              Sub Categories
-            </Text>
+            <Divider />
             <ChipsArray
               subs={categoryEditLayer?.subCategory || []}
               setFieldValue={formik.setFieldValue}
@@ -242,18 +237,23 @@ function ChipsArray({ setFieldValue, subs, chipData, setChipData, toast }) {
   };
 
   return (
-    <Paper
-      sx={{
+    <Box
+      style={{
         display: "flex",
         justifyContent: "center",
         flexWrap: "wrap",
-        background: "#f9f6ed",
+        background: "#F2F2F2",
         listStyle: "none",
-        p: 0.5,
-        m: 0,
+        padding: "0.5rem",
       }}
       component="ul"
     >
+      <Text
+        style={{ borderBottom: "2px solid black", margin: "10px 0px" }}
+        alignSelf="center"
+      >
+        Sub Categories
+      </Text>
       <Box
         animation={{ duration: 400, type: "fadeIn" }}
         direction="column"
@@ -308,7 +308,7 @@ function ChipsArray({ setFieldValue, subs, chipData, setChipData, toast }) {
             name="subCategory"
             label="Enter Sub category"
           />
-          <Button
+          <Button title="Add"
             onClick={() => {
               let val = document.getElementById("subCategoryAdd").value;
               if (val === "") return;
@@ -319,7 +319,7 @@ function ChipsArray({ setFieldValue, subs, chipData, setChipData, toast }) {
                 document.getElementById("subCategoryAdd").value = "";
               }
             }}
-            sx={{ height: "95%" }}
+            sx={{ height: "50px" }}
             variant="contained"
             color="success"
           >
@@ -327,7 +327,7 @@ function ChipsArray({ setFieldValue, subs, chipData, setChipData, toast }) {
           </Button>
         </Box>
       </Box>
-    </Paper>
+    </Box>
   );
 }
 

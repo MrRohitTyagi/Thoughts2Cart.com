@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, Box, Image, Spinner } from "grommet";
+import { Text, Box, Image, Spinner, Anchor } from "grommet";
 import { Button, Divider, Rating } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -8,8 +8,10 @@ import {
   handleAddtoCart,
   handleRemoveFromCart,
 } from "../../controllers/cartcomtroller";
+import { useNavigate } from "react-router-dom";
 
 const WishListCard = ({ ele, setuserDetails, userDetails }) => {
+  const navigate = useNavigate();
   const [buttonBissabled, setbuttonBissabled] = useState({
     del: false,
     add: false,
@@ -32,7 +34,14 @@ const WishListCard = ({ ele, setuserDetails, userDetails }) => {
         width={"350px"}
         overflow={{ horizontal: "hidden" }}
       >
-        <Text size="small"> {ele.description.slice(0, 70) + "..."}</Text>
+        <Anchor
+          onClick={() => {
+            navigate(`/product/${ele.id}`);
+          }}
+          size="small"
+        >
+          {ele.description.slice(0, 70) + "..."}
+        </Anchor>
 
         <Box
           animation={{ duration: 400, type: "fadeIn" }}

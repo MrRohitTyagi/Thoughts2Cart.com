@@ -68,7 +68,6 @@ function countUnique(arr) {
       result[index].count += 1;
     }
   });
-  console.log("%c result ", "color: blue;border:1px solid blue", result);
   return result;
 }
 export { handleAddtoCart, handleRemoveFromCart, countUnique };

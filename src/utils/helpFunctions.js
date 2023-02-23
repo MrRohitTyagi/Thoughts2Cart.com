@@ -101,7 +101,6 @@ function dateNDaysAhead(n) {
   const futureDate = new Date(today);
   futureDate.setDate(today.getDate() + n);
 
-  const year = futureDate.getFullYear();
   const month = months[futureDate.getMonth()];
   const day = futureDate.getDate().toString().padStart(2, "0");
   const weekday = weekdays[futureDate.getDay()];

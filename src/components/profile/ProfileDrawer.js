@@ -16,11 +16,9 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 
 const TemporaryDrawer = ({
   toast,
-  profileDrawerlayer,
   setprofileDrawerlayer,
   setuserDetails,
   userDetails,
-  userAddress,
 }) => {
   let navigate = useNavigate();
   return (
@@ -35,8 +33,8 @@ const TemporaryDrawer = ({
         }}
         style={{ height: "100vh" }}
       >
-        <Box 
-        animation={{ duration: 400, type: "fadeIn" }}
+        <Box
+          animation={{ duration: 400, type: "fadeIn" }}
           sx={{ width: 350, background: "#F2F2F2", height: "100%" }}
           role="presentation"
         >
@@ -99,7 +97,9 @@ const TemporaryDrawer = ({
                 <ListItemIcon>
                   <HomeIcon />
                 </ListItemIcon>
-                <ListItemText primary={<Address {...{ userAddress }} />} />
+                <ListItemText
+                  primary={userDetails?.address || "No address Found"}
+                />
               </ListItemButton>
             </ListItem>
 

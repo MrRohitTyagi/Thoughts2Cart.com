@@ -14,7 +14,7 @@ import CategoryPage from "./components/ProductCategoryScreen";
 import EachProductScreen from "./components/EachproductScreen";
 
 import { getUser } from "./controllers/userController";
-import { addressFinder } from "./utils/helpFunctions";
+
 import { getAllcategory } from "./controllers/categoryController";
 import { fetchAdminSettinsg } from "./controllers/settingsController";
 import Checkout from "./components/checkoutScreen/Checkout";
@@ -49,7 +49,6 @@ const App = () => {
 
   const [allcatagories, setallcatagories] = useState([]);
   const [userDetails, setuserDetails] = useState("");
-  const [userAddress, setuserAddress] = useState("");
   const [adminSettings, setadminSettings] = useState({});
   console.log(
     "%c userDetails ",
@@ -105,16 +104,6 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(async (posi) => {
-      let { data } = await addressFinder({
-        lat: posi.coords.latitude,
-        long: posi.coords.longitude,
-      });
-      setuserAddress(data);
-    });
-  }, []);
-
-  useEffect(() => {
     if (userDetails) {
       if (
         (userDetails.role !== "admin" || !userDetails) &&
@@ -142,7 +131,6 @@ const App = () => {
                 setuserDetails,
                 navigate,
                 toast,
-                userAddress,
               }}
             />
             <Routes>

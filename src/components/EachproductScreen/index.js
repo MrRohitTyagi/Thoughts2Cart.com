@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Box,
   Grid,
@@ -24,6 +24,7 @@ import { UserDetailsContext } from "../../App";
 import { handleAddtoCart } from "../../controllers/cartcomtroller";
 
 const EachProductScreen = () => {
+  const navigate = useNavigate();
   const { userDetails, setuserDetails } = useContext(UserDetailsContext);
   const [productDetails, setproductDetails] = useState({});
   const [currentImage, setcurrentImage] = useState("");
@@ -35,12 +36,11 @@ const EachProductScreen = () => {
       let { data } = await getSingleProduct(id);
       setproductDetails(data.response);
     })();
-  }, []);
+  }, [id]);
 
   const props = {
     width: 400,
     height: 500,
-    zoomWidth: 500,
   };
 
   return !!productDetails ? (
@@ -86,7 +86,6 @@ const EachProductScreen = () => {
                 borderRadius: "5px",
                 position: "sticky",
                 top: "10px",
-                zIndex: 24,
               }}
             >
               <ReactImageZoom
@@ -104,6 +103,7 @@ const EachProductScreen = () => {
         <Box animation={{ duration: 400, type: "fadeIn" }}>
           {!!productDetails && (
             <ProductPagesideCard
+              navigate={navigate}
               ele={productDetails}
               userDetails={userDetails}
               setuserDetails={setuserDetails}
@@ -127,12 +127,11 @@ const EachProductScreen = () => {
   );
 };
 
-function ProductPagesideCard({ ele, userDetails, setuserDetails }) {
+function ProductPagesideCard({ ele, userDetails, setuserDetails, navigate }) {
   const [buttonBissabled, setbuttonBissabled] = useState({
     del: false,
     add: false,
   });
-  console.log(ele);
   return (
     <Card
       style={{ borderRadius: "5px" }}
@@ -228,6 +227,9 @@ function ProductPagesideCard({ ele, userDetails, setuserDetails }) {
           )}
         </Button>
         <Button
+          onClick={() => {
+            navigate("/checkout");
+          }}
           sx={{ my: "5px" }}
           size="small"
           variant="contained"

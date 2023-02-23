@@ -16,6 +16,7 @@ import SignupForm from "./login/SignupForm";
 import ProfileDrawer from "./profile/ProfileDrawer";
 import { HoverBorderBox } from "../utils/customComponents";
 import CartItems from "./CartItems";
+import { useLocation } from "react-router-dom";
 
 const Navbar = ({
   userDetails,
@@ -24,6 +25,7 @@ const Navbar = ({
   toast,
   userAddress,
 }) => {
+  const { pathname } = useLocation();
   const [profileDrawerlayer, setprofileDrawerlayer] = useState(false);
   const [SigninLayer, setSigninLayer] = useState(false);
   const [cartLayer, setcartLayer] = useState(false);
@@ -53,28 +55,32 @@ const Navbar = ({
             navigate("/");
           }}
         />
-        <TextField
-          variant="standard"
-          placeholder="Search"
-          style={{ color: "red !important" }}
-          sx={{
-            pl: 2,
-            m: 1.5,
-            height: "30%",
-            width: "30vw",
-            border: "1px solid #5C4033",
-            borderRadius: "3px",
-          }}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon
-                  sx={{ height: "2vw", width: "3vw", color: "#5C4033" }}
-                />
-              </InputAdornment>
-            ),
-          }}
-        />
+        {pathname === "/checkout" ? (
+          <Text size="xlarge">Checkout</Text>
+        ) : (
+          <TextField
+            variant="standard"
+            placeholder="Search"
+            style={{ color: "red !important" }}
+            sx={{
+              pl: 2,
+              m: 1.5,
+              height: "30%",
+              width: "30vw",
+              border: "1px solid #5C4033",
+              borderRadius: "3px",
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon
+                    sx={{ height: "2vw", width: "3vw", color: "#5C4033" }}
+                  />
+                </InputAdornment>
+              ),
+            }}
+          />
+        )}
         {/* </Box> */}
         <Box
           animation={{ duration: 400, type: "fadeIn" }}

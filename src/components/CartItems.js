@@ -48,7 +48,7 @@ const CartItems = ({ userDetails, setuserDetails, setcartLayer, navigate }) => {
         elevation="large"
         round="small"
       >
-        {userDetails.wishlist.length > 0 && (
+        {userDetails?.wishlist?.length > 0 && (
           <Button
             onClick={() => {
               setcartLayer(false);
@@ -69,7 +69,7 @@ const CartItems = ({ userDetails, setuserDetails, setcartLayer, navigate }) => {
             height={{ min: "100vh" }}
             gap="10px"
           >
-            {countUnique(userDetails.wishlist).map((ele) => {
+            {countUnique(userDetails?.wishlist).map((ele) => {
               return (
                 <WishListCard
                   ele={ele}
