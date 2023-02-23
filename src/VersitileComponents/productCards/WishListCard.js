@@ -8,7 +8,8 @@ import { handleAddtoCart, handleRemoveFromCart } from "../../utils/helpFunctions
 
 const WishListCard = ({ ele, setuserDetails, userDetails }) => {
   return (
-    <Box
+    <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
       elevation="large"
       pad={"10px"}
       direction="row"
@@ -18,14 +19,16 @@ const WishListCard = ({ ele, setuserDetails, userDetails }) => {
       gap="10px"
     >
       <Image src={ele.images[0]} fit="contain" />
-      <Box
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
         direction="column"
         width={"350px"}
         overflow={{ horizontal: "hidden" }}
       >
         <Text size="small"> {ele.description.slice(0, 70) + "..."}</Text>
 
-        <Box direction="row" align="center">
+        <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="row" align="center">
           <Rating
             sx={{ alignSelf: "start" }}
             name="read-only"
@@ -51,7 +54,8 @@ const WishListCard = ({ ele, setuserDetails, userDetails }) => {
             </Text>
           </Text>
         </Text>
-        <Box direction="row" gap="5px">
+        <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="row" gap="5px">
           <Button
            onClick={() => {
             handleRemoveFromCart(ele, userDetails, setuserDetails);

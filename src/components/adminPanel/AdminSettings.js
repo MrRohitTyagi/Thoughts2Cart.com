@@ -20,7 +20,8 @@ const AdminSettings = ({ toast }) => {
   }, []);
 
   return (
-    <Box pad={"small"} round="small" overflow="auto">
+    <Box 
+        animation={{ duration: 400, type: "fadeIn" }} pad={"small"} round="small" overflow="auto">
       <ReactJson
         style={{
           width: "70vw",

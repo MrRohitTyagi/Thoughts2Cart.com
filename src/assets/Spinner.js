@@ -5,7 +5,8 @@ import { Box } from "grommet";
 
 const Spinner = (props) => {
   return props.center === true ? (
-    <Box
+    <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
       style={{
         position: "absolute",
         top: "50%",

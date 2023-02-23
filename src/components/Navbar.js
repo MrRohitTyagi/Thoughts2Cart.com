@@ -32,7 +32,8 @@ const Navbar = ({
   };
   return (
     <>
-      <Box
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
         background={"#121921"}
         direction="row"
         justify="between"
@@ -41,7 +42,8 @@ const Navbar = ({
         border={{ color: "lightblue", side: "bottom" }}
         pad={{ horizontal: "small" }}
       >
-        {/* <Box direction="row" align=" center" justify="between"> */}
+        {/* <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="row" align=" center" justify="between"> */}
         <Image
           style={{ cursor: "pointer" }}
           src={logo}
@@ -74,7 +76,8 @@ const Navbar = ({
           }}
         />
         {/* </Box> */}
-        <Box direction="row" align="center" gap="30px">
+        <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="row" align="center" gap="30px">
           <HoverBorderBox
             direction="row"
             align="center"
@@ -89,7 +92,8 @@ const Navbar = ({
             }}
           >
             {userDetails === "LOADING" ? (
-              <Box direction="row" gap="10px">
+              <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="row" gap="10px">
                 <Text size="1.3vw" style={{ marginRight: "5px" }}>
                   Fetching Details
                 </Text>

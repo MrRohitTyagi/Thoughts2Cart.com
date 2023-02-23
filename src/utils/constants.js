@@ -8,7 +8,8 @@ export const usercolumns = [
     width: 80,
     headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Actions</Text>,
     renderCell: ({ row }) => (
-      <Box alignSelf="center" align="center" direction="row" gap="10px">
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }} alignSelf="center" align="center" direction="row" gap="10px">
         <Tooltip title="Edit">
           <Edit color="black" size="18px" />
         </Tooltip>
@@ -73,7 +74,8 @@ export const profileconumns = [
     width: 80,
     headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Actions</Text>,
     renderCell: (data) => (
-      <Box alignSelf="center" align="center" direction="row" gap="10px">
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }} alignSelf="center" align="center" direction="row" gap="10px">
         <Tooltip title="Edit">
           <Edit color="black" size="18px" />
         </Tooltip>
@@ -137,15 +139,18 @@ export const profileconumns = [
     width: 200,
     headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Images</Text>,
     renderCell: ({ row }) => (
-      <Box alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }} alignSelf="center" size="small" pad={{ vertical: "xsmall" }}>
         {row?.images?.length > 0 ? (
-          <Box direction="row" gap="2px" alignSelf="center">
+          <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="row" gap="2px" alignSelf="center">
             {row.images.map((ele) => (
               <Avatar src={ele} />
             ))}
           </Box>
         ) : (
-          <Box alignSelf="center" align="center">
+          <Box 
+        animation={{ duration: 400, type: "fadeIn" }} alignSelf="center" align="center">
             <CoatCheck />
           </Box>
         )}
@@ -159,7 +164,8 @@ export const categorycolumns = [
     width: 120,
     headerName: <Text style={{borderBottom:'2px solid #121921'}} alignSelf="center">Actions</Text>,
     renderCell: (data) => (
-      <Box alignSelf="center" align="center" direction="row" gap="10px">
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }} alignSelf="center" align="center" direction="row" gap="10px">
         <Tooltip title="Edit">
           <Edit color="black" size="18px" />
         </Tooltip>

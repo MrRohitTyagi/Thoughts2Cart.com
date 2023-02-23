@@ -29,8 +29,10 @@ const Datatable = ({
     }
   };
   return (
-    <Box pad="small" overflow={"hidden"}>
-      <Box
+    <Box 
+        animation={{ duration: 400, type: "fadeIn" }} pad="small" overflow={"hidden"}>
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
         direction="row"
         justify="between"
         pad={{ bottom: "small" }}
@@ -80,7 +82,8 @@ const Datatable = ({
           {createNewText}
         </Button>
       </Box>
-      <Box
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
         style={{ display: "flex", height: "80%", width: "100%", flexGrow: 1 }}
       >
         <DataGrid

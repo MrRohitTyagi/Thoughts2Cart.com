@@ -33,7 +33,8 @@ const BasicCard = ({ ele, size, navigate }) => {
         margin="auto"
       />
 
-      <Box direction="row" alignSelf="center" textAlign="center" align="center">
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="row" alignSelf="center" textAlign="center" align="center">
         {/* <Text size={size === "small" || size === "xsmall" ? "10px" : "small"}> */}
         <Text size={"1vw"}>{ele.name.toUpperCase()}</Text>
         <CaretDownFill size={"10vw"} />
@@ -60,7 +61,8 @@ const Categorys = ({ Emitter, allcatagories }) => {
 
   return (
     <>
-      <Box overflow="hidden">
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }} overflow="hidden">
         <Carousel
           emulateTouch
           swipeable
@@ -69,7 +71,8 @@ const Categorys = ({ Emitter, allcatagories }) => {
           showIndicators={false}
         >
           {finalCategoryArray?.map((ele) => (
-            <Box
+            <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
               direction="row"
               justify={ele.length < divider ? "center" : "evenly"}
               gap={ele.length < divider ? "40px" : "20px"}

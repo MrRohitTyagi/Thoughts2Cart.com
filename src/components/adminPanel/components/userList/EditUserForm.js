@@ -60,7 +60,8 @@ const EditUserForm = ({
   async function handleProfileUpdate({ password, profile }) {
     try {
       toast.loading(
-        <Box direction="row">
+        <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="row">
           <Text>Submitting Please wait</Text>
         </Box>
       );
@@ -110,7 +111,8 @@ const EditUserForm = ({
         startIcon={<ForwardIcon />}
       ></StyledButton>
 
-      <Box
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
         style={{ position: "relative" }}
         background={"#F2F2F2"}
         round="small"
@@ -129,7 +131,8 @@ const EditUserForm = ({
         />
 
         <form onSubmit={formik.handleSubmit}>
-          <Box direction="column" gap="20px" margin={{ top: "30px" }}>
+          <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="column" gap="20px" margin={{ top: "30px" }}>
             <TextField
               type={"text"}
               fullWidth
@@ -181,7 +184,8 @@ const EditUserForm = ({
               error={formik.touched.address && Boolean(formik.errors.address)}
               helperText={formik.touched.address && formik.errors.address}
             />
-            <Box style={{ position: "relative" }} direction="row">
+            <Box 
+        animation={{ duration: 400, type: "fadeIn" }} style={{ position: "relative" }} direction="row">
               <TextField
                 fullWidth
                 id="profile"
@@ -243,7 +247,8 @@ const EditUserForm = ({
             </Grid>
           </Box>
 
-          <Box
+          <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
             alignSelf="end"
             direction="row"
             style={{ position: "absolute", bottom: "5px", right: "5px" }}

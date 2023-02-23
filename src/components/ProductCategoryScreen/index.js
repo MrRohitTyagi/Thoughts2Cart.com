@@ -23,7 +23,8 @@ const CategoryPage = () => {
 
   return AllProducts.length > 0 ? (
     <>
-      <Box
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
         animation={{ duration: 500, type: "fadeIn" }}
         direction="row"
         pad={"small"}
@@ -34,7 +35,8 @@ const CategoryPage = () => {
           return <MobileCard onClick={handleProductOnclick} ele={ele} />;
         })}
       </Box>
-      <Box direction="row" pad={"small"} justify="evenly">
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="row" pad={"small"} justify="evenly">
         <Pagination
           shape="rounded"
           count={10}
@@ -45,7 +47,8 @@ const CategoryPage = () => {
       </Box>
     </>
   ) : (
-    <Box
+    <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
       style={{
         position: "absolute",
         top: "50%",

@@ -40,11 +40,14 @@ const EachProductScreen = () => {
   };
 
   return !!productDetails ? (
-    <Box pad="small" style={{ position: "relative" }}>
+    <Box 
+        animation={{ duration: 400, type: "fadeIn" }} pad="small" style={{ position: "relative" }}>
       <Grid columns={["34%", "40%", "25%"]} gap="small">
         {productDetails?.images?.length > 0 ? (
-          <Box direction="row" gap="20px">
-            <Box direction="column" gap="20px">
+          <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="row" gap="20px">
+            <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="column" gap="20px">
               {productDetails?.images?.map((ele, i) => {
                 return (
                   <Image
@@ -64,7 +67,8 @@ const EachProductScreen = () => {
                 );
               })}
             </Box>
-            <Box
+            <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
               style={{ borderRadius: "5px", position: "sticky", top: "10px" }}
             >
               <ReactImageZoom
@@ -76,14 +80,17 @@ const EachProductScreen = () => {
         ) : (
           <>No Image</>
         )}
-        <Box>{!!productDetails && <MiddleSection ele={productDetails} />}</Box>
-        <Box>
+        <Box 
+        animation={{ duration: 400, type: "fadeIn" }}>{!!productDetails && <MiddleSection ele={productDetails} />}</Box>
+        <Box 
+        animation={{ duration: 400, type: "fadeIn" }}>
           {!!productDetails && <ProductPagesideCard ele={productDetails} />}
         </Box>
       </Grid>
     </Box>
   ) : (
-    <Box
+    <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
       style={{
         position: "absolute",
         top: "50%",
@@ -204,10 +211,12 @@ function ProductPagesideCard({ ele }) {
 
 function MiddleSection({ ele }) {
   return (
-    <Box style={{ flexWrap: "wrap" }} direction="column">
+    <Box 
+        animation={{ duration: 400, type: "fadeIn" }} style={{ flexWrap: "wrap" }} direction="column">
       <Text size="large">{ele.description}</Text>
       
-      <Box direction="row" align="center">
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="row" align="center">
         <Rating
           sx={{ py: "10px", alignSelf: "start" }}
           name="read-only"

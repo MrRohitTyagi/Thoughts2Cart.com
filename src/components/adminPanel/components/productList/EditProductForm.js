@@ -106,7 +106,8 @@ const EditProductForm = ({
         }}
         startIcon={<ForwardIcon />}
       ></StyledButton>
-      <Box
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
         style={{ position: "relative" }}
         background={"#F2F2F2"}
         round="small"
@@ -122,7 +123,8 @@ const EditProductForm = ({
         </Text>
 
         <form onSubmit={formik.handleSubmit}>
-          <Box
+          <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
             direction="column"
             gap="20px"
             height={"fit-content"}
@@ -210,8 +212,10 @@ const EditProductForm = ({
                 error={formik.touched.rating && Boolean(formik.errors.rating)}
                 helperText={formik.touched.rating && formik.errors.rating}
               />
-              <Box border round="xxsmall">
-                <Box direction="row" width={"100%"} justify="between">
+              <Box 
+        animation={{ duration: 400, type: "fadeIn" }} border round="xxsmall">
+                <Box 
+        animation={{ duration: 400, type: "fadeIn" }} direction="row" width={"100%"} justify="between">
                   <Button
                     color="info"
                     component="label"
@@ -308,7 +312,8 @@ const EditProductForm = ({
                 helperText={formik.touched.warranty && formik.errors.warranty}
               />
             </Grid>
-            {/* <Box
+            {/* <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
               alignSelf="center"
               height="small"
               width="medium"
@@ -321,14 +326,16 @@ const EditProductForm = ({
                   ))}
                 </Carousel>
               ) : (
-                <Box margin={{ top: "3rem" }} alignSelf="center">
+                <Box 
+        animation={{ duration: 400, type: "fadeIn" }} margin={{ top: "3rem" }} alignSelf="center">
                   No Images Found
                 </Box>
               )}
             </Box> */}
           </Box>
 
-          <Box
+          <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
             width={"100%"}
             alignSelf="end"
             direction="row"

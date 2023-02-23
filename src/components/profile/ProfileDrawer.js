@@ -35,7 +35,8 @@ const TemporaryDrawer = ({
         }}
         style={{ height: "100vh" }}
       >
-        <Box
+        <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
           sx={{ width: 350, background: "#F2F2F2", height: "100%" }}
           role="presentation"
         >

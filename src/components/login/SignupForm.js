@@ -178,9 +178,9 @@ const SignupForm = ({ setSigninLayer, toast }) => {
             ></StyledButton>
             <form onSubmit={handleSubmit}>
               <Box
+                animation={{ duration: 400, type: "fadeIn" }}
                 overflow={{ vertical: "auto" }}
                 background={"#F2F2F2"}
-                animation={{ duration: 500, type: "fadeIn" }}
                 direction="column"
                 justify="evenly"
                 gap="20px"
@@ -201,6 +201,7 @@ const SignupForm = ({ setSigninLayer, toast }) => {
 
                 <Divider sx={{ border: "1px solid #5C4033" }} />
                 <Box
+                  animation={{ duration: 400, type: "fadeIn" }}
                   direction="column"
                   columns={[["xsmall", "xlarge"]]}
                   gap="10px"
@@ -245,6 +246,7 @@ const SignupForm = ({ setSigninLayer, toast }) => {
                     />
                   )}
                   <Box
+                    animation={{ duration: 400, type: "fadeIn" }}
                     direction="row"
                     align="center"
                     style={{ position: "relative" }}
@@ -287,7 +289,12 @@ const SignupForm = ({ setSigninLayer, toast }) => {
                   </Box>
                 </Box>
                 {!id && loggin === false && (
-                  <Box gap="10px" direction="column" align="center">
+                  <Box
+                    animation={{ duration: 400, type: "fadeIn" }}
+                    gap="10px"
+                    direction="column"
+                    align="center"
+                  >
                     <Button
                       variant="contained"
                       component="label"
@@ -308,7 +315,12 @@ const SignupForm = ({ setSigninLayer, toast }) => {
                     </Button>
                   </Box>
                 )}
-                <Box gap="5px" direction="column" align="center">
+                <Box
+                  animation={{ duration: 400, type: "fadeIn" }}
+                  gap="5px"
+                  direction="column"
+                  align="center"
+                >
                   {!id && loggin === false ? (
                     <StyledButton
                       sx={{

@@ -38,7 +38,8 @@ const CartItems = ({ userDetails, setuserDetails, setcartLayer, navigate }) => {
         }}
         startIcon={<CloseIcon />}
       ></StyledButton>{" "}
-      <Box
+      <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
         background={"#F2F2F2"}
         animation={{ duration: 500, type: "fadeIn" }}
         pad={"small"}
@@ -61,7 +62,8 @@ const CartItems = ({ userDetails, setuserDetails, setcartLayer, navigate }) => {
           </Button>
         )}
         {userDetails.wishlist.length > 0 ? (
-          <Box
+          <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
             overflow={{ vertical: "auto" }}
             direction="column"
             height={{ min: "100vh" }}
@@ -78,7 +80,8 @@ const CartItems = ({ userDetails, setuserDetails, setcartLayer, navigate }) => {
             })}
           </Box>
         ) : (
-          <Box height={{ min: "100vh" }}>
+          <Box 
+        animation={{ duration: 400, type: "fadeIn" }} height={{ min: "100vh" }}>
             <Image src="https://res.cloudinary.com/derplm8c6/image/upload/v1677115012/pngfind.com-cart-png-2727925_kbkctd.png" />
             <Text
               style={{ margin: "20px" }}

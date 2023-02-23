@@ -88,7 +88,8 @@ const MobileCard = ({ ele, onClick }) => {
             <del> {Number(ele.price) + (100 * Number(ele.discount)) / 100}</del>
           </Text>
         </Text>
-        <Box align="center" direction="row">
+        <Box 
+        animation={{ duration: 400, type: "fadeIn" }} align="center" direction="row">
           <Text size="small">
             <Home size="15px" color="navy" /> Get it by
             <strong> {dateNDaysAhead(ele.deliveryTime)} </strong>

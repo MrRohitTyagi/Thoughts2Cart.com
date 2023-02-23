@@ -20,7 +20,8 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ width: "100%" }}>
+        <Box 
+        animation={{ duration: 400, type: "fadeIn" }} sx={{ width: "100%" }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -54,7 +55,8 @@ export default function UserPanel({
   };
 
   return (
-    <Box
+    <Box 
+        animation={{ duration: 400, type: "fadeIn" }}
       sx={{
         flexGrow: 1,
         bgcolor: "#F2F2F2",
