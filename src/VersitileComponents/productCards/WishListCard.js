@@ -4,7 +4,7 @@ import { Button, Divider, Rating } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { handleAddtoCart } from "../../utils/helpFunctions";
+import { handleAddtoCart, handleRemoveFromCart } from "../../utils/helpFunctions";
 
 const WishListCard = ({ ele, setuserDetails, userDetails }) => {
   return (
@@ -53,6 +53,9 @@ const WishListCard = ({ ele, setuserDetails, userDetails }) => {
         </Text>
         <Box direction="row" gap="5px">
           <Button
+           onClick={() => {
+            handleRemoveFromCart(ele, userDetails, setuserDetails);
+          }}
             title="Delete from Cart"
             variant="contained"
             color="error"

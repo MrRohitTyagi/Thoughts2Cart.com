@@ -17,6 +17,7 @@ import { getUser } from "./controllers/userController";
 import { addressFinder } from "./utils/helpFunctions";
 import { getAllcategory } from "./controllers/categoryController";
 import { fetchAdminSettinsg } from "./controllers/settingsController";
+import Checkout from "./components/checkoutScreen/Checkout";
 
 export const UserDetailsContext = createContext();
 export const AdminSettingsContext = createContext();
@@ -161,6 +162,14 @@ const App = () => {
               <Route
                 path="/product/:id"
                 element={<EachProductScreen {...{ toast, allcatagories }} />}
+              />
+              <Route
+                path="/checkout"
+                element={
+                  <Checkout
+                    {...{ userDetails, setuserDetails, toast, allcatagories }}
+                  />
+                }
               />
               <Route path="*" element={<>404 page not found</>} />
             </Routes>

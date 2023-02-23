@@ -16,10 +16,13 @@ import * as yup from "yup";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 const validationSchema = yup.object({
-  name: yup.string().when("type", {
-    is: (type) => type === "SIGNUP",
-    then: (schema) => schema.required("Name is required"),
-  }),
+  name: yup
+    .string()
+    .max(20, "Username too long")
+    .when("type", {
+      is: (type) => type === "SIGNUP",
+      then: (schema) => schema.required("Name is required"),
+    }),
   type: yup.string(),
   email: yup.string().required("Email is required"),
 

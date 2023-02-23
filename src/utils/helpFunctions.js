@@ -120,7 +120,27 @@ const handleAddtoCart = async (ele, userDetails, setuserDetails) => {
   toast.success("Item Added to cart !");
 };
 
+function removeFirstOccurrence(arr, item) {
+  let index = arr.indexOf(item);
+  if (index !== -1) {
+    arr.splice(index, 1);
+  }
+  return arr;
+}
+const handleRemoveFromCart = async (ele, userDetails, setuserDetails) => {
+
+  let updatedUserDetails = {
+    ...userDetails,
+    wishlist: removeFirstOccurrence(userDetails.wishlist, ele),
+    id: userDetails._id,
+  };
+  let { data } = await regesterUser(updatedUserDetails);
+  setuserDetails(data);
+  toast.success("Item removed !");
+};
+
 export {
+  handleRemoveFromCart,
   dateNDaysAhead,
   matchPasswords,
   RandomProfileGenerator,

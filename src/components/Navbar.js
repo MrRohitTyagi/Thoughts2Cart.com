@@ -125,7 +125,10 @@ const Navbar = ({
               setcartLayer(true);
             }}
           >
-            <Badge badgeContent={4} color="primary">
+            <Badge
+              badgeContent={userDetails?.wishlist?.length || 0}
+              color="primary"
+            >
               <ShoppingCartIcon
                 sx={{ height: "2.5vw", width: "2.7vw", color: "#f9f6ed" }}
               />
@@ -136,7 +139,7 @@ const Navbar = ({
       {SigninLayer && <SignupForm {...{ setSigninLayer, toast }} />}
       {cartLayer && (
         <CartItems
-          {...{ userDetails, setuserDetails, toast, cartLayer, setcartLayer }}
+          {...{ userDetails, setuserDetails, toast, cartLayer, setcartLayer ,navigate}}
         />
       )}
       {profileDrawerlayer && (

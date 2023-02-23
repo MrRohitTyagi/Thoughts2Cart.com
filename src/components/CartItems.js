@@ -1,15 +1,11 @@
 import React from "react";
-import { Layer, Box, Text } from "grommet";
+import { Layer, Box, Text, Image } from "grommet";
 import CloseIcon from "@mui/icons-material/Close";
 import { StyledButton } from "../assets/StyledItems";
 import WishListCard from "../VersitileComponents/productCards/WishListCard";
+import { Button } from "@mui/material";
 
-const CartItems = ({ userDetails, setuserDetails, toast, setcartLayer }) => {
-  console.log(
-    "%c userDetails ",
-    "color: green;border:1px solid green",
-    userDetails
-  );
+const CartItems = ({ userDetails, setuserDetails, setcartLayer, navigate }) => {
   return (
     <Layer
       position="right"
@@ -32,11 +28,11 @@ const CartItems = ({ userDetails, setuserDetails, toast, setcartLayer }) => {
         }}
         variant="contained"
         sx={{
-          left: "-3%",
+          left: "-5%",
           width: "15px",
           position: "absolute",
           zIndex: 0,
-          top: "-5px",
+          top: "50%",
           background: "#5C4033",
           color: "#F2F2F2",
         }}
@@ -51,22 +47,60 @@ const CartItems = ({ userDetails, setuserDetails, toast, setcartLayer }) => {
         elevation="large"
         round="small"
       >
-        <Box
-          overflow={{ vertical: "auto" }}
-          direction="column"
-          height={{ min: "100vh" }}
-          gap="10px"
-        >
-          {userDetails.wishlist.reverse().map((ele) => {
-            return (
-              <WishListCard
-                ele={ele}
-                userDetails={userDetails}
-                setuserDetails={setuserDetails}
-              />
-            );
-          })}
-        </Box>
+        {userDetails.wishlist.length > 0 && (
+          <Button
+            onClick={() => {
+              setcartLayer(false);
+              navigate("/checkout");
+            }}
+            sx={{ alignSelf: "end" }}
+            variant="contained"
+            color="success"
+          >
+            Proceed to checkout
+          </Button>
+        )}
+        {userDetails.wishlist.length > 0 ? (
+          <Box
+            overflow={{ vertical: "auto" }}
+            direction="column"
+            height={{ min: "100vh" }}
+            gap="10px"
+          >
+            {userDetails.wishlist.map((ele) => {
+              return (
+                <WishListCard
+                  ele={ele}
+                  userDetails={userDetails}
+                  setuserDetails={setuserDetails}
+                />
+              );
+            })}
+          </Box>
+        ) : (
+          <Box height={{ min: "100vh" }}>
+            <Image src="https://res.cloudinary.com/derplm8c6/image/upload/v1677115012/pngfind.com-cart-png-2727925_kbkctd.png" />
+            <Text
+              style={{ margin: "20px" }}
+              size="large"
+              alignSelf="center"
+              textAlign="center"
+            >
+              Looks like you have not added anything to your cart. Go ahead &
+              explore top categories
+            </Text>
+            <Button
+              onClick={() => {
+                setcartLayer(false);
+              }}
+              sx={{ alignSelf: "center" }}
+              variant="contained"
+              color="success"
+            >
+              Continue shopping!
+            </Button>
+          </Box>
+        )}
       </Box>
     </Layer>
   );
