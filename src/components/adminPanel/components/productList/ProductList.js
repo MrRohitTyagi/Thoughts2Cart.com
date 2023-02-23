@@ -25,8 +25,7 @@ const ProductList = ({ toast, allcatagories }) => {
   };
 
   return productsList?.length > 0 ? (
-    <Box 
-        animation={{ duration: 400, type: "fadeIn" }} >
+    <Box animation={{ duration: 400, type: "fadeIn" }}>
       <DataTable
         searchKey="title"
         createNewText="Create new product"

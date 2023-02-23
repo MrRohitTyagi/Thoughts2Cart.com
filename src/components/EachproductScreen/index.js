@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import {
   Box,
@@ -12,20 +12,24 @@ import {
   CardHeader,
   Anchor,
 } from "grommet";
+
 import { Deliver, Favorite, ShareOption, Location } from "grommet-icons";
 import { useEffect } from "react";
 import { getSingleProduct } from "../../controllers/productController";
 import { useState } from "react";
 import ReactImageZoom from "react-image-zoom";
-import { dateNDaysAhead } from "../../utils/helpFunctions";
+import { dateNDaysAhead, productUrlCopy } from "../../utils/helpFunctions";
 import { Button, Divider, Rating, Tooltip } from "@mui/material";
+import { UserDetailsContext } from "../../App";
+import { handleAddtoCart } from "../../controllers/cartcomtroller";
 
 const EachProductScreen = () => {
+  const { userDetails, setuserDetails } = useContext(UserDetailsContext);
   const [productDetails, setproductDetails] = useState({});
   const [currentImage, setcurrentImage] = useState("");
 
   let { id } = useParams();
- 
+
   useEffect(() => {
     (async function fetchSingleProduct() {
       let { data } = await getSingleProduct(id);
@@ -40,14 +44,23 @@ const EachProductScreen = () => {
   };
 
   return !!productDetails ? (
-    <Box 
-        animation={{ duration: 400, type: "fadeIn" }} pad="small" style={{ position: "relative" }}>
+    <Box
+      animation={{ duration: 400, type: "fadeIn" }}
+      pad="small"
+      style={{ position: "relative" }}
+    >
       <Grid columns={["34%", "40%", "25%"]} gap="small">
         {productDetails?.images?.length > 0 ? (
-          <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="row" gap="20px">
-            <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="column" gap="20px">
+          <Box
+            animation={{ duration: 400, type: "fadeIn" }}
+            direction="row"
+            gap="20px"
+          >
+            <Box
+              animation={{ duration: 400, type: "fadeIn" }}
+              direction="column"
+              gap="20px"
+            >
               {productDetails?.images?.map((ele, i) => {
                 return (
                   <Image
@@ -67,9 +80,14 @@ const EachProductScreen = () => {
                 );
               })}
             </Box>
-            <Box 
-        animation={{ duration: 400, type: "fadeIn" }}
-              style={{ borderRadius: "5px", position: "sticky", top: "10px" }}
+            <Box
+              animation={{ duration: 400, type: "fadeIn" }}
+              style={{
+                borderRadius: "5px",
+                position: "sticky",
+                top: "10px",
+                zIndex: 24,
+              }}
             >
               <ReactImageZoom
                 {...props}
@@ -80,17 +98,23 @@ const EachProductScreen = () => {
         ) : (
           <>No Image</>
         )}
-        <Box 
-        animation={{ duration: 400, type: "fadeIn" }}>{!!productDetails && <MiddleSection ele={productDetails} />}</Box>
-        <Box 
-        animation={{ duration: 400, type: "fadeIn" }}>
-          {!!productDetails && <ProductPagesideCard ele={productDetails} />}
+        <Box animation={{ duration: 400, type: "fadeIn" }}>
+          {!!productDetails && <MiddleSection ele={productDetails} />}
+        </Box>
+        <Box animation={{ duration: 400, type: "fadeIn" }}>
+          {!!productDetails && (
+            <ProductPagesideCard
+              ele={productDetails}
+              userDetails={userDetails}
+              setuserDetails={setuserDetails}
+            />
+          )}
         </Box>
       </Grid>
     </Box>
   ) : (
-    <Box 
-        animation={{ duration: 400, type: "fadeIn" }}
+    <Box
+      animation={{ duration: 400, type: "fadeIn" }}
       style={{
         position: "absolute",
         top: "50%",
@@ -103,7 +127,7 @@ const EachProductScreen = () => {
   );
 };
 
-function ProductPagesideCard({ ele }) {
+function ProductPagesideCard({ ele, userDetails, setuserDetails }) {
   console.log(ele);
   return (
     <Card
@@ -162,13 +186,16 @@ function ProductPagesideCard({ ele }) {
           Select delivery location
         </Anchor>
         {ele.stock > 0 ? (
-          <Text color={"green"} size="large" style={{ padding: "10px 0px" }}>
-            In Stock
-          </Text>
+          <>
+            <Text color={"green"} size="large" style={{ padding: "10px 0px" }}>
+              In Stock
+            </Text>{" "}
+            <Text size="small"> {ele.stock} items left</Text>
+          </>
         ) : (
           <Text color={"red"} size="large" style={{ padding: "10px 0px" }}>
             {" "}
-            Out of Stock
+            Out of Stock {ele.stock} items left
           </Text>
         )}
         <Text style={{ padding: "10px 0px" }}>
@@ -179,6 +206,9 @@ function ProductPagesideCard({ ele }) {
           and Fullfilled by Thoughts2Cart.com
         </Text>
         <Button
+          onClick={() => {
+            handleAddtoCart(ele, userDetails, setuserDetails);
+          }}
           sx={{ my: "5px" }}
           size="small"
           variant="contained"
@@ -202,7 +232,12 @@ function ProductPagesideCard({ ele }) {
         </Tooltip>
 
         <Tooltip title="Share">
-          <ShareOption color="plain" />
+          <ShareOption
+            color="plain"
+            onClick={() => {
+              productUrlCopy(ele._id);
+            }}
+          />
         </Tooltip>
       </CardFooter>
     </Card>
@@ -211,12 +246,18 @@ function ProductPagesideCard({ ele }) {
 
 function MiddleSection({ ele }) {
   return (
-    <Box 
-        animation={{ duration: 400, type: "fadeIn" }} style={{ flexWrap: "wrap" }} direction="column">
+    <Box
+      animation={{ duration: 400, type: "fadeIn" }}
+      style={{ flexWrap: "wrap" }}
+      direction="column"
+    >
       <Text size="large">{ele.description}</Text>
-      
-      <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="row" align="center">
+
+      <Box
+        animation={{ duration: 400, type: "fadeIn" }}
+        direction="row"
+        align="center"
+      >
         <Rating
           sx={{ py: "10px", alignSelf: "start" }}
           name="read-only"

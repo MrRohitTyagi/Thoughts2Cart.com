@@ -10,11 +10,10 @@ import {
 } from "grommet/components";
 import React from "react";
 import styled from "styled-components";
-import { dateNDaysAhead } from "../../utils/helpFunctions";
-import toast from "react-hot-toast";
+import { dateNDaysAhead, productUrlCopy } from "../../utils/helpFunctions";
 import { UserDetailsContext } from "../../App";
 import { useContext } from "react";
-import { handleAddtoCart } from "../../utils/helpFunctions";
+import { handleAddtoCart } from "../../controllers/cartcomtroller";
 
 let EnhancedCard = styled(Card)`
   border: none;
@@ -88,8 +87,11 @@ const MobileCard = ({ ele, onClick }) => {
             <del> {Number(ele.price) + (100 * Number(ele.discount)) / 100}</del>
           </Text>
         </Text>
-        <Box 
-        animation={{ duration: 400, type: "fadeIn" }} align="center" direction="row">
+        <Box
+          animation={{ duration: 400, type: "fadeIn" }}
+          align="center"
+          direction="row"
+        >
           <Text size="small">
             <Home size="15px" color="navy" /> Get it by
             <strong> {dateNDaysAhead(ele.deliveryTime)} </strong>
@@ -115,10 +117,7 @@ const MobileCard = ({ ele, onClick }) => {
 
         <Button
           onClick={() => {
-            navigator.clipboard.writeText(
-              `https://thoughts2-cart-com.vercel.app/product/${ele._id}`
-            );
-            toast.success("Product URL copied to clipboard");
+            productUrlCopy(ele._id);
           }}
         >
           <ShareOption color="plain" />

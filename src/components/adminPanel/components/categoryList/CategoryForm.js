@@ -103,7 +103,7 @@ const EditCategoryForm = ({
         startIcon={<ForwardIcon />}
       ></StyledButton>
 
-      <Box 
+      <Box
         animation={{ duration: 400, type: "fadeIn" }}
         style={{ position: "relative" }}
         background={"#F2F2F2"}
@@ -123,8 +123,12 @@ const EditCategoryForm = ({
         />
 
         <form id="form" onSubmit={formik.handleSubmit}>
-          <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="column" gap="20px" margin={{ top: "30px" }}>
+          <Box
+            animation={{ duration: 400, type: "fadeIn" }}
+            direction="column"
+            gap="20px"
+            margin={{ top: "30px" }}
+          >
             <TextField
               type={"text"}
               fullWidth
@@ -137,8 +141,11 @@ const EditCategoryForm = ({
               helperText={formik.touched.name && formik.errors.name}
             />
 
-            <Box 
-        animation={{ duration: 400, type: "fadeIn" }} style={{ position: "relative" }} direction="row">
+            <Box
+              animation={{ duration: 400, type: "fadeIn" }}
+              style={{ position: "relative" }}
+              direction="row"
+            >
               <TextField
                 fullWidth
                 id="image"
@@ -189,8 +196,8 @@ const EditCategoryForm = ({
             />
           </Box>
 
-          <Box 
-        animation={{ duration: 400, type: "fadeIn" }}
+          <Box
+            animation={{ duration: 400, type: "fadeIn" }}
             alignSelf="end"
             direction="row"
             style={{ position: "absolute", bottom: "5px", right: "5px" }}
@@ -247,10 +254,18 @@ function ChipsArray({ setFieldValue, subs, chipData, setChipData, toast }) {
       }}
       component="ul"
     >
-      <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="column" align="center" gap="20px">
-        <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="row" flex style={{ flexWrap: "wrap" }}>
+      <Box
+        animation={{ duration: 400, type: "fadeIn" }}
+        direction="column"
+        align="center"
+        gap="20px"
+      >
+        <Box
+          animation={{ duration: 400, type: "fadeIn" }}
+          direction="row"
+          flex
+          style={{ flexWrap: "wrap" }}
+        >
           {chipData?.length > 0 ? (
             chipData?.map((data, i) => {
               return (
@@ -280,8 +295,13 @@ function ChipsArray({ setFieldValue, subs, chipData, setChipData, toast }) {
           )}
         </Box>
 
-        <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="row" align="center" gap="10px" pad={"small"}>
+        <Box
+          animation={{ duration: 400, type: "fadeIn" }}
+          direction="row"
+          align="center"
+          gap="10px"
+          pad={"small"}
+        >
           <TextField
             fullWidth
             id="subCategoryAdd"

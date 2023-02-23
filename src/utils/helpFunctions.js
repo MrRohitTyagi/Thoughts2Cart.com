@@ -109,38 +109,16 @@ function dateNDaysAhead(n) {
 
   return `(${weekday}) ${day}, ${month}`;
 }
-const handleAddtoCart = async (ele, userDetails, setuserDetails) => {
-  let updatedUserDetails = {
-    ...userDetails,
-    wishlist: [...(userDetails.wishlist || []), ele],
-    id: userDetails._id,
-  };
-  let { data } = await regesterUser(updatedUserDetails);
-  setuserDetails(data);
-  toast.success("Item Added to cart !");
-};
 
-function removeFirstOccurrence(arr, item) {
-  let index = arr.indexOf(item);
-  if (index !== -1) {
-    arr.splice(index, 1);
-  }
-  return arr;
+function productUrlCopy(id) {
+  navigator.clipboard.writeText(
+    `https://thoughts2-cart-com.vercel.app/product/${id}`
+  );
+  toast.success("Product URL copied to clipboard");
 }
-const handleRemoveFromCart = async (ele, userDetails, setuserDetails) => {
-
-  let updatedUserDetails = {
-    ...userDetails,
-    wishlist: removeFirstOccurrence(userDetails.wishlist, ele),
-    id: userDetails._id,
-  };
-  let { data } = await regesterUser(updatedUserDetails);
-  setuserDetails(data);
-  toast.success("Item removed !");
-};
 
 export {
-  handleRemoveFromCart,
+  productUrlCopy,
   dateNDaysAhead,
   matchPasswords,
   RandomProfileGenerator,
@@ -148,6 +126,5 @@ export {
   encodeImageFileAsURL,
   addressFinder,
   multiupload,
-  handleAddtoCart,
 };
 export default caller;

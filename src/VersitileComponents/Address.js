@@ -13,13 +13,7 @@ const Address = ({ userAddress }) => {
       id="combo-box-demo"
       options={userAddress.data}
       sx={{ width: 300 }}
-      renderInput={(params) => (
-        <TextField
-          variant="standard"
-          {...params}
-          
-        />
-      )}
+      renderInput={(params) => <TextField variant="standard" {...params} />}
     />
   ) : (
     <Text size="small">Fetching Address...</Text>

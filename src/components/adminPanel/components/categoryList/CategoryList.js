@@ -24,7 +24,7 @@ const CategoryList = ({ toast }) => {
   return categoryList?.length > 0 ? (
     <>
       <DataTable
-      searchKey='name'
+        searchKey="name"
         fetch={fetchAllCategory}
         stateToBeUpdated={setcategoryList}
         createNewText="CCreate new category"

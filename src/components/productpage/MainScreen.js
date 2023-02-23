@@ -14,14 +14,18 @@ const MainScreen = ({ userDetails, navigate, toast, allcatagories }) => {
   }, []);
 
   return (
-    <Box 
-        animation={{ duration: 400, type: "fadeIn" }} id="allMightyBox">
-      <Box 
-        animation={{ duration: 400, type: "fadeIn" }} style={{ position: "relative", zIndex: 2 }} margin={{ top: "10px" }}>
+    <Box animation={{ duration: 400, type: "fadeIn" }} id="allMightyBox">
+      <Box
+        animation={{ duration: 400, type: "fadeIn" }}
+        style={{ position: "relative", zIndex: 2 }}
+        margin={{ top: "10px" }}
+      >
         <Categorys {...{ Emitter, allcatagories }} />
 
-        <Box 
-        animation={{ duration: 400, type: "fadeIn" }} style={{ position: "absolute", top: "80%", zIndex: 0 }}>
+        <Box
+          animation={{ duration: 400, type: "fadeIn" }}
+          style={{ position: "absolute", top: "80%", zIndex: 0 }}
+        >
           <Carousel
             autoPlay
             infiniteLoop
@@ -40,10 +44,16 @@ const MainScreen = ({ userDetails, navigate, toast, allcatagories }) => {
           </Carousel>
         </Box>
       </Box>
-      <Box 
-        animation={{ duration: 400, type: "fadeIn" }} style={{ zIndex: 2 }} height="50vh"></Box>
-      <Box 
-        animation={{ duration: 400, type: "fadeIn" }} id="productListing" style={{ zIndex: 3 }}>
+      <Box
+        animation={{ duration: 400, type: "fadeIn" }}
+        style={{ zIndex: 2 }}
+        height="50vh"
+      ></Box>
+      <Box
+        animation={{ duration: 400, type: "fadeIn" }}
+        id="productListing"
+        style={{ zIndex: 3 }}
+      >
         kk
       </Box>
     </Box>

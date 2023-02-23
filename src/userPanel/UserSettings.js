@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const UserSettings = ({ userDetails, setuserDetails, navigate, toast }) => {
-  return (
-    <div>UserSettings</div>
-  )
-}
+  return <div>UserSettings</div>;
+};
 
-export default UserSettings
+export default UserSettings;

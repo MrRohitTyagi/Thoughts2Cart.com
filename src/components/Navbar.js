@@ -32,7 +32,7 @@ const Navbar = ({
   };
   return (
     <>
-      <Box 
+      <Box
         animation={{ duration: 400, type: "fadeIn" }}
         background={"#121921"}
         direction="row"
@@ -76,8 +76,12 @@ const Navbar = ({
           }}
         />
         {/* </Box> */}
-        <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="row" align="center" gap="30px">
+        <Box
+          animation={{ duration: 400, type: "fadeIn" }}
+          direction="row"
+          align="center"
+          gap="30px"
+        >
           <HoverBorderBox
             direction="row"
             align="center"
@@ -92,8 +96,11 @@ const Navbar = ({
             }}
           >
             {userDetails === "LOADING" ? (
-              <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="row" gap="10px">
+              <Box
+                animation={{ duration: 400, type: "fadeIn" }}
+                direction="row"
+                gap="10px"
+              >
                 <Text size="1.3vw" style={{ marginRight: "5px" }}>
                   Fetching Details
                 </Text>
@@ -143,7 +150,14 @@ const Navbar = ({
       {SigninLayer && <SignupForm {...{ setSigninLayer, toast }} />}
       {cartLayer && (
         <CartItems
-          {...{ userDetails, setuserDetails, toast, cartLayer, setcartLayer ,navigate}}
+          {...{
+            userDetails,
+            setuserDetails,
+            toast,
+            cartLayer,
+            setcartLayer,
+            navigate,
+          }}
         />
       )}
       {profileDrawerlayer && (

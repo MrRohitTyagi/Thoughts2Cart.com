@@ -57,11 +57,13 @@ const App = () => {
       t.duration = 2000;
       return (
         <span>
-          <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="row">
+          <Box animation={{ duration: 400, type: "fadeIn" }} direction="row">
             <Avatar src={data.user.profile} />
-            <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="column" margin={{ left: "10px" }}>
+            <Box
+              animation={{ duration: 400, type: "fadeIn" }}
+              direction="column"
+              margin={{ left: "10px" }}
+            >
               <Text size="small">
                 Hi {data.user.name} Welcome Thoughts2Cart.com
               </Text>
@@ -125,8 +127,11 @@ const App = () => {
         value={{ adminSettings, setadminSettings }}
       >
         <UserDetailsContext.Provider value={{ userDetails, setuserDetails }}>
-          <Box 
-        animation={{ duration: 400, type: "fadeIn" }} height={{ min: "100vh" }} background={"#F2F2F2"}>
+          <Box
+            animation={{ duration: 400, type: "fadeIn" }}
+            height={{ min: "100vh" }}
+            background={"#F2F2F2"}
+          >
             <Navbar
               {...{
                 userDetails,

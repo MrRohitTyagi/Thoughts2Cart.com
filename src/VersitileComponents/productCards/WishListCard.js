@@ -4,12 +4,13 @@ import { Button, Divider, Rating } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { handleAddtoCart, handleRemoveFromCart } from "../../utils/helpFunctions";
+import { handleAddtoCart,handleRemoveFromCart } from "../../controllers/cartcomtroller";
 
 const WishListCard = ({ ele, setuserDetails, userDetails }) => {
+  console.log(ele);
   return (
-    <Box 
-        animation={{ duration: 400, type: "fadeIn" }}
+    <Box
+      animation={{ duration: 400, type: "fadeIn" }}
       elevation="large"
       pad={"10px"}
       direction="row"
@@ -19,7 +20,7 @@ const WishListCard = ({ ele, setuserDetails, userDetails }) => {
       gap="10px"
     >
       <Image src={ele.images[0]} fit="contain" />
-      <Box 
+      <Box
         animation={{ duration: 400, type: "fadeIn" }}
         direction="column"
         width={"350px"}
@@ -27,8 +28,11 @@ const WishListCard = ({ ele, setuserDetails, userDetails }) => {
       >
         <Text size="small"> {ele.description.slice(0, 70) + "..."}</Text>
 
-        <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="row" align="center">
+        <Box
+          animation={{ duration: 400, type: "fadeIn" }}
+          direction="row"
+          align="center"
+        >
           <Rating
             sx={{ alignSelf: "start" }}
             name="read-only"
@@ -54,17 +58,20 @@ const WishListCard = ({ ele, setuserDetails, userDetails }) => {
             </Text>
           </Text>
         </Text>
-        <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="row" gap="5px">
+        <Box
+          animation={{ duration: 400, type: "fadeIn" }}
+          direction="row"
+          gap="10px"
+        >
           <Button
-           onClick={() => {
-            handleRemoveFromCart(ele, userDetails, setuserDetails);
-          }}
+            onClick={() => {
+              handleRemoveFromCart(ele, userDetails, setuserDetails);
+            }}
             title="Delete from Cart"
             variant="contained"
             color="error"
             size="small"
-            sx={{ p: 0, m: 0, minWidth: "25px" }}
+            sx={{ p: 0, m: 0, minWidth: "30px" }}
           >
             <DeleteIcon />
           </Button>
@@ -77,10 +84,11 @@ const WishListCard = ({ ele, setuserDetails, userDetails }) => {
             variant="contained"
             color="success"
             size="small"
-            sx={{ p: 0, m: 0, minWidth: "25px" }}
+            sx={{ p: 0, m: 0, minWidth: "30px" }}
           >
             <AddBoxIcon />
           </Button>
+          <Text>Quantity {ele.count}</Text>
         </Box>
       </Box>
     </Box>

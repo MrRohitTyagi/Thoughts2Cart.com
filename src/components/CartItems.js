@@ -4,6 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { StyledButton } from "../assets/StyledItems";
 import WishListCard from "../VersitileComponents/productCards/WishListCard";
 import { Button } from "@mui/material";
+import { countUnique } from "../controllers/cartcomtroller";
 
 const CartItems = ({ userDetails, setuserDetails, setcartLayer, navigate }) => {
   return (
@@ -38,10 +39,9 @@ const CartItems = ({ userDetails, setuserDetails, setcartLayer, navigate }) => {
         }}
         startIcon={<CloseIcon />}
       ></StyledButton>{" "}
-      <Box 
+      <Box
         animation={{ duration: 400, type: "fadeIn" }}
         background={"#F2F2F2"}
-        animation={{ duration: 500, type: "fadeIn" }}
         pad={"small"}
         style={{ color: "#5C4033", overflowY: "auto" }}
         margin="small"
@@ -62,14 +62,14 @@ const CartItems = ({ userDetails, setuserDetails, setcartLayer, navigate }) => {
           </Button>
         )}
         {userDetails.wishlist.length > 0 ? (
-          <Box 
-        animation={{ duration: 400, type: "fadeIn" }}
+          <Box
+            animation={{ duration: 400, type: "fadeIn" }}
             overflow={{ vertical: "auto" }}
             direction="column"
             height={{ min: "100vh" }}
             gap="10px"
           >
-            {userDetails.wishlist.map((ele) => {
+            {countUnique(userDetails.wishlist).map((ele) => {
               return (
                 <WishListCard
                   ele={ele}
@@ -80,8 +80,10 @@ const CartItems = ({ userDetails, setuserDetails, setcartLayer, navigate }) => {
             })}
           </Box>
         ) : (
-          <Box 
-        animation={{ duration: 400, type: "fadeIn" }} height={{ min: "100vh" }}>
+          <Box
+            animation={{ duration: 400, type: "fadeIn" }}
+            height={{ min: "100vh" }}
+          >
             <Image src="https://res.cloudinary.com/derplm8c6/image/upload/v1677115012/pngfind.com-cart-png-2727925_kbkctd.png" />
             <Text
               style={{ margin: "20px" }}
