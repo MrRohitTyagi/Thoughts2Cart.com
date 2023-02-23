@@ -1,13 +1,19 @@
-import React from "react";
-import { Text, Box, Image } from "grommet";
+import React, { useState } from "react";
+import { Text, Box, Image, Spinner } from "grommet";
 import { Button, Divider, Rating } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { handleAddtoCart,handleRemoveFromCart } from "../../controllers/cartcomtroller";
+import {
+  handleAddtoCart,
+  handleRemoveFromCart,
+} from "../../controllers/cartcomtroller";
 
 const WishListCard = ({ ele, setuserDetails, userDetails }) => {
-  console.log(ele);
+  const [buttonBissabled, setbuttonBissabled] = useState({
+    del: false,
+    add: false,
+  });
   return (
     <Box
       animation={{ duration: 400, type: "fadeIn" }}
@@ -64,8 +70,10 @@ const WishListCard = ({ ele, setuserDetails, userDetails }) => {
           gap="10px"
         >
           <Button
-            onClick={() => {
-              handleRemoveFromCart(ele, userDetails, setuserDetails);
+            onClick={async () => {
+              setbuttonBissabled({ del: true, add: false });
+              await handleRemoveFromCart(ele, userDetails, setuserDetails);
+              setbuttonBissabled({ del: false, add: false });
             }}
             title="Delete from Cart"
             variant="contained"
@@ -73,22 +81,33 @@ const WishListCard = ({ ele, setuserDetails, userDetails }) => {
             size="small"
             sx={{ p: 0, m: 0, minWidth: "30px" }}
           >
-            <DeleteIcon />
+            {!buttonBissabled.del ? (
+              <DeleteIcon />
+            ) : (
+              <Spinner color={"#F2F2F2"} />
+            )}
           </Button>
 
           <Button
             title="Add to cart"
-            onClick={() => {
-              handleAddtoCart(ele, userDetails, setuserDetails);
+            onClick={async () => {
+              setbuttonBissabled({ del: false, add: true });
+              await handleAddtoCart(ele, userDetails, setuserDetails);
+              setbuttonBissabled({ del: false, add: false });
             }}
             variant="contained"
             color="success"
             size="small"
             sx={{ p: 0, m: 0, minWidth: "30px" }}
           >
-            <AddBoxIcon />
+            {!buttonBissabled.add ? (
+              <AddBoxIcon />
+            ) : (
+              <Spinner color={"#F2F2F2"} />
+            )}
           </Button>
-          <Text>Quantity {ele.count}</Text>
+
+          <Text size="small">Quantity {ele.count}</Text>
         </Box>
       </Box>
     </Box>

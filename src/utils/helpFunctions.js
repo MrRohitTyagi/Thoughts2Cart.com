@@ -1,6 +1,5 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { regesterUser } from "../controllers/userController";
 
 const URL = "https://thoughts2-cart-backend.vercel.app/api/v1/";
 // const URL = "http://localhost:4000/api/v1/";

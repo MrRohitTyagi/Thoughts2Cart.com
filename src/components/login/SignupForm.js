@@ -1,4 +1,4 @@
-import { Layer, Box, Text, FormField, FileInput, Grid } from "grommet";
+import { Layer, Box, Text, FormField, FileInput, Grid, Spinner } from "grommet";
 import Divider from "@mui/material/Divider";
 import { Button, Avatar, TextField } from "@mui/material";
 import { getUser } from "../../controllers/userController";
@@ -49,6 +49,10 @@ const StyledButton = styled(Button)`
 `;
 
 const SignupForm = ({ setSigninLayer, toast }) => {
+  const [buttonDisabler, setbuttonDisabler] = useState({
+    signIn: false,
+    signUp: false,
+  });
   const [loggin, setloggin] = useState(false);
   const { userDetails, setuserDetails } = useContext(UserDetailsContext);
   const { name, email, _id: id } = userDetails;
@@ -60,6 +64,10 @@ const SignupForm = ({ setSigninLayer, toast }) => {
       return;
     }
     try {
+      setbuttonDisabler({
+        signIn: true,
+        signUp: false,
+      });
       let { data } = await getUser({
         email: values.email,
         password: values.password,
@@ -69,11 +77,19 @@ const SignupForm = ({ setSigninLayer, toast }) => {
         setSigninLayer(false);
         toast.success("Login Successfull !");
         setuserDetails(data.user);
+        setbuttonDisabler({
+          signIn: false,
+          signUp: false,
+        });
       } else {
         toast.warn("Something went Wrong");
       }
     } catch (error) {
       console.log(error);
+      setbuttonDisabler({
+        signIn: false,
+        signUp: false,
+      });
       toast.error("Incorrect email or password");
     }
   }
@@ -84,6 +100,10 @@ const SignupForm = ({ setSigninLayer, toast }) => {
       return;
     }
     try {
+      setbuttonDisabler({
+        signIn: false,
+        signUp: true,
+      });
       if (values.profileData) {
         let url = await uploadImage(values.profileData);
         let { data } = await regesterUser({
@@ -98,6 +118,10 @@ const SignupForm = ({ setSigninLayer, toast }) => {
         localStorage.setItem("userId", data._id);
         setuserDetails(data);
         setSigninLayer(false);
+        setbuttonDisabler({
+          signIn: false,
+          signUp: false,
+        });
         return;
       }
 
@@ -106,9 +130,17 @@ const SignupForm = ({ setSigninLayer, toast }) => {
       localStorage.setItem("userId", data._id);
       setuserDetails(data);
       setSigninLayer(false);
+      setbuttonDisabler({
+        signIn: false,
+        signUp: false,
+      });
     } catch ({ response }) {
       console.log(response);
       toast.error(response.data);
+      setbuttonDisabler({
+        signIn: false,
+        signUp: false,
+      });
     }
   };
   function encodeImageFileAsURL(element, setFieldValue) {
@@ -322,29 +354,59 @@ const SignupForm = ({ setSigninLayer, toast }) => {
                   align="center"
                 >
                   {!id && loggin === false ? (
-                    <StyledButton
-                      sx={{
-                        width: "80%",
-                        background: "#5C4033",
-                        color: "#F2F2F2",
-                      }}
-                      variant="contained"
-                      type="submit"
-                    >
-                      Create Account
-                    </StyledButton>
+                    <>
+                      {buttonDisabler.signUp ? (
+                        <StyledButton
+                          sx={{
+                            width: "80%",
+                            background: "#5C4033",
+                            color: "#F2F2F2",
+                          }}
+                          variant="contained"
+                        >
+                          <Spinner color={"#F2F2F2"} />
+                        </StyledButton>
+                      ) : (
+                        <StyledButton
+                          sx={{
+                            width: "80%",
+                            background: "#5C4033",
+                            color: "#F2F2F2",
+                          }}
+                          variant="contained"
+                          type="submit"
+                        >
+                          Create Account
+                        </StyledButton>
+                      )}
+                    </>
                   ) : (
-                    <StyledButton
-                      sx={{
-                        width: "80%",
-                        background: "#5C4033",
-                        color: "#F2F2F2",
-                      }}
-                      variant="contained"
-                      type="submit"
-                    >
-                      LogIn
-                    </StyledButton>
+                    <>
+                      {buttonDisabler.signIn ? (
+                        <StyledButton
+                          sx={{
+                            width: "80%",
+                            background: "#5C4033",
+                            color: "#F2F2F2",
+                          }}
+                          variant="contained"
+                        >
+                          <Spinner color={"#F2F2F2"} />
+                        </StyledButton>
+                      ) : (
+                        <StyledButton
+                          sx={{
+                            width: "80%",
+                            background: "#5C4033",
+                            color: "#F2F2F2",
+                          }}
+                          variant="contained"
+                          type="submit"
+                        >
+                          LogIn
+                        </StyledButton>
+                      )}
+                    </>
                   )}
                   <Divider />
                   {!id && loggin === false ? (
@@ -353,7 +415,7 @@ const SignupForm = ({ setSigninLayer, toast }) => {
                     </Text>
                   ) : (
                     <Text style={{ color: "#5C4033" }} size="small">
-                      New to Emart ?
+                      New to Thoughts2Cart ?
                     </Text>
                   )}
                   {!id && loggin === false ? (
@@ -363,6 +425,7 @@ const SignupForm = ({ setSigninLayer, toast }) => {
                         setloggin(true);
                       }}
                       sx={{
+                        scale: values.type === "SIGNUP" ? "0.8" : "1",
                         width: "80%",
                         background: "#5C4033",
                         color: "#F2F2F2",
@@ -378,6 +441,7 @@ const SignupForm = ({ setSigninLayer, toast }) => {
                         setloggin(false);
                       }}
                       sx={{
+                        scale: values.type === "SIGNUP" ? "1" : "0.8",
                         width: "80%",
                         background: "#5C4033",
                         color: "#F2F2F2",

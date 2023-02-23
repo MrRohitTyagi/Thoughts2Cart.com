@@ -128,6 +128,10 @@ const EachProductScreen = () => {
 };
 
 function ProductPagesideCard({ ele, userDetails, setuserDetails }) {
+  const [buttonBissabled, setbuttonBissabled] = useState({
+    del: false,
+    add: false,
+  });
   console.log(ele);
   return (
     <Card
@@ -206,15 +210,22 @@ function ProductPagesideCard({ ele, userDetails, setuserDetails }) {
           and Fullfilled by Thoughts2Cart.com
         </Text>
         <Button
-          onClick={() => {
-            handleAddtoCart(ele, userDetails, setuserDetails);
+          onClick={async () => {
+            setbuttonBissabled({ del: true, add: true });
+            await handleAddtoCart(ele, userDetails, setuserDetails);
+            setbuttonBissabled({ del: true, add: false });
           }}
+          disabled={buttonBissabled.add}
           sx={{ my: "5px" }}
           size="small"
           variant="contained"
           color="info"
         >
-          Add to cart
+          {!buttonBissabled.add ? (
+            "  Add to cart"
+          ) : (
+            <Spinner color={"#F2F2F2"} />
+          )}
         </Button>
         <Button
           sx={{ my: "5px" }}

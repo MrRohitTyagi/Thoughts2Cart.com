@@ -7,8 +7,9 @@ import {
   Image,
   Text,
   Box,
+  Spinner,
 } from "grommet/components";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { dateNDaysAhead, productUrlCopy } from "../../utils/helpFunctions";
 import { UserDetailsContext } from "../../App";
@@ -27,6 +28,10 @@ let EnhancedCard = styled(Card)`
 `;
 
 const MobileCard = ({ ele, onClick }) => {
+  const [buttonBissabled, setbuttonBissabled] = useState({
+    del: false,
+    add: false,
+  });
   let { userDetails, setuserDetails } = useContext(UserDetailsContext);
 
   //  const handleAddtoCart = async (ele, userDetails,setuserDetails) => {
@@ -104,15 +109,22 @@ const MobileCard = ({ ele, onClick }) => {
         </Button>
 
         <Button
-          onClick={() => {
-            handleAddtoCart(ele, userDetails, setuserDetails);
+          onClick={async () => {
+            setbuttonBissabled({ del: false, add: true });
+            await handleAddtoCart(ele, userDetails, setuserDetails);
+            setbuttonBissabled({ del: false, add: false });
           }}
+          disabled={buttonBissabled.add}
           sx={{ scale: "0.9" }}
           size="small"
           variant="contained"
           color="info"
         >
-          Add to cart
+          {!buttonBissabled.add ? (
+            "  Add to cart"
+          ) : (
+            <Spinner color={"#F2F2F2"} />
+          )}
         </Button>
 
         <Button

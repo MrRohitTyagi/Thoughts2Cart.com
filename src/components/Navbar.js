@@ -133,7 +133,11 @@ const Navbar = ({
           </HoverBorderBox>
           <Button
             onClick={() => {
-              setcartLayer(true);
+              if (userDetails._id) {
+                setcartLayer(true);
+              } else {
+                toast.error("SignIn to view cart");
+              }
             }}
           >
             <Badge

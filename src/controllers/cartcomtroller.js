@@ -2,13 +2,18 @@ import { toast } from "react-hot-toast";
 import { regesterUser } from "./userController";
 
 const handleAddtoCart = async (ele, userDetails, setuserDetails) => {
+  if (!userDetails._id) {
+    toast.error("Sign Up required !");
+    return;
+  }
+  let productId = ele._id ? ele._id : ele.id;
   let { data } = await regesterUser({
     ...userDetails,
     id: userDetails._id,
     wishlist: [
       ...(userDetails.wishlist || []),
       {
-        id: ele._id,
+        id: productId,
         description: ele.description,
         discount: ele.discount,
         images: [ele.images[0]],
@@ -23,18 +28,28 @@ const handleAddtoCart = async (ele, userDetails, setuserDetails) => {
 };
 
 function removeFirstOccurrence(arr, item) {
-  let index = arr.indexOf(item);
-  if (index !== -1) {
-    arr.splice(index, 1);
+  let uid = item.id;
+  let newArr = [];
+  for (const ele of arr) {
+    if (ele.id !== uid) {
+      newArr.push(ele);
+    } else {
+      uid = null;
+    }
   }
-  return arr;
+  return newArr;
 }
 const handleRemoveFromCart = async (ele, userDetails, setuserDetails) => {
+  if (!userDetails._id) {
+    toast.error("Sign Up required !");
+    return;
+  }
   let updatedUserDetails = {
     ...userDetails,
     wishlist: removeFirstOccurrence(userDetails.wishlist, ele),
     id: userDetails._id,
   };
+  console.log(updatedUserDetails);
   let { data } = await regesterUser(updatedUserDetails);
   setuserDetails(data);
   toast.success("Item removed !");
@@ -45,15 +60,15 @@ function countUnique(arr) {
   const result = [];
 
   arr.forEach((ele, i) => {
-    if (!occurrence.has(ele._id)) {
-      occurrence.add(ele._id);
+    if (!occurrence.has(ele.id)) {
+      occurrence.add(ele.id);
       result.push({ ...ele, count: 1 });
     } else {
-      const index = result.findIndex((item) => item._id === ele._id);
+      const index = result.findIndex((item) => item.id === ele.id);
       result[index].count += 1;
     }
   });
-
+  console.log("%c result ", "color: blue;border:1px solid blue", result);
   return result;
 }
 export { handleAddtoCart, handleRemoveFromCart, countUnique };

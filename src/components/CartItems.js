@@ -61,7 +61,7 @@ const CartItems = ({ userDetails, setuserDetails, setcartLayer, navigate }) => {
             Proceed to checkout
           </Button>
         )}
-        {userDetails.wishlist.length > 0 ? (
+        {userDetails?.wishlist?.length > 0 ? (
           <Box
             animation={{ duration: 400, type: "fadeIn" }}
             overflow={{ vertical: "auto" }}
