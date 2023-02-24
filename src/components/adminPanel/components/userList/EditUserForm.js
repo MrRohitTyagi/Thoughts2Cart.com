@@ -21,7 +21,6 @@ const validationSchema = yup.object({
   name: yup.string().max(20, "Name too long").required("name is required"),
   email: yup.string().required("email is required"),
   password: yup.string(),
-  address: yup.string(),
   phone: yup
     .string()
     .max(10, "Invalid Phone Number")
@@ -47,7 +46,7 @@ const EditUserForm = ({
 
       profile: userEditLayer?.profile || "",
       password: userEditLayer?.password || "",
-      address: userEditLayer?.address || "",
+      address: userEditLayer?.address || {},
       id: userEditLayer?._id || "",
       isPassChanded: false,
     },
@@ -177,9 +176,9 @@ const EditUserForm = ({
               id="address"
               name="address"
               label="Address"
-              value={formik.values.address}
+              value={formik.values.address.address}
               onChange={(e) => {
-                formik.setFieldValue("address", e.target.value);
+                formik.setFieldValue("address.address", e.target.value);
 
                 if (formik.values.isPassChanded === false)
                   formik.setFieldValue("isPassChanded", true);

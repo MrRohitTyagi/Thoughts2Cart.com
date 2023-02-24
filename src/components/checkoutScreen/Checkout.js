@@ -18,9 +18,10 @@ const Checkout = ({ userDetails, setuserDetails, toast, allcatagories }) => {
               height={{ max: "100vh" }}
               gap="10px"
             >
-              {countUnique(userDetails?.wishlist).map((ele) => {
+              {countUnique(userDetails?.wishlist).map((ele, i) => {
                 return (
                   <WishListCard
+                    key={i}
                     ele={ele}
                     userDetails={userDetails}
                     setuserDetails={setuserDetails}
@@ -53,7 +54,7 @@ const Checkout = ({ userDetails, setuserDetails, toast, allcatagories }) => {
             </Box>
           )}
         </Box>
-        <CheckoutForm />
+        <CheckoutForm {...{ userDetails, setuserDetails }} />
       </Grid>
     </Box>
   );

@@ -105,7 +105,7 @@ export const usercolumns = [
         size="small"
         pad={{ vertical: "xsmall" }}
       >
-        {row?.address ? row?.address?.slice(0, 20) + "..." : "NA"}
+        {row?.address ? row?.address.address?.slice(0, 20) + "..." : "NA"}
       </Text>
     ),
   },

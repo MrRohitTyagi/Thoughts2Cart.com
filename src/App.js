@@ -50,11 +50,11 @@ const App = () => {
   const [allcatagories, setallcatagories] = useState([]);
   const [userDetails, setuserDetails] = useState("");
   const [adminSettings, setadminSettings] = useState({});
-  console.log(
-    "%c userDetails ",
-    "color: red;border:1px solid red",
-    userDetails
-  );
+  // console.log(
+  //   "%c userDetails ",
+  //   "color: red;border:1px solid red",
+  //   userDetails
+  // );
   function welcoometoast(data) {
     toast((t) => {
       t.duration = 2000;
