@@ -5,15 +5,17 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import Address from "../../VersitileComponents/Address";
 import CheckoutAddressForm from "./CheckoutAddressForm";
 import { useFormik } from "formik";
 import { regesterUser } from "../../controllers/userController";
 import * as yup from "yup";
-import { deepMerge } from "grommet/utils";
 import ConfirmDetailsForm from "./ConfirmDetailsForm";
+import { Box as Gbox, Text } from "grommet";
+import { processpayment } from "../../controllers/paymentController";
+import { countUnique } from "../../controllers/cartcomtroller";
+import { Checkbox } from "@mui/material";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const validationSchema = yup.object({
   phone: yup
@@ -24,6 +26,7 @@ const validationSchema = yup.object({
 });
 
 export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
+  const [agreeTnC, setagreeTnC] = useState(false);
   const formik = useFormik({
     initialValues: {
       name: userDetails?.name || "",
@@ -53,13 +56,18 @@ export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
     if (JSON.stringify(addressObj) === JSON.stringify(userDetails.address)) {
       return;
     }
-
     let final = { ...userDetails, address: addressObj, id: userDetails._id };
     let { data } = await regesterUser(final);
-    console.log(data);
     setuserDetails(data);
   };
-
+  const handleCheckout = async (Itemdata) => {
+    if (agreeTnC === false) {
+      toast.error("Agree T&C first");
+    }
+    let { data } = await processpayment(countUnique(Itemdata));
+    console.log(data.url);
+    window.location = data.url;
+  };
   const steps = [
     {
       label: "Confirm or edit address",
@@ -96,7 +104,21 @@ export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
     {
       label: "Proceed to payment",
       description: `.`,
-      component: <>under develoopment</>,
+      component: (
+        <>
+          <Box direction="row">
+            <Checkbox
+              checked={agreeTnC}
+              onChange={(e) => {
+                setagreeTnC(e.target.checked);
+              }}
+            />
+            <Text weight={"bold"} size="small">
+              I agree to Thoughts2cart payment and services Agreement
+            </Text>
+          </Box>
+        </>
+      ),
     },
   ];
   const [activeStep, setActiveStep] = React.useState(0);
@@ -115,45 +137,42 @@ export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map(({ label, component }, index) => (
             <Step key={label}>
-              <StepLabel
-                optional={
-                  index === 2 ? (
-                    <Typography variant="caption">Last step</Typography>
-                  ) : null
-                }
-              >
-                {label}
-              </StepLabel>
+              <StepLabel>{label}</StepLabel>
 
               <StepContent>
-                <Box sx={{ margin: "0px  20px" }}>{component}</Box>
+                <Box>{component}</Box>
 
-                <Box sx={{ mb: 2, mt: 1 }}>
-                  <div>
-                    {index === steps.length - 1 ? (
-                      <Button size="small" variant="contained">
-                        Finish
-                      </Button>
-                    ) : (
-                      <Button
-                        size="small"
-                        type={index === 1 ? "submit" : "Button"}
-                        variant="contained"
-                        onClick={handleNext}
-                      >
-                        {index === 1 ? "Confirm" : "Next"}
-                      </Button>
-                    )}
-
+                <Gbox direction="row" gap="15px" margin={{ top: "15px" }}>
+                  {index === steps.length - 1 ? (
+                    <Button
+                      disabled={agreeTnC === false}
+                      size="small"
+                      onClick={() => handleCheckout(userDetails.wishlist)}
+                      variant="contained"
+                      color="info"
+                    >
+                      place Order
+                    </Button>
+                  ) : (
                     <Button
                       size="small"
-                      disabled={index === 0}
-                      onClick={handleBack}
+                      type={index === 1 ? "submit" : "Button"}
+                      variant="contained"
+                      onClick={handleNext}
                     >
-                      Back
+                      {index === 1 ? "Confirm" : "Next"}
                     </Button>
-                  </div>
-                </Box>
+                  )}
+
+                  <Button
+                    variant="contained"
+                    size="small"
+                    disabled={index === 0}
+                    onClick={handleBack}
+                  >
+                    Back
+                  </Button>
+                </Gbox>
               </StepContent>
             </Step>
           ))}

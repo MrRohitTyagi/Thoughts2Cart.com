@@ -16,7 +16,6 @@ const Address = () => {
         long: posi.coords.longitude,
       });
       setuserAddress(data);
-        console.log('%c data ', 'color: green;border:1px solid green',data);
     });
   }, []);
 

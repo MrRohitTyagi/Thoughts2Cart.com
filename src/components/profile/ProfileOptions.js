@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Box, Text, Layer, Spinner } from "grommet";
 
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
@@ -85,12 +85,13 @@ const ProfileOptions = ({ navigate, toast }) => {
     })();
   }, []);
   return userDetails ? (
-    <Box 
-        animation={{ duration: 400, type: "fadeIn" }} pad={"large"} animation={{ type: "fadeIn", duration: "1000" }}>
-      <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="row" gap="40px">
-        <Box 
-        animation={{ duration: 400, type: "fadeIn" }}>
+    <Box animation={{ duration: 400, type: "fadeIn" }} pad={"large"}>
+      <Box
+        animation={{ duration: 400, type: "fadeIn" }}
+        direction="row"
+        gap="40px"
+      >
+        <Box animation={{ duration: 400, type: "fadeIn" }}>
           <Formik
             initialValues={{
               email: userDetails.email || "",
@@ -116,10 +117,13 @@ const ProfileOptions = ({ navigate, toast }) => {
             }) => {
               return (
                 <form onSubmit={handleSubmit}>
-                  <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="row" gap="40px">
-                    <Box 
-        animation={{ duration: 400, type: "fadeIn" }}
+                  <Box
+                    animation={{ duration: 400, type: "fadeIn" }}
+                    direction="row"
+                    gap="40px"
+                  >
+                    <Box
+                      animation={{ duration: 400, type: "fadeIn" }}
                       direction="column"
                       align="center"
                       justify="center"
@@ -135,8 +139,12 @@ const ProfileOptions = ({ navigate, toast }) => {
                         src={userDetails.profile}
                       />
 
-                      <Box 
-        animation={{ duration: 400, type: "fadeIn" }} gap="10px" direction="column" align="center">
+                      <Box
+                        animation={{ duration: 400, type: "fadeIn" }}
+                        gap="10px"
+                        direction="column"
+                        align="center"
+                      >
                         {!values.editable === false ? (
                           <Button
                             variant="contained"
@@ -167,9 +175,8 @@ const ProfileOptions = ({ navigate, toast }) => {
                       </Box>
                     </Box>
 
-                    <Box 
-        animation={{ duration: 400, type: "fadeIn" }}
-                      animation={{ duration: "500", type: "fadeIn" }}
+                    <Box
+                      animation={{ duration: 400, type: "fadeIn" }}
                       direction="column"
                       justify="evenly"
                       gap="20px"
@@ -208,8 +215,8 @@ const ProfileOptions = ({ navigate, toast }) => {
                         value={values.phone}
                       />
                     </Box>
-                    <Box 
-        animation={{ duration: 400, type: "fadeIn" }}
+                    <Box
+                      animation={{ duration: 400, type: "fadeIn" }}
                       direction="row"
                       gap="10px"
                       alignSelf="end"
@@ -290,9 +297,8 @@ const ProfileOptions = ({ navigate, toast }) => {
                         background: "#F2F2F2",
                       }}
                     >
-                      <Box 
-        animation={{ duration: 400, type: "fadeIn" }}
-                        animation={{ duration: "500", type: "fadeIn" }}
+                      <Box
+                        animation={{ duration: 400, type: "fadeIn" }}
                         direction="column"
                         gap="20px"
                         pad="small"
@@ -333,14 +339,22 @@ const ProfileOptions = ({ navigate, toast }) => {
                           Change Password
                         </Button>
                         {validationMsg === "inprogress" ? (
-                          <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="row" gap="20px" alignSelf="center">
+                          <Box
+                            animation={{ duration: 400, type: "fadeIn" }}
+                            direction="row"
+                            gap="20px"
+                            alignSelf="center"
+                          >
                             <Spinner color={"red"} />
                             <Text>Verifying Password ...</Text>
                           </Box>
                         ) : validationMsg === "verified" ? (
-                          <Box 
-        animation={{ duration: 400, type: "fadeIn" }} direction="row" gap="20px" alignSelf="center">
+                          <Box
+                            animation={{ duration: 400, type: "fadeIn" }}
+                            direction="row"
+                            gap="20px"
+                            alignSelf="center"
+                          >
                             <Text>Validation Successfull</Text>
                             <DoneAllIcon color={"green"} />
                           </Box>

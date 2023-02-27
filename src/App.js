@@ -50,11 +50,7 @@ const App = () => {
   const [allcatagories, setallcatagories] = useState([]);
   const [userDetails, setuserDetails] = useState("");
   const [adminSettings, setadminSettings] = useState({});
-  // console.log(
-  //   "%c userDetails ",
-  //   "color: red;border:1px solid red",
-  //   userDetails
-  // );
+
   function welcoometoast(data) {
     toast((t) => {
       t.duration = 2000;
@@ -86,7 +82,7 @@ const App = () => {
       let { data } = await getUser({ id: id });
       if (data.success) {
         setuserDetails(data.user);
-        welcoometoast(data);
+        // welcoometoast(data);
       } else {
         setuserDetails("NOT_FOUND");
       }
@@ -135,7 +131,7 @@ const App = () => {
             />
             <Routes>
               <Route
-                path="/viewProfile"
+                path="/viewProfile/"
                 element={
                   <UserPanel
                     {...{ userDetails, setuserDetails, navigate, toast }}

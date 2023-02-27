@@ -50,7 +50,7 @@ const TemporaryDrawer = ({
               <ListItemButton
                 onClick={() => {
                   if (userDetails._id) {
-                    navigate("/viewProfile");
+                    navigate("/viewProfile/0");
 
                     setprofileDrawerlayer(false);
                   } else {
@@ -98,7 +98,11 @@ const TemporaryDrawer = ({
                   <HomeIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary={userDetails?.address || "No address Found"}
+                  primary={
+                    !!userDetails?.address
+                      ? `${userDetails?.address?.address}, ${userDetails?.address?.district}, ${userDetails?.address?.state}, ${userDetails?.address?.country}`
+                      : "No address Found"
+                  }
                 />
               </ListItemButton>
             </ListItem>

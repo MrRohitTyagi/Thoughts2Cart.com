@@ -43,9 +43,6 @@ const CategoryPage = () => {
         <Pagination
           shape="rounded"
           count={10}
-          onChange={(e) => {
-            console.log(e.target.textContent);
-          }}
         />
       </Box>
     </>

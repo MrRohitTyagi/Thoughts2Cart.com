@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import { Text } from "grommet";
 import ProfileOptions from "../components/profile/ProfileOptions";
 import UserSettings from "./UserSettings";
+import { useParams, useLocation } from "react-router-dom";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,6 +51,15 @@ export default function UserPanel({
   navigate,
   toast,
 }) {
+  const { pathname } = useLocation();
+  console.log(pathname);
+  const queryParams = new URLSearchParams(pathname);
+
+  const term = queryParams.get("activeIndex");
+  console.log(term); //pizza
+  let { activeIndex } = useParams();
+  // let { activeIndex } = useParams();
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {

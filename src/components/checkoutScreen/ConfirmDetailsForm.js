@@ -14,9 +14,7 @@ const ConfirmDetailsForm = ({
     name: values.name,
     email: values.email,
     phone: values.phone,
-    name: values.name,
   };
-  console.log(Object.entries(userDetails));
   return (
     <Box gap="20px">
       <Grid
@@ -27,7 +25,6 @@ const ConfirmDetailsForm = ({
         gap="20px"
       >
         {Object.entries(obj).map((ele, i) => {
-          console.log(ele);
           return (
             <TextField
               spellCheck={false}
@@ -38,7 +35,6 @@ const ConfirmDetailsForm = ({
               id={ele[0]}
               label={ele[0].toUpperCase()}
               value={ele[1]}
-              onChange={handleChange}
             />
           );
         })}
@@ -52,7 +48,6 @@ const ConfirmDetailsForm = ({
         fullWidth
         label={"Full Address"}
         value={`${values.address}, ${values.district}, ${values.state}, ${values.country}`}
-        onChange={handleChange}
       />
     </Box>
   );

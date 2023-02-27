@@ -49,7 +49,6 @@ const handleRemoveFromCart = async (ele, userDetails, setuserDetails) => {
     wishlist: removeFirstOccurrence(userDetails.wishlist, ele),
     id: userDetails._id,
   };
-  console.log(updatedUserDetails);
   let { data } = await regesterUser(updatedUserDetails);
   setuserDetails(data);
   toast.success("Item removed !");

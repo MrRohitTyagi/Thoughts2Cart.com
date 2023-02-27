@@ -56,7 +56,6 @@ export const createNewProduct = async ({
 const add20products = () => {
   try {
     data.forEach((ele) => {
-      console.log(ele);
       createNewProduct({
         title: ele.product_title.slice(0, 20),
         category: "mobiles",
