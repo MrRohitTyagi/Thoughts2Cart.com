@@ -17,14 +17,6 @@ import { Checkbox } from "@mui/material";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
-const validationSchema = yup.object({
-  phone: yup
-    .string()
-    .max(10, "Invalid Phone Number")
-    .min(10, "Invalid Phone Number")
-    .required("Phone is required"),
-});
-
 export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
   const [agreeTnC, setagreeTnC] = useState(false);
   const formik = useFormik({
@@ -40,7 +32,6 @@ export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
       district: userDetails?.address?.district || "",
     },
     enableReinitialize: true,
-    validationSchema: validationSchema,
     onSubmit: (values) => {
       return onSubmit(values);
     },
@@ -79,6 +70,7 @@ export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
             setuserDetails,
             values: formik.values,
             handleChange: formik.handleChange,
+            setFieldValue: formik.setFieldValue,
             touched: formik.touched,
             errors: formik.errors,
           }}
@@ -122,8 +114,17 @@ export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
     },
   ];
   const [activeStep, setActiveStep] = React.useState(0);
-
-  const handleNext = () => {
+  const handleNext = (index) => {
+    const { address, country, district, state } = formik.values;
+    let obj = { address, country, district, state };
+    let haserr = false;
+    Object.keys(obj).map((ele) => {
+      if (formik.values?.[ele] === "") {
+        formik.setFieldError(ele, `${ele} is a required field`);
+        haserr = true;
+      }
+    });
+    if (haserr) return;
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -158,7 +159,7 @@ export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
                       size="small"
                       type={index === 1 ? "submit" : "Button"}
                       variant="contained"
-                      onClick={handleNext}
+                      onClick={() => handleNext(index)}
                     >
                       {index === 1 ? "Confirm" : "Next"}
                     </Button>

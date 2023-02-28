@@ -1,5 +1,6 @@
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Country, State, City } from "country-state-city";
 
 const URL = "https://thoughts2-cart-backend.vercel.app/api/v1/";
 // const URL = "http://localhost:4000/api/v1/";
@@ -115,7 +116,20 @@ function productUrlCopy(id) {
   toast.success("Product URL copied to clipboard");
 }
 
+function getAllstatesByCountry(code) {
+  return State.getStatesOfCountry(code);
+}
+function getAllCountries(code) {
+  return Country.getAllCountries();
+}
+function getCitiesOfState(countrycode, statecode) {
+  return City.getCitiesOfState(countrycode, statecode);
+}
+
 export {
+  getCitiesOfState,
+  getAllCountries,
+  getAllstatesByCountry,
   productUrlCopy,
   dateNDaysAhead,
   matchPasswords,
