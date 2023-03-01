@@ -1,9 +1,10 @@
-import { Box, Spinner } from "grommet";
+import { Box } from "grommet";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCategorisedProducts } from "../../controllers/productController";
 import MobileCard from "../../VersitileComponents/productCards/MobileCard";
 import Pagination from "@mui/material/Pagination";
+import Spinner from "../../assets/Spinner";
 
 const CategoryPage = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const CategoryPage = () => {
     navigate(`/product/${item._id}`);
   }
 
-  return AllProducts.length > 0 ? (
+  return AllProducts?.length > 0 ? (
     <>
       <Box
         animation={{ duration: 400, type: "fadeIn" }}
@@ -40,24 +41,11 @@ const CategoryPage = () => {
         pad={"small"}
         justify="evenly"
       >
-        <Pagination
-          shape="rounded"
-          count={10}
-        />
+        <Pagination shape="rounded" count={10} />
       </Box>
     </>
   ) : (
-    <Box
-      animation={{ duration: 400, type: "fadeIn" }}
-      style={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50% -50%)",
-      }}
-    >
-      <Spinner size="medium" />
-    </Box>
+    <Spinner center msg="Fetching products" />
   );
 };
 

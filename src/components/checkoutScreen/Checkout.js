@@ -4,9 +4,10 @@ import React from "react";
 import { countUnique } from "../../controllers/cartcomtroller";
 import WishListCard from "../../VersitileComponents/productCards/WishListCard";
 import CheckoutForm from "./CheckoutForm";
+import Spinner from "../../assets/Spinner";
 
 const Checkout = ({ userDetails, setuserDetails, toast, allcatagories }) => {
-  return (
+  return userDetails?._id ? (
     <Box pad={"small"}>
       <Grid columns={["40%", "60%"]} gap={"20px"}>
         <Box>
@@ -57,6 +58,8 @@ const Checkout = ({ userDetails, setuserDetails, toast, allcatagories }) => {
         <CheckoutForm {...{ userDetails, setuserDetails }} />
       </Grid>
     </Box>
+  ) : (
+    <Spinner center msg='Fetching details please wait' />
   );
 };
 

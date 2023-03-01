@@ -130,14 +130,19 @@ const App = () => {
               }}
             />
             <Routes>
-              <Route
-                path="/viewProfile/"
-                element={
-                  <UserPanel
-                    {...{ userDetails, setuserDetails, navigate, toast }}
+              {["/viewProfile/:id/:ordercode", "/viewProfile"].map(
+                (path, i) => (
+                  <Route
+                    key={i}
+                    path={path}
+                    element={
+                      <UserPanel
+                        {...{ userDetails, setuserDetails, navigate, toast }}
+                      />
+                    }
                   />
-                }
-              />
+                )
+              )}
               <Route
                 path="/"
                 element={

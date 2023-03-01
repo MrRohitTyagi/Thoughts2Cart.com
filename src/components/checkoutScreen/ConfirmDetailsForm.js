@@ -28,7 +28,7 @@ const ConfirmDetailsForm = ({
           return (
             <TextField
               spellCheck={false}
-              readonly
+              readOnly
               size="small"
               type={"text"}
               fullWidth
@@ -42,7 +42,7 @@ const ConfirmDetailsForm = ({
 
       <TextField
         spellCheck={false}
-        readonly
+        readOnly
         size="small"
         type={"text"}
         fullWidth

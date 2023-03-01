@@ -45,7 +45,7 @@ const CategoryList = ({ toast }) => {
       )}
     </>
   ) : (
-    <Spinner size="50px" center={true} />
+    <Spinner msg="Fetching Category list .." center={true} />
   );
 };
 

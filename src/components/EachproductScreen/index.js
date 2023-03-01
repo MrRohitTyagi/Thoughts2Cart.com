@@ -3,9 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   Box,
   Grid,
-  Spinner,
   Image,
   Card,
+  Spinner as OnlySpinner,
   CardBody,
   CardFooter,
   Text,
@@ -22,6 +22,7 @@ import { dateNDaysAhead, productUrlCopy } from "../../utils/helpFunctions";
 import { Button, Divider, Rating, Tooltip } from "@mui/material";
 import { UserDetailsContext } from "../../App";
 import { handleAddtoCart } from "../../controllers/cartcomtroller";
+import Spinner from "../../assets/Spinner";
 
 const EachProductScreen = () => {
   const navigate = useNavigate();
@@ -113,17 +114,7 @@ const EachProductScreen = () => {
       </Grid>
     </Box>
   ) : (
-    <Box
-      animation={{ duration: 400, type: "fadeIn" }}
-      style={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50% -50%)",
-      }}
-    >
-      <Spinner size="medium" />
-    </Box>
+    <Spinner msg="Fetching Product details please wait" center />
   );
 };
 
@@ -223,7 +214,7 @@ function ProductPagesideCard({ ele, userDetails, setuserDetails, navigate }) {
           {!buttonBissabled.add ? (
             "  Add to cart"
           ) : (
-            <Spinner color={"#F2F2F2"} />
+            <OnlySpinner color={"#F2F2F2"} />
           )}
         </Button>
         <Button

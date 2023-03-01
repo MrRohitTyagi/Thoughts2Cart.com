@@ -48,7 +48,7 @@ const UserList = ({ toast }) => {
       )}
     </>
   ) : (
-    <Spinner size="50px" center={true} />
+    <Spinner msg="Fetching Users list .." center={true} />
   );
 };
 

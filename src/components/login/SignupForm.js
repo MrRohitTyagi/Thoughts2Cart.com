@@ -1,6 +1,6 @@
-import { Layer, Box, Text, FormField, FileInput, Grid, Spinner } from "grommet";
+import { Layer, Box, Text, Spinner } from "grommet";
 import Divider from "@mui/material/Divider";
-import { Button, Avatar, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { getUser } from "../../controllers/userController";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -8,7 +8,6 @@ import { useState, useContext } from "react";
 import { Formik } from "formik";
 import { UserDetailsContext } from "../../App";
 import { regesterUser } from "../../controllers/userController";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { uploadImage } from "../../utils/helpFunctions";
 import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";

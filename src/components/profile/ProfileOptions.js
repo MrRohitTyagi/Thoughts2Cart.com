@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Text, Layer, Spinner } from "grommet";
+import { Box, Text, Layer, Spinner as OnlySpinner } from "grommet";
 
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
@@ -7,8 +7,8 @@ import { Button, Avatar, TextField } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Formik } from "formik";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
-import CircularProgress from "@mui/material/CircularProgress";
 import { getUser, regesterUser } from "../../controllers/userController";
+import Spinner from "../../assets/Spinner";
 
 import { deleteUser } from "../../controllers/userController";
 import { matchPasswords } from "../../utils/helpFunctions";
@@ -345,7 +345,7 @@ const ProfileOptions = ({ navigate, toast }) => {
                             gap="20px"
                             alignSelf="center"
                           >
-                            <Spinner color={"red"} />
+                            <OnlySpinner color={"red"} />
                             <Text>Verifying Password ...</Text>
                           </Box>
                         ) : validationMsg === "verified" ? (
@@ -372,14 +372,7 @@ const ProfileOptions = ({ navigate, toast }) => {
       </Box>
     </Box>
   ) : (
-    <CircularProgress
-      sx={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
-    />
+    <Spinner center msg="Fetching profile details" />
   );
 };
 

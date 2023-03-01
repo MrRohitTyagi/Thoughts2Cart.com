@@ -125,8 +125,51 @@ function getAllCountries(code) {
 function getCitiesOfState(countrycode, statecode) {
   return City.getCitiesOfState(countrycode, statecode);
 }
+function generateRandomString() {
+  const alphanumeric =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < 10; i++) {
+    result += alphanumeric.charAt(
+      Math.floor(Math.random() * alphanumeric.length)
+    );
+  }
+  return result;
+}
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(";");
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == " ") {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+function setCookie(name, value) {
+  const expires = new Date(Date.now() + 60 * 60 * 1000); // Set expiration time to 1 hour from now
+  document.cookie =
+    name +
+    "=" +
+    encodeURIComponent(value) +
+    ";expires=" +
+    expires.toUTCString() +
+    ";path=/";
+}
+function deleteCookie(name) {
+  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
 
 export {
+  deleteCookie,
+  setCookie,
+  getCookie,
+  generateRandomString,
   getCitiesOfState,
   getAllCountries,
   getAllstatesByCountry,

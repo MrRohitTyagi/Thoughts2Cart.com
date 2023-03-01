@@ -42,7 +42,7 @@ const ProductList = ({ toast, allcatagories }) => {
       )}
     </Box>
   ) : (
-    <Spinner size="50px" center={true} />
+    <Spinner msg="Fetching products list .." center={true} />
   );
 };
 

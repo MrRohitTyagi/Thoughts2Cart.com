@@ -48,7 +48,7 @@ const AdminList = ({ toast }) => {
       )}
     </>
   ) : (
-    <Spinner size="50px" center={true} />
+    <Spinner center={true} msg="Fetching Admin list .." />
   );
 };
 

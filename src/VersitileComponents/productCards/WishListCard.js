@@ -10,7 +10,15 @@ import {
 } from "../../controllers/cartcomtroller";
 import { useNavigate } from "react-router-dom";
 
-const WishListCard = ({ ele, setuserDetails, userDetails }) => {
+const WishListCard = ({
+  ele,
+  setuserDetails,
+  userDetails,
+  imgHeight,
+  type,
+  cardHeight,
+  children,
+}) => {
   const navigate = useNavigate();
   const [buttonBissabled, setbuttonBissabled] = useState({
     del: false,
@@ -24,10 +32,15 @@ const WishListCard = ({ ele, setuserDetails, userDetails }) => {
       direction="row"
       width={"100%"}
       style={{ borderBottom: "1px solid black" }}
-      height={{ min: "150px" }}
+      height={{ min: cardHeight || "150px" }}
       gap="10px"
     >
-      <Image src={ele.images[0]} fit="contain" />
+      <Image
+        src={ele.images[0]}
+        fit="contain"
+        style={{ maxHeight: imgHeight || "150px" }}
+      />
+
       <Box
         animation={{ duration: 400, type: "fadeIn" }}
         direction="column"
@@ -48,76 +61,93 @@ const WishListCard = ({ ele, setuserDetails, userDetails }) => {
           direction="row"
           align="center"
         >
-          <Rating
-            sx={{ alignSelf: "start" }}
-            name="read-only"
-            value={Number(ele.rating)}
-            readOnly
-            precision={0.1}
-          />
-          <Text size="small" style={{ margin: "0px 7px" }}>
-            {ele.rating} Ratings I
-          </Text>
-          <Text size="small">{ele.numberOfReviews} Reviews</Text>
+          {ele.rating && (
+            <Rating
+              sx={{ alignSelf: "start" }}
+              name="read-only"
+              value={Number(ele.rating)}
+              readOnly
+              precision={0.1}
+            />
+          )}
+          {ele.rating && (
+            <Text size="small" style={{ margin: "0px 7px" }}>
+              {ele.rating} Ratings I
+            </Text>
+          )}
+          {ele.numberOfReviews && (
+            <Text size="small">{ele.numberOfReviews} Reviews</Text>
+          )}
         </Box>
         <Divider orientation="horizontal" />
+
         <Text style={{ padding: "5px 0px" }} size="22px">
           ₹{ele.price}
           <Text style={{ paddingLeft: "7px" }}>
-            <Text style={{ margin: "0px 6px" }} size="13px">
-              M.R.P
-            </Text>
-            <del>{Number(ele.price) + (100 * Number(ele.discount)) / 100}</del>
-            <Text style={{ margin: "0px 6px" }} color="red" size="14px">
-              {ele.discount}% off
-            </Text>
+            {ele.discount && (
+              <>
+                <Text style={{ margin: "0px 6px" }} size="13px">
+                  M.R.P
+                </Text>
+                <del>
+                  {Number(ele.price) + (100 * Number(ele.discount)) / 100}
+                </del>
+                <Text style={{ margin: "0px 6px" }} color="red" size="14px">
+                  {ele.discount}% off
+                </Text>
+              </>
+            )}
           </Text>
         </Text>
-        <Box
-          animation={{ duration: 400, type: "fadeIn" }}
-          direction="row"
-          gap="10px"
-        >
-          <Button
-            onClick={async () => {
-              setbuttonBissabled({ del: true, add: false });
-              await handleRemoveFromCart(ele, userDetails, setuserDetails);
-              setbuttonBissabled({ del: false, add: false });
-            }}
-            title="Delete from Cart"
-            variant="contained"
-            color="error"
-            size="small"
-            sx={{ p: 0, m: 0, minWidth: "30px" }}
-          >
-            {!buttonBissabled.del ? (
-              <DeleteIcon />
-            ) : (
-              <Spinner color={"#F2F2F2"} />
-            )}
-          </Button>
 
-          <Button
-            title="Add to cart"
-            onClick={async () => {
-              setbuttonBissabled({ del: false, add: true });
-              await handleAddtoCart(ele, userDetails, setuserDetails);
-              setbuttonBissabled({ del: false, add: false });
-            }}
-            variant="contained"
-            color="success"
-            size="small"
-            sx={{ p: 0, m: 0, minWidth: "30px" }}
+        {type !== "orders" && (
+          <Box
+            animation={{ duration: 400, type: "fadeIn" }}
+            direction="row"
+            gap="10px"
           >
-            {!buttonBissabled.add ? (
-              <AddBoxIcon />
-            ) : (
-              <Spinner color={"#F2F2F2"} />
-            )}
-          </Button>
+            <Button
+              onClick={async () => {
+                setbuttonBissabled({ del: true, add: false });
+                await handleRemoveFromCart(ele, userDetails, setuserDetails);
+                setbuttonBissabled({ del: false, add: false });
+              }}
+              title="Delete from Cart"
+              variant="contained"
+              color="error"
+              size="small"
+              sx={{ p: 0, m: 0, minWidth: "30px" }}
+            >
+              {!buttonBissabled.del ? (
+                <DeleteIcon />
+              ) : (
+                <Spinner color={"#F2F2F2"} />
+              )}
+            </Button>
 
-          <Text size="small">Quantity {ele.count}</Text>
-        </Box>
+            <Button
+              title="Add to cart"
+              onClick={async () => {
+                setbuttonBissabled({ del: false, add: true });
+                await handleAddtoCart(ele, userDetails, setuserDetails);
+                setbuttonBissabled({ del: false, add: false });
+              }}
+              variant="contained"
+              color="success"
+              size="small"
+              sx={{ p: 0, m: 0, minWidth: "30px" }}
+            >
+              {!buttonBissabled.add ? (
+                <AddBoxIcon />
+              ) : (
+                <Spinner color={"#F2F2F2"} />
+              )}
+            </Button>
+
+            <Text size="small">Quantity {ele.count}</Text>
+          </Box>
+        )}
+      {children}
       </Box>
     </Box>
   );

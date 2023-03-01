@@ -16,6 +16,7 @@ import { countUnique } from "../../controllers/cartcomtroller";
 import { Checkbox } from "@mui/material";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { generateRandomString, setCookie } from "../../utils/helpFunctions";
 
 export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
   const [agreeTnC, setagreeTnC] = useState(false);
@@ -55,13 +56,19 @@ export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
     if (agreeTnC === false) {
       toast.error("Agree T&C first");
     }
-    let { data } = await processpayment(countUnique(Itemdata));
-    console.log(data.url);
-    window.location = data.url;
+    let paymentSecretCode = generateRandomString();
+    setCookie("payment_session_id", paymentSecretCode);
+
+    // let { data } = await processpayment({
+    //   items: countUnique(Itemdata),
+    //   paymentgateWayCode: paymentSecretCode,
+    // });
+    // window.location = data.url;
+    window.location = `/viewProfile/1/${paymentSecretCode}`;
   };
   const steps = [
     {
-      label: "Confirm or edit address",
+      label: "Add Shipping Address",
       description: ``,
       component: (
         <CheckoutAddressForm
@@ -137,7 +144,7 @@ export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
       <form onSubmit={formik.handleSubmit}>
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map(({ label, component }, index) => (
-            <Step key={label}>
+            <Step key={index}>
               <StepLabel>{label}</StepLabel>
 
               <StepContent>

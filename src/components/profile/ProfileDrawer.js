@@ -50,7 +50,7 @@ const TemporaryDrawer = ({
               <ListItemButton
                 onClick={() => {
                   if (userDetails._id) {
-                    navigate("/viewProfile/0");
+                    navigate("/viewProfile/");
 
                     setprofileDrawerlayer(false);
                   } else {
