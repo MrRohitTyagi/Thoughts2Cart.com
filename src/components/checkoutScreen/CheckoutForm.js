@@ -59,12 +59,12 @@ export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
     let paymentSecretCode = generateRandomString();
     setCookie("payment_session_id", paymentSecretCode);
 
-    // let { data } = await processpayment({
-    //   items: countUnique(Itemdata),
-    //   paymentgateWayCode: paymentSecretCode,
-    // });
-    // window.location = data.url;
-    window.location = `/viewProfile/1/${paymentSecretCode}`;
+    let { data } = await processpayment({
+      items: countUnique(Itemdata),
+      paymentgateWayCode: paymentSecretCode,
+    });
+    window.location = data.url;
+    // window.location = `/viewProfile/1/${paymentSecretCode}`;
   };
   const steps = [
     {

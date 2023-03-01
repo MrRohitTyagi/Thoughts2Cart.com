@@ -1,6 +1,6 @@
 {
   "name": "dummyapp",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
