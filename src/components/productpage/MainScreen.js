@@ -54,7 +54,7 @@ const MainScreen = ({ userDetails, navigate, toast, allcatagories }) => {
         id="productListing"
         style={{ zIndex: 3 }}
       >
-        kk
+        
       </Box>
     </Box>
   );

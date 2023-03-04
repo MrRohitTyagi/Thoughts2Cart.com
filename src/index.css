@@ -6,9 +6,20 @@ html {
   background: "#F2F2F2" !important;
   scroll-behavior: smooth;
 }
-html ::-webkit-scrollbar {
-  display: none;
+::-webkit-scrollbar {
+  width: 5px;
 }
+
+::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #121921;
+  border: 1px solid #121921;
+  /* border-radius: 8px; */
+}
+
 *,
 *::after,
 *::before {

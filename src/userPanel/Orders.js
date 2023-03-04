@@ -6,6 +6,7 @@ import { countUnique } from "../controllers/cartcomtroller";
 import { regesterUser } from "../controllers/userController";
 import { Box } from "grommet";
 import OrderCard from "../VersitileComponents/productCards/OrderCard";
+import Spinner from "../assets/Spinner";
 
 const Orders = ({ userDetails, setuserDetails, navigate, toast }) => {
   const [allOrders, setallOrders] = useState([]);
@@ -25,13 +26,7 @@ const Orders = ({ userDetails, setuserDetails, navigate, toast }) => {
       paymentID: ordercode,
       paymentStatus: ordercode + secret === paymentCookie + secret,
     });
-    console.log(
-      "%c response ",
-      "color: green;border:1px solid green",
-      response._id
-    );
     await deleteCookie("payment_session_id");
-
     let { data } = await regesterUser({
       ...userDetails,
       id: userDetails._id,
@@ -39,7 +34,6 @@ const Orders = ({ userDetails, setuserDetails, navigate, toast }) => {
       orders: userDetails.orders.concat(response._id),
     });
     setuserDetails(data);
-    console.log("%c updateduserdata ", "color: red;border:1px solid red", data);
   }
 
   useEffect(() => {
@@ -57,12 +51,20 @@ const Orders = ({ userDetails, setuserDetails, navigate, toast }) => {
     }
   }, [userDetails, paymentCookie, ordercode]);
 
-  return (
-    <Box animation={{ duration: 400, type: "fadeIn" }} pad={"small"} gap="20px">
-      {allOrders.map((o) => {
-        return <OrderCard ele={o} navigate={navigate}/>;
+  return allOrders.length > 0 ? (
+    <Box
+      height={"100%"}
+      animation={{ duration: 400, type: "fadeIn" }}
+      pad={"small"}
+      margin={{ left: "small" }}
+      gap="20px"
+    >
+      {allOrders.reverse().map((o, i) => {
+        return <OrderCard ele={o} i={i} navigate={navigate} />;
       })}
     </Box>
+  ) : (
+    <Spinner center={true} msg="Loading your orders please wait ..." />
   );
 };
 

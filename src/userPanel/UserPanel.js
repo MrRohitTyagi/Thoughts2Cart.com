@@ -68,7 +68,6 @@ export default function UserPanel({
         bgcolor: "#F2F2F2",
         color: "#5C4033",
         display: "flex",
-        height: 224,
         width: "100%",
       }}
     >

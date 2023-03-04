@@ -2,8 +2,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Country, State, City } from "country-state-city";
 
-const URL = "https://thoughts2-cart-backend.vercel.app/api/v1/";
-// const URL = "http://localhost:4000/api/v1/";
+// const URL = "https://thoughts2-cart-backend.vercel.app/api/v1/";
+const URL = "http://localhost:4000/api/v1/";
 
 async function caller(type, extendexURL, body) {
   switch (type) {
@@ -164,8 +164,58 @@ function setCookie(name, value) {
 function deleteCookie(name) {
   document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
+function convertDatetime(datetimeString) {
+  // Parse the datetime string into a Date object
+  const dt = new Date(datetimeString);
+  // Format the Date object into a readable date string
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const readableDate = dt.toLocaleDateString("en-US", options);
+  return readableDate;
+}
+function addAllPrices(data) {
+  let sum = 0;
+  if (Array.isArray(data)) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].hasOwnProperty("price")) {
+        sum += data[i].price;
+      }
+    }
+  } else if (typeof data === "object") {
+    for (const key in data) {
+      if (data[key].hasOwnProperty("price")) {
+        sum += data[key].price;
+      }
+    }
+  }
+  return sum;
+}
+function toTitleCase(str) {
+  const words = str.toLowerCase().split(" ");
+  for (let i = 0; i < words.length; i++) {
+    words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+  }
+  const titleCaseStr = words.join(" ");
+  return titleCaseStr;
+}
+
+function getDateNDaysAheadOfAGivenDate(dateString, N) {
+  const date = new Date(dateString);
+  date.setDate(date.getDate() + N);
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const formattedDate = date.toLocaleDateString("en-US", options);
+  return formattedDate;
+}
 
 export {
+  getDateNDaysAheadOfAGivenDate,
+  toTitleCase,
+  addAllPrices,
+  convertDatetime,
   deleteCookie,
   setCookie,
   getCookie,

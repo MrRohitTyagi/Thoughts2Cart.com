@@ -100,54 +100,62 @@ const WishListCard = ({
           </Text>
         </Text>
 
-        {type !== "orders" && (
-          <Box
-            animation={{ duration: 400, type: "fadeIn" }}
-            direction="row"
-            gap="10px"
-          >
-            <Button
-              onClick={async () => {
-                setbuttonBissabled({ del: true, add: false });
-                await handleRemoveFromCart(ele, userDetails, setuserDetails);
-                setbuttonBissabled({ del: false, add: false });
-              }}
-              title="Delete from Cart"
-              variant="contained"
-              color="error"
-              size="small"
-              sx={{ p: 0, m: 0, minWidth: "30px" }}
-            >
-              {!buttonBissabled.del ? (
-                <DeleteIcon />
-              ) : (
-                <Spinner color={"#F2F2F2"} />
-              )}
-            </Button>
+        <Box
+          animation={{ duration: 400, type: "fadeIn" }}
+          direction="row"
+          gap="10px"
+        >
+          {type !== "orders" && (
+            <>
+              {" "}
+              <Button
+                onClick={async () => {
+                  setbuttonBissabled({ del: true, add: false });
+                  await handleRemoveFromCart(ele, userDetails, setuserDetails);
+                  setbuttonBissabled({ del: false, add: false });
+                }}
+                title="Delete from Cart"
+                variant="contained"
+                color="error"
+                size="small"
+                sx={{ p: 0, m: 0, minWidth: "30px" }}
+              >
+                {!buttonBissabled.del ? (
+                  <DeleteIcon />
+                ) : (
+                  <Spinner color={"#F2F2F2"} />
+                )}
+              </Button>
+              <Button
+                title="Add to cart"
+                onClick={async () => {
+                  setbuttonBissabled({ del: false, add: true });
+                  await handleAddtoCart(ele, userDetails, setuserDetails);
+                  setbuttonBissabled({ del: false, add: false });
+                }}
+                variant="contained"
+                color="success"
+                size="small"
+                sx={{ p: 0, m: 0, minWidth: "30px" }}
+              >
+                {!buttonBissabled.add ? (
+                  <AddBoxIcon />
+                ) : (
+                  <Spinner color={"#F2F2F2"} />
+                )}
+              </Button>{" "}
+            </>
+          )}
 
-            <Button
-              title="Add to cart"
-              onClick={async () => {
-                setbuttonBissabled({ del: false, add: true });
-                await handleAddtoCart(ele, userDetails, setuserDetails);
-                setbuttonBissabled({ del: false, add: false });
-              }}
-              variant="contained"
-              color="success"
-              size="small"
-              sx={{ p: 0, m: 0, minWidth: "30px" }}
-            >
-              {!buttonBissabled.add ? (
-                <AddBoxIcon />
-              ) : (
-                <Spinner color={"#F2F2F2"} />
-              )}
-            </Button>
+          <Text size="small">
+            Quantity{" : "}
+            <Text size="small" weight={"bold"}>
+              {ele.count}
+            </Text>
+          </Text>
+        </Box>
 
-            <Text size="small">Quantity {ele.count}</Text>
-          </Box>
-        )}
-      {children}
+        {children}
       </Box>
     </Box>
   );
