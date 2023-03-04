@@ -75,15 +75,17 @@ const Datatable = ({
             ),
           }}
         />
-        <Button
-          sx={{ width: "fit-content" }}
-          size="small"
-          variant="contained"
-          color="success"
-          onClick={createNewClick}
-        >
-          {createNewText}
-        </Button>
+        {createNewText && (
+          <Button
+            sx={{ width: "fit-content" }}
+            size="small"
+            variant="contained"
+            color="success"
+            onClick={createNewClick}
+          >
+            {createNewText}
+          </Button>
+        )}
       </Box>
       <Box
         animation={{ duration: 400, type: "fadeIn" }}

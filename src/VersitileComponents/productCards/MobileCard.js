@@ -48,7 +48,7 @@ const MobileCard = ({ ele, onClick }) => {
     <EnhancedCard
       style={{ borderRadius: "5px" }}
       border="none"
-      height="540px"
+      height="500px"
       width="320px"
       background="light-1"
       margin={"small"}
@@ -56,7 +56,7 @@ const MobileCard = ({ ele, onClick }) => {
       {/* <CardHeader pad="medium">Header</CardHeader> */}
       <CardBody pad="medium" onClick={() => onClick(ele)}>
         <Image src={ele.images[0]} fit style={{ paddingBottom: "10px" }} />
-        <Text size="small">{ele.description}</Text>
+        <Text size="small">{ele.description.slice(0, 200)}...</Text>
         <Text size="small" textAlign="center" alignSelf="start">
           {ele.rating}
           <Rating

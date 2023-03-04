@@ -1,6 +1,12 @@
-import { Box, Text } from "grommet";
+import { Box, Button, Text, Select as Gselect } from "grommet";
 import { Avatar, MenuItem, Select, Tooltip } from "@mui/material";
 import { CoatCheck, Edit, Trash } from "grommet-icons";
+import {
+  convertDatetime,
+  addAllPrices,
+  toTitleCase,
+  getDateNDaysAheadOfAGivenDate,
+} from "../utils/helpFunctions";
 
 export const usercolumns = [
   {
@@ -357,5 +363,134 @@ export const categorycolumns = [
         <Avatar src={row.image} alt={"NA"} />
       </Text>
     ),
+  },
+];
+
+export const orderscolumns = [
+  {
+    field: "Actions",
+    width: 100,
+    headerName: (
+      <Text style={{ borderBottom: "2px solid #121921" }} alignSelf="center">
+        Actions
+      </Text>
+    ),
+    renderCell: (data) => (
+      <Box
+        animation={{ duration: 400, type: "fadeIn" }}
+        alignSelf="center"
+        align="center"
+        direction="row"
+        gap="10px"
+      >
+        <Tooltip title="Edit">
+          <Edit color="black" size="18px" />
+        </Tooltip>
+        <Tooltip title="Delete">
+          <Trash color="black" size="18px" />
+        </Tooltip>
+      </Box>
+    ),
+  },
+  {
+    field: "orderStatus",
+    width: 120,
+    headerName: (
+      <Text style={{ borderBottom: "2px solid #121921" }} alignSelf="center">
+        OrderStatus
+      </Text>
+    ),
+  },
+  {
+    field: "user",
+    width: 150,
+    headerName: (
+      <Text style={{ borderBottom: "2px solid #121921" }} alignSelf="center">
+        User ID
+      </Text>
+    ),
+  },
+  {
+    field: "deliveredAt",
+    width: 150,
+    headerName: (
+      <Text style={{ borderBottom: "2px solid #121921" }} alignSelf="center">
+        Delivery date
+      </Text>
+    ),
+    renderCell: ({ row }) => {
+      return getDateNDaysAheadOfAGivenDate(row.createdAt, row.deliveredAt);
+    },
+  },
+  {
+    field: "createdAt",
+    width: 150,
+    headerName: (
+      <Text style={{ borderBottom: "2px solid #121921" }} alignSelf="center">
+        Order date
+      </Text>
+    ),
+    renderCell: ({ row }) => {
+      return convertDatetime(row.createdAt);
+    },
+  },
+  {
+    field: "paymentInfo",
+    width: 120,
+    headerName: (
+      <Text style={{ borderBottom: "2px solid #121921" }} alignSelf="center">
+        Payment Status
+      </Text>
+    ),
+    renderCell: ({ row }) => {
+      return row?.paymentInfo?.status || "NA";
+    },
+  },
+  {
+    field: "shippingInfo",
+    width: 150,
+    headerName: (
+      <Text style={{ borderBottom: "2px solid #121921" }} alignSelf="center">
+        Shipping Address
+      </Text>
+    ),
+    renderCell: ({ row }) => {
+      return toTitleCase(
+        row.shippingInfo.address +
+          " " +
+          row.shippingInfo.state +
+          " " +
+          row.shippingInfo.city +
+          " " +
+          row.shippingInfo.country
+      );
+    },
+  },
+  {
+    field: "orderItems",
+    width: 150,
+    headerName: (
+      <Text style={{ borderBottom: "2px solid #121921" }} alignSelf="center">
+        Order Items
+      </Text>
+    ),
+    renderCell: ({ row }) => {
+      return (
+        <Select
+          size="small"
+          sx={{ width: "200px" }}
+          defaultValue={"click to view orders"}
+          labelId="demo-multiple-name-label"
+          id="demo-multiple-name"
+          value={"click to view orders"}
+        >
+          {row.orderItems.map((name) => (
+            <MenuItem key={name} value={name}>
+              {name.name}
+            </MenuItem>
+          ))}
+        </Select>
+      );
+    },
   },
 ];

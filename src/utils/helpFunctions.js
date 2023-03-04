@@ -2,8 +2,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Country, State, City } from "country-state-city";
 
-// const URL = "https://thoughts2-cart-backend.vercel.app/api/v1/";
-const URL = "http://localhost:4000/api/v1/";
+const URL = "https://thoughts2-cart-backend.vercel.app/api/v1/";
+// const URL = "http://localhost:4000/api/v1/";
 
 async function caller(type, extendexURL, body) {
   switch (type) {
@@ -152,7 +152,7 @@ function getCookie(cname) {
   return "";
 }
 function setCookie(name, value) {
-  const expires = new Date(Date.now() + 60 * 60 * 1000); // Set expiration time to 1 hour from now
+  const expires = new Date(Date.now() + 60 * 60 * 1000);
   document.cookie =
     name +
     "=" +
@@ -165,9 +165,7 @@ function deleteCookie(name) {
   document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 function convertDatetime(datetimeString) {
-  // Parse the datetime string into a Date object
   const dt = new Date(datetimeString);
-  // Format the Date object into a readable date string
   const options = {
     weekday: "long",
     year: "numeric",
@@ -210,8 +208,16 @@ function getDateNDaysAheadOfAGivenDate(dateString, N) {
   const formattedDate = date.toLocaleDateString("en-US", options);
   return formattedDate;
 }
+function pushEvery4(arr) {
+  const result = [];
+  for (let i = 0; i < arr.length; i += 4) {
+    result.push(arr.slice(i, i + 4));
+  }
+  return result;
+}
 
 export {
+  pushEvery4,
   getDateNDaysAheadOfAGivenDate,
   toTitleCase,
   addAllPrices,

@@ -12,6 +12,7 @@ import AdminList from "./components/AdminList";
 import AdminSettings from "./AdminSettings";
 import UserSettings from "../../userPanel/UserSettings";
 import { IconButton } from "@mui/material";
+import OrdersList from "./components/ordersManager/OrdersList";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -152,7 +153,7 @@ export default function VerticalTabs({ toast, allcatagories }) {
               alignSelf="start"
               color={"#5C4033"}
             >
-              • Upload TRY
+              • Manage orders
             </Text>
           }
           {...a11yProps(6)}
@@ -174,15 +175,10 @@ export default function VerticalTabs({ toast, allcatagories }) {
       <TabPanel value={value} index={4}>
         <AdminSettings {...{ toast }} />
       </TabPanel>
-      {/* 
-      <TabPanel value={value} index={5}>
-      
-        
-      </TabPanel> */}
 
-      {/* <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel> */}
+      <TabPanel value={value} index={5}>
+        <OrdersList {...{ toast }} />
+      </TabPanel>
     </Box>
   );
 }

@@ -12,3 +12,9 @@ export const getAllUserorders = async (orders) => {
   let { data } = await caller("get", url, { params: { data: orders } });
   return data;
 };
+
+export const getAllorders = async (orders) => {
+  let url = base + "get-all-orders";
+  let { data } = await caller("get", url, {});
+  return data;
+};

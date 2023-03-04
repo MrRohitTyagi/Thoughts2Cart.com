@@ -5,6 +5,7 @@ import { Emitter } from "../../utils/eventemmiter";
 import { AdminSettingsContext } from "../../App";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import TopDiscountedProducts from "./TopDiscountedProducts";
 
 const MainScreen = ({ userDetails, navigate, toast, allcatagories }) => {
   const { adminSettings } = useContext(AdminSettingsContext);
@@ -35,8 +36,8 @@ const MainScreen = ({ userDetails, navigate, toast, allcatagories }) => {
             showArrows={false}
             interval={5000}
           >
-            {adminSettings?.images?.map((ele) => (
-              <div className="image">
+            {adminSettings?.images?.map((ele, i) => (
+              <div className="image" key={i}>
                 <Image fit="cover" src={ele} loading="lazy" />
                 <div class="fade"></div>
               </div>
@@ -53,8 +54,9 @@ const MainScreen = ({ userDetails, navigate, toast, allcatagories }) => {
         animation={{ duration: 400, type: "fadeIn" }}
         id="productListing"
         style={{ zIndex: 3 }}
+        margin={{ bottom: "30rem", horizontal: "small" }}
       >
-        
+        <TopDiscountedProducts navigate={navigate} />
       </Box>
     </Box>
   );

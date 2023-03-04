@@ -10,13 +10,16 @@ const CategoryPage = () => {
   const navigate = useNavigate();
   let { name: currentCategory } = useParams();
   const [AllProducts, setAllProducts] = useState([]);
+  const [page, setpage] = useState(1);
+  const [count, setcount] = useState();
 
   useEffect(() => {
     (async function fetchAllProducts() {
-      let { data } = await getCategorisedProducts(currentCategory);
+      let { data } = await getCategorisedProducts(currentCategory, page);
       setAllProducts(data.response);
+      setcount(data.count);
     })();
-  }, []);
+  }, [page]);
 
   function handleProductOnclick(item) {
     navigate(`/product/${item._id}`);
@@ -41,7 +44,18 @@ const CategoryPage = () => {
         pad={"small"}
         justify="evenly"
       >
-        <Pagination shape="rounded" count={10} />
+        <Pagination
+          count={Math.floor(count / 20)}
+          variant="outlined"
+          shape="rounded"
+          onChange={(e) => {
+            if (parseInt(e.target.textContent) === page) return;
+            if (e.target.textContent) {
+              setAllProducts([]);
+              setpage(parseInt(e.target.textContent));
+            }
+          }}
+        />
       </Box>
     </>
   ) : (
