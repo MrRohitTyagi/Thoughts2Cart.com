@@ -11,7 +11,6 @@ const TopDiscountedProducts = ({ navigate, userDetails }) => {
   useEffect(() => {
     (async function getHomeScreenProducts() {
       const { response } = await getDataforHomeScreen(45);
-      console.log(response);
       setallProducts(response);
     })();
   }, [userDetails]);

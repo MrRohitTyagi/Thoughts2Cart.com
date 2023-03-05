@@ -134,14 +134,14 @@ const SignupForm = ({ setSigninLayer, toast }) => {
         signUp: false,
       });
     } catch ({ response }) {
-      console.log(response);
-      toast.error(response.data);
+      toast.error(response?.data?.message || "Something went wrong");
       setbuttonDisabler({
         signIn: false,
         signUp: false,
       });
     }
   };
+
   function encodeImageFileAsURL(element, setFieldValue) {
     var file = element.files[0];
     setFieldValue("tempimg", file);
