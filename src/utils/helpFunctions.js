@@ -180,7 +180,7 @@ function addAllPrices(data) {
   if (Array.isArray(data)) {
     for (let i = 0; i < data.length; i++) {
       if (data[i].hasOwnProperty("price")) {
-        sum += data[i].price;
+        sum += data[i].price *data[i].quantity;
       }
     }
   } else if (typeof data === "object") {

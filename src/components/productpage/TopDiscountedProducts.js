@@ -3,28 +3,30 @@ import { getDataforHomeScreen } from "../../controllers/homePageControllers";
 import { Box, Grid, Image, Text } from "grommet";
 import { toTitleCase } from "../../utils/helpFunctions";
 import ScrollContainer from "react-indiana-drag-scroll";
+import Tilt from "react-tilt";
 
-const TopDiscountedProducts = ({ navigate }) => {
+const TopDiscountedProducts = ({ navigate, userDetails }) => {
   const [allProducts, setallProducts] = useState([]);
 
-  async function getHomeScreenProducts() {
-    const { data } = await getDataforHomeScreen(45);
-    setallProducts(data.response);
-  }
-
   useEffect(() => {
-    getHomeScreenProducts();
-  }, []);
+    (async function getHomeScreenProducts() {
+      const { response } = await getDataforHomeScreen(45);
+      console.log(response);
+      setallProducts(response);
+    })();
+  }, [userDetails]);
 
   return (
-    allProducts.length > 0 && (
+    allProducts?.length > 0 && (
       <div>
         <Box
+          style={{ background: "#121921" }}
+          animation={{ duration: 400, type: "fadeIn" }}
           height={"40px"}
-          background="#121921"
           margin={{ vertical: "small" }}
         >
           <Text
+            color={"white"}
             textAlign="center"
             alignSelf="center"
             size="large"
@@ -46,26 +48,31 @@ const TopDiscountedProducts = ({ navigate }) => {
           }}
         >
           {allProducts?.map((ele, i) => (
-            <Grid
-              key={i}
+            <Tilt
+              className="Tilt"
+              options={{ max: 25, scale: 1, speed: 100, transition: true }}
               style={{ background: "#121921" }}
-              width={{ min: "20vw", max: "20vw" }}
-              height={{ min: "40vh", max: "40vh" }}
-              border
-              rows={["auto", "auto"]}
-              columns={["auto", "auto"]}
-              gap={"small"}
-              pad={"small"}
-              justify="center"
             >
-              {ele.splice(0, 4)?.map((p, i) => (
-                <BasicCard
-                  key={i}
-                  ele={{ ...p, image: p.images[0] }}
-                  navigate={navigate}
-                />
-              ))}
-            </Grid>
+              <Grid
+                key={i}
+                width={{ min: "20vw", max: "20vw" }}
+                height={{ min: "40vh", max: "40vh" }}
+                border
+                rows={["auto", "auto"]}
+                columns={["auto", "auto"]}
+                gap={"small"}
+                pad={"small"}
+                justify="center"
+              >
+                {ele.splice(0, 4)?.map((p, i) => (
+                  <BasicCard
+                    key={i}
+                    ele={{ ...p, image: p.images[0] }}
+                    navigate={navigate}
+                  />
+                ))}
+              </Grid>
+            </Tilt>
           ))}
         </ScrollContainer>
       </div>
@@ -76,6 +83,7 @@ const TopDiscountedProducts = ({ navigate }) => {
 const BasicCard = ({ ele, navigate }) => {
   return (
     <Box
+      animation={{ duration: 400, type: "fadeIn" }}
       onClick={() => {
         navigate(`/product/${ele._id}`);
       }}
@@ -118,7 +126,6 @@ const BasicCard = ({ ele, navigate }) => {
         textAlign="center"
         align="center"
       >
-        {/* <Text size={size === "small" || size === "xsmall" ? "10px" : "small"}> */}
         <Text size={"0.8vw"} color="white">
           {toTitleCase(ele.title)}
         </Text>

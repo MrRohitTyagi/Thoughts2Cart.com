@@ -7,6 +7,7 @@ import { regesterUser } from "../controllers/userController";
 import { Box } from "grommet";
 import OrderCard from "../VersitileComponents/productCards/OrderCard";
 import Spinner from "../assets/Spinner";
+import { sendEmailtoServer } from "../controllers/emailController";
 
 const Orders = ({ userDetails, setuserDetails, navigate, toast }) => {
   const [allOrders, setallOrders] = useState([]);
@@ -17,6 +18,7 @@ const Orders = ({ userDetails, setuserDetails, navigate, toast }) => {
   async function viewOrders() {
     const { response = [] } = await getAllUserorders(userDetails.orders);
     setallOrders(response);
+    // await sendEmailtoServer({ response: response[0] });
     return;
   }
   async function processOrder(params) {
@@ -26,6 +28,7 @@ const Orders = ({ userDetails, setuserDetails, navigate, toast }) => {
       paymentID: ordercode,
       paymentStatus: ordercode + secret === paymentCookie + secret,
     });
+
     await deleteCookie("payment_session_id");
     let { data } = await regesterUser({
       ...userDetails,
@@ -34,6 +37,8 @@ const Orders = ({ userDetails, setuserDetails, navigate, toast }) => {
       orders: userDetails.orders.concat(response._id),
     });
     setuserDetails(data);
+    await sendEmailtoServer({ response });
+    toast.success("Order placed successfully!, invoice is sent to your email");
   }
 
   useEffect(() => {

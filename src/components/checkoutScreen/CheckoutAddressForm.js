@@ -17,7 +17,7 @@ const CheckoutAddressForm = ({
   let isoCode = React.useMemo(() => {
     return getAllCountries().find((ele) => ele.name === values.country);
   }, [values.country]);
-  
+
   const correspondingStates = useMemo(() =>
     getAllstatesByCountry(isoCode?.isoCode).map((ele) => {
       return { label: ele.name, code: ele.isoCode };
@@ -47,13 +47,14 @@ const CheckoutAddressForm = ({
         gap="10px"
       >
         <CountrySelect
+        
           value={values.country}
           error={errors.country}
           onChange={(e) => {
             setFieldValue("country", e);
           }}
         />
-        <Autocomplete
+        <Autocomplete 
           isOptionEqualToValue={(option, value) => option.label == value}
           value={values.state}
           onChange={(e) => {
@@ -77,7 +78,7 @@ const CheckoutAddressForm = ({
             <TextField
               error={errors.state}
               {...params}
-              label="Choose a State"
+              label="Select State"
               inputProps={{
                 ...params.inputProps,
               }}
@@ -116,7 +117,7 @@ const CheckoutAddressForm = ({
             <TextField
               error={errors.district}
               {...params}
-              label="Choose a State"
+              label="Select city"
               inputProps={{
                 ...params.inputProps,
               }}

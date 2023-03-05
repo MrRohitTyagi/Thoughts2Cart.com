@@ -12,7 +12,6 @@ import { AdminSettingsContext } from "../../App";
 import { useContext } from "react";
 
 const OrderCard = ({ ele, navigate, i }) => {
-  console.log(ele);
   const { adminSettings } = useContext(AdminSettingsContext);
   let { successPng = "" } = adminSettings;
   return (
@@ -28,7 +27,7 @@ const OrderCard = ({ ele, navigate, i }) => {
         <Grid
           columns={["40%", "60%"]}
           // pad="small"
-          width={{ min: "80vw" }}
+          width="70vw"
           background="#F2EBEB"
         >
           <Box

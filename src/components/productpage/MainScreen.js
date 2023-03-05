@@ -56,7 +56,7 @@ const MainScreen = ({ userDetails, navigate, toast, allcatagories }) => {
         style={{ zIndex: 3 }}
         margin={{ bottom: "30rem", horizontal: "small" }}
       >
-        <TopDiscountedProducts navigate={navigate} />
+        <TopDiscountedProducts navigate={navigate} userDetails={userDetails}/>
       </Box>
     </Box>
   );

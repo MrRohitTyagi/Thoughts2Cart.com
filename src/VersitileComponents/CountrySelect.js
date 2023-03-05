@@ -41,7 +41,7 @@ export default function CountrySelect({ onChange, error, value }) {
         <TextField
           error={error}
           {...params}
-          label="Choose a country"
+          label="Select country"
           inputProps={{
             ...params.inputProps,
           }}
