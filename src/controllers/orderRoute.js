@@ -18,3 +18,15 @@ export const getAllorders = async (orders) => {
   let { data } = await caller("get", url, {});
   return data;
 };
+export const updateOrder = async (order) => {
+  let url = base + "update-order";
+  let { data } = await caller("post", url, { order: order });
+  return data;
+};
+export const deleteOrder = async (id) => {
+  let url = base + "delete-order";
+  let { data } = await caller("delete", url, {
+    data: { id: id },
+  });
+  return data;
+};

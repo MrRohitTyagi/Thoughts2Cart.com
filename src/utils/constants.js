@@ -480,8 +480,6 @@ export const orderscolumns = [
           size="small"
           sx={{ width: "200px" }}
           defaultValue={"click to view orders"}
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
           value={"click to view orders"}
         >
           {row.orderItems.map((name) => (

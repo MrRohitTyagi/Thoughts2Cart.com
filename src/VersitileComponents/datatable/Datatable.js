@@ -1,5 +1,5 @@
 import { Button, InputAdornment, TextField } from "@mui/material";
-import { Box } from "grommet";
+import { Box, Text } from "grommet";
 import { Close, Search } from "grommet-icons";
 import React, { useState } from "react";
 
@@ -14,6 +14,7 @@ const Datatable = ({
   createNewText,
   fetch,
   searchKey = "name",
+  header,
 }) => {
   const [pageSize, setPageSize] = useState(10);
   const [search, setsearch] = useState("");
@@ -41,40 +42,9 @@ const Datatable = ({
         pad={{ bottom: "small" }}
         style={{ overflow: "hidden" }}
       >
-        <TextField
-          value={search}
-          onChange={(e) => {
-            handleSearch(e.target.value);
-            setsearch(e.target.value);
-          }}
-          size="small"
-          label="Search"
-          sx={{ minWidth: "450px" }}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="start">
-                <Close
-                  style={{
-                    color: "#5C4033",
-                    marginLeft: "5px",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    setsearch("");
-                    fetch();
-                  }}
-                />
-                <Search
-                  style={{
-                    color: "#5C4033",
-                    marginLeft: "10px",
-                    cursor: "pointer",
-                  }}
-                />
-              </InputAdornment>
-            ),
-          }}
-        />
+        <Text weight={"bold"} size="large">
+          {header}
+        </Text>
         {createNewText && (
           <Button
             sx={{ width: "fit-content" }}

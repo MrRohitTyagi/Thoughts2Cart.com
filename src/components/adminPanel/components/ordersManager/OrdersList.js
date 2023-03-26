@@ -7,6 +7,7 @@ import Spinner from "../../../../assets/Spinner";
 import DataTable from "../../../../VersitileComponents/datatable/Datatable";
 import { orderscolumns } from "../../../../utils/constants";
 import { getAllorders } from "../../../../controllers/orderRoute";
+import EditOrderForm from "./OrdersForm";
 
 const OrdersList = ({ toast }) => {
   const [orderList, setorderList] = useState([]);
@@ -14,10 +15,9 @@ const OrdersList = ({ toast }) => {
 
   async function fetchAllOrders() {
     let { response } = await getAllorders();
-
     setorderList(response.reverse());
   }
-  console.log(orderList);
+
   useEffect(() => {
     fetchAllOrders();
   }, [editProductLayer]);
@@ -31,12 +31,23 @@ const OrdersList = ({ toast }) => {
       <DataTable
         searchKey="title"
         // createNewText="Create new product"
+        header="Order"
         // createNewClick={() => seteditProductLayer({ title: "" })}
         pad={{ vertical: "small" }}
-        // onRowclick={rowClickHandler}
+        onRowclick={rowClickHandler}
         columns={orderscolumns}
         data={orderList || []}
       />
+      {editProductLayer && (
+        <EditOrderForm
+          {...{
+            toast,
+            editProductLayer,
+            fetchAllOrders,
+            seteditProductLayer,
+          }}
+        />
+      )}
     </Box>
   ) : (
     <Spinner msg="Fetching  Orders .." center={true} />
