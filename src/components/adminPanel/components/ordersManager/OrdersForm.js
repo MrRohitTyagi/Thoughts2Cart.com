@@ -57,7 +57,6 @@ const EditOrderForm = ({
 
     onSubmit: (values) => {},
   });
-  console.log(editProductLayer);
   const handleSubmit = async (orderStatus) => {
     try {
       const updatedData = {
@@ -202,7 +201,6 @@ const EditOrderForm = ({
                 value={formik.values.orderStatus}
                 label="Age"
                 onChange={(e) => {
-                  console.log(e.target.value);
                   formik.setFieldValue("orderStatus", e.target.value);
                 }}
               >

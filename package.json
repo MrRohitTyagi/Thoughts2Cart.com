@@ -1,6 +1,6 @@
 {
   "name": "thoughts2cart",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",

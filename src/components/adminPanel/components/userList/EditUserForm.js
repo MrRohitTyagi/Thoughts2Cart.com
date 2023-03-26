@@ -79,7 +79,6 @@ const EditUserForm = ({
       toast.success("Profile updated successfully");
     } catch ({ response }) {
       toast.error(response?.data || "Something went wrong");
-      console.log(response);
     }
   }
 

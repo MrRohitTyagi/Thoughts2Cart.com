@@ -10,10 +10,14 @@ import ProductList from "./components/productList/ProductList";
 import CategoryList from "./components/categoryList/CategoryList";
 import AdminList from "./components/AdminList";
 import AdminSettings from "./AdminSettings";
-import UserSettings from "../../userPanel/UserSettings";
-import { IconButton } from "@mui/material";
 import OrdersList from "./components/ordersManager/OrdersList";
+import styled from "styled-components";
 
+const HoverTab = styled(Tab)`
+  &:hover {
+    background: #FFFBEF;
+  }
+`;
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -80,7 +84,7 @@ export default function VerticalTabs({ toast, allcatagories }) {
           minWidth: "250px",
         }}
       >
-        <Tab
+        <HoverTab
           sx={{ borderBottom: "1px solid #5C4033" }}
           label={
             <Text
@@ -93,7 +97,7 @@ export default function VerticalTabs({ toast, allcatagories }) {
           }
           {...a11yProps(0)}
         />
-        <Tab
+        <HoverTab
           sx={{ borderBottom: "1px solid #5C4033" }}
           label={
             <Text
@@ -106,7 +110,7 @@ export default function VerticalTabs({ toast, allcatagories }) {
           }
           {...a11yProps(1)}
         />
-        <Tab
+        <HoverTab
           sx={{ borderBottom: "1px solid #5C4033" }}
           label={
             <Text
@@ -119,7 +123,7 @@ export default function VerticalTabs({ toast, allcatagories }) {
           }
           {...a11yProps(2)}
         />
-        <Tab
+        <HoverTab
           sx={{ borderBottom: "1px solid #5C4033" }}
           label={
             <Text
@@ -132,20 +136,7 @@ export default function VerticalTabs({ toast, allcatagories }) {
           }
           {...a11yProps(4)}
         />
-        <Tab
-          sx={{ borderBottom: "1px solid #5C4033" }}
-          label={
-            <Text
-              style={{ textAlign: "center" }}
-              alignSelf="start"
-              color={"#5C4033"}
-            >
-              • Admin Settings
-            </Text>
-          }
-          {...a11yProps(5)}
-        />
-        <Tab
+        <HoverTab
           sx={{ borderBottom: "1px solid #5C4033" }}
           label={
             <Text
@@ -154,6 +145,19 @@ export default function VerticalTabs({ toast, allcatagories }) {
               color={"#5C4033"}
             >
               • Manage orders
+            </Text>
+          }
+          {...a11yProps(5)}
+        />
+        <HoverTab
+          sx={{ borderBottom: "1px solid #5C4033" }}
+          label={
+            <Text
+              style={{ textAlign: "center" }}
+              alignSelf="start"
+              color={"#5C4033"}
+            >
+              • Admin Settings
             </Text>
           }
           {...a11yProps(6)}
@@ -173,11 +177,11 @@ export default function VerticalTabs({ toast, allcatagories }) {
         <CategoryList {...{ toast }} />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        <AdminSettings {...{ toast }} />
+        <OrdersList {...{ toast }} />
       </TabPanel>
 
       <TabPanel value={value} index={5}>
-        <OrdersList {...{ toast }} />
+        <AdminSettings {...{ toast }} />
       </TabPanel>
     </Box>
   );

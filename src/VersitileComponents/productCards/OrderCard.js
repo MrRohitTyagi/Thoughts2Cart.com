@@ -1,6 +1,6 @@
-import { Button, Divider } from "@mui/material";
-import { Box, Grid, Text, Button as Gbutton, Image } from "grommet";
-import React from "react";
+import { Button, Dialog, Tooltip } from "@mui/material";
+import { Box, Grid, Text, Button as Gbutton, Image, Spinner } from "grommet";
+import React, { useState } from "react";
 import WishListCard from "./WishListCard";
 import {
   convertDatetime,
@@ -8,11 +8,12 @@ import {
   toTitleCase,
   getDateNDaysAheadOfAGivenDate,
 } from "../../utils/helpFunctions";
-import { AdminSettingsContext } from "../../App";
-import { useContext } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { deleteOrder } from "../../controllers/orderRoute";
 
-const OrderCard = ({ ele, navigate, i }) => {
-  const { adminSettings } = useContext(AdminSettingsContext);
+const OrderCard = ({ ele, i, viewOrders, toast, adminSettings }) => {
+  const [open, setopen] = useState(false);
+  const [deleting, setdeleting] = useState(false);
   let { successPng = "" } = adminSettings;
   return (
     <Box
@@ -136,7 +137,66 @@ const OrderCard = ({ ele, navigate, i }) => {
           height="50px"
           style={{ position: "absolute", top: "-20px", left: "-20px" }}
         />
+        <Button
+          onClick={() => setopen(true)}
+          style={{
+            position: "absolute",
+            bottom: "0",
+            right: "0",
+          }}
+          endIcon={
+            <Tooltip title={<Text weight={"bold"}>Delete Order</Text>}>
+              <DeleteIcon
+                sx={{
+                  color: "red",
+                  scale: "1.4",
+                  "&:hover": {
+                    scale: "1.6",
+                  },
+                }}
+              />
+            </Tooltip>
+          }
+        ></Button>
       </Box>
+      <Dialog
+        onClose={() => {
+          setopen(false);
+        }}
+        open={open}
+      >
+        <Box background={"#f2f2f2"} pad="small">
+          <Text>Do you really want to delete order ?</Text>
+          <Box direction="row" gap="10px" pad="small">
+            <Button
+              disabled={deleting}
+              variant="contained"
+              color="warning"
+              fullWidth
+              onClick={async () => {
+                setdeleting(true);
+                await deleteOrder(ele._id);
+                await viewOrders();
+                setdeleting(false);
+                toast.success("Order deleted successfully");
+              }}
+            >
+              {deleting ? <Spinner /> : "Yes"}
+            </Button>
+            <Button
+              disabled={deleting}
+              variant="contained"
+              color="success"
+              fullWidth
+              onClick={() => {
+                setopen(false);
+              }}
+            >
+              No
+            </Button>
+          </Box>
+        </Box>
+      </Dialog>
     </Box>
   );
 };

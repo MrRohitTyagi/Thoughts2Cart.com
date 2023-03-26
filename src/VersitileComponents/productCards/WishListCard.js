@@ -49,7 +49,7 @@ const WishListCard = ({
       >
         <Anchor
           onClick={() => {
-            navigate(`/product/${ele.id}`);
+            navigate(`/product/${ele._id}`);
           }}
           size="small"
         >
