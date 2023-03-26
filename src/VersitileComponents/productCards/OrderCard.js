@@ -1,6 +1,6 @@
 import { Button, Dialog, Tooltip } from "@mui/material";
 import { Box, Grid, Text, Button as Gbutton, Image, Spinner } from "grommet";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import WishListCard from "./WishListCard";
 import {
   convertDatetime,
@@ -201,4 +201,4 @@ const OrderCard = ({ ele, i, viewOrders, toast, adminSettings }) => {
   );
 };
 
-export default OrderCard;
+export default memo(OrderCard);

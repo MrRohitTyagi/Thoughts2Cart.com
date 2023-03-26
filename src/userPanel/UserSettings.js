@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 
 const UserSettings = ({ userDetails, setuserDetails, navigate, toast }) => {
   return <div>Under Development</div>;
 };
 
-export default UserSettings;
+export default memo(UserSettings);

@@ -1,9 +1,9 @@
-import React from "react";
-import { Box, Layer, Text, Grid, Select, ThemeContext } from "grommet";
+import React, { memo } from "react";
+import { Box, Layer, Text, Grid, Select } from "grommet";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-import { CaretDownFill, View } from "grommet-icons";
+import { CaretDownFill } from "grommet-icons";
 import { StyledButton } from "../../../../assets/StyledItems";
 import { Button, TextField } from "@mui/material";
 import ForwardIcon from "@mui/icons-material/Forward";
@@ -22,7 +22,6 @@ const validationSchema = yup.object({
   price: yup.string().required("price is required"),
   stock: yup.string().required("stock is required"),
   rating: yup.string().required("rating is required"),
-  category: yup.string().required("category is required"),
 
   warranty: yup
     .number("invalid Warranty")
@@ -376,4 +375,4 @@ const EditProductForm = ({
   );
 };
 
-export default EditProductForm;
+export default memo(EditProductForm);

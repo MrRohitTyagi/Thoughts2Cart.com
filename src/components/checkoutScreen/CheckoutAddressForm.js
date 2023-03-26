@@ -1,5 +1,5 @@
 import { Box, Grid } from "grommet";
-import React, { useMemo } from "react";
+import React, { memo, useMemo } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import CountrySelect from "../../VersitileComponents/CountrySelect";
 import {
@@ -21,16 +21,16 @@ const CheckoutAddressForm = ({
   const correspondingStates = useMemo(() =>
     getAllstatesByCountry(isoCode?.isoCode).map((ele) => {
       return { label: ele.name, code: ele.isoCode };
-    })
+    }),[isoCode?.isoCode]
   );
   let stateisoCode = React.useMemo(() => {
     return correspondingStates?.find((ele) => ele.label === values.state) || "";
-  }, [values.state]);
+  }, [correspondingStates, values.state]);
 
   const correspondingCities = useMemo(() =>
     getCitiesOfState(isoCode?.isoCode, stateisoCode?.code).map((ele) => {
       return { label: ele?.name };
-    })
+    }),[isoCode?.isoCode, stateisoCode?.code]
   );
 
   return (
@@ -55,7 +55,7 @@ const CheckoutAddressForm = ({
           }}
         />
         <Autocomplete 
-          isOptionEqualToValue={(option, value) => option.label == value}
+          isOptionEqualToValue={(option, value) => option.label === value}
           value={values.state}
           onChange={(e) => {
             setFieldValue("state", e.target.textContent);
@@ -94,7 +94,7 @@ const CheckoutAddressForm = ({
         gap="10px"
       >
         <Autocomplete
-          isOptionEqualToValue={(option, value) => option.label == value}
+          isOptionEqualToValue={(option, value) => option.label === value}
           value={values.district}
           onChange={(e) => {
             setFieldValue("district", e.target.textContent);
@@ -152,4 +152,4 @@ const CheckoutAddressForm = ({
   );
 };
 
-export default CheckoutAddressForm;
+export default memo(CheckoutAddressForm);

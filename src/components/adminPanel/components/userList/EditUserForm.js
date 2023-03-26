@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Layer, Text, Grid, Spinner } from "grommet";
+import React, { memo, useState } from "react";
+import { Box, Layer, Text, Grid } from "grommet";
 import ForwardIcon from "@mui/icons-material/Forward";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -288,4 +288,4 @@ const EditUserForm = ({
   );
 };
 
-export default EditUserForm;
+export default memo(EditUserForm);

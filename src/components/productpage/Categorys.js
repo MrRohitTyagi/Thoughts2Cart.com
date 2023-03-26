@@ -1,12 +1,12 @@
-import { Box, Image, Text, ResponsiveContext } from "grommet";
-import React, { useEffect, useState } from "react";
+import { Box, Text, ResponsiveContext } from "grommet";
+import React, { memo, useEffect, useState } from "react";
 import { ZoomBox, ZoomImage } from "../../utils/customComponents";
 import { CaretDownFill } from "grommet-icons";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-const BasicCard = ({ ele, size, navigate }) => {
+const BasicCard = ({ ele, navigate }) => {
   return (
     <ZoomBox
       direction="column"
@@ -62,7 +62,7 @@ const Categorys = ({ Emitter, allcatagories }) => {
       arr.push(chunk);
       setfinalCategoryArray(arr);
     }
-  }, [allcatagories?.results, size]);
+  }, [allcatagories?.results, divider, size]);
 
   return (
     <>
@@ -74,15 +74,16 @@ const Categorys = ({ Emitter, allcatagories }) => {
           showStatus={false}
           showIndicators={false}
         >
-          {finalCategoryArray?.map((ele) => (
+          {finalCategoryArray?.map((ele, i) => (
             <Box
+              key={i}
               animation={{ duration: 400, type: "fadeIn" }}
               direction="row"
               justify={ele.length < divider ? "center" : "evenly"}
               gap={ele.length < divider ? "40px" : "20px"}
             >
-              {ele?.map((ele) => {
-                return <BasicCard {...{ ele, size, navigate }} />;
+              {ele?.map((ele, j) => {
+                return <BasicCard key={j} {...{ ele, size, navigate }} />;
               })}
             </Box>
           ))}
@@ -92,4 +93,4 @@ const Categorys = ({ Emitter, allcatagories }) => {
   );
 };
 
-export default Categorys;
+export default memo(Categorys);

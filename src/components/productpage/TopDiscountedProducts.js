@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { getDataforHomeScreen } from "../../controllers/homePageControllers";
 import { Box, Grid, Image, Text } from "grommet";
 import { toTitleCase } from "../../utils/helpFunctions";
@@ -48,6 +48,7 @@ const TopDiscountedProducts = ({ navigate, userDetails }) => {
         >
           {allProducts?.map((ele, i) => (
             <Tilt
+              key={i}
               className="Tilt"
               options={{ max: 25, scale: 1, speed: 100, transition: true }}
               style={{ background: "#121921" }}
@@ -132,4 +133,4 @@ const BasicCard = ({ ele, navigate }) => {
     </Box>
   );
 };
-export default TopDiscountedProducts;
+export default memo(TopDiscountedProducts);

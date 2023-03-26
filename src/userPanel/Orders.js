@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback, memo } from "react";
 import { useParams } from "react-router-dom";
 import { getCookie, deleteCookie } from "../utils/helpFunctions";
 import { generateOrder, getAllUserorders } from "../controllers/orderRoute";
@@ -17,31 +17,36 @@ const Orders = ({ userDetails, setuserDetails, navigate, toast }) => {
   const { ordercode } = useParams();
   const paymentCookie = getCookie("payment_session_id");
 
-  async function viewOrders() {
+  const viewOrders = useCallback(async () => {
     const { response = [] } = await getAllUserorders(userDetails.orders);
     setallOrders(response);
-    // await sendEmailtoServer({ response: response[0] });
     return true;
-  }
-  async function processOrder(params) {
-    let { response } = await generateOrder({
-      userDetails: { ...userDetails, wishlist: [] },
-      items: countUnique(userDetails.wishlist),
-      paymentID: ordercode,
-      paymentStatus: ordercode + secret === paymentCookie + secret,
-    });
+  }, [userDetails.orders]);
 
-    await deleteCookie("payment_session_id");
-    let { data } = await regesterUser({
-      ...userDetails,
-      id: userDetails._id,
-      wishlist: [],
-      orders: userDetails.orders.concat(response._id),
-    });
-    setuserDetails(data);
-    await sendEmailtoServer({ response });
-    toast.success("Order placed successfully!, invoice is sent to your email");
-  }
+  const processOrder = useCallback(
+    async () => {
+      let { response } = await generateOrder({
+        userDetails: { ...userDetails, wishlist: [] },
+        items: countUnique(userDetails.wishlist),
+        paymentID: ordercode,
+        paymentStatus: ordercode + secret === paymentCookie + secret,
+      });
+
+      await deleteCookie("payment_session_id");
+      let { data } = await regesterUser({
+        ...userDetails,
+        id: userDetails._id,
+        wishlist: [],
+        orders: userDetails.orders.concat(response._id),
+      });
+      setuserDetails(data);
+      await sendEmailtoServer({ response });
+      toast.success(
+        "Order placed successfully!, invoice is sent to your email"
+      );
+    },
+    [userDetails, ordercode, secret, paymentCookie, setuserDetails, toast]
+  );
 
   useEffect(() => {
     if (!userDetails._id) {
@@ -56,7 +61,7 @@ const Orders = ({ userDetails, setuserDetails, navigate, toast }) => {
     } else {
       processOrder();
     }
-  }, [userDetails, paymentCookie, ordercode]);
+  }, [userDetails, paymentCookie, ordercode, secret, viewOrders, processOrder]);
 
   return allOrders?.length > 0 ? (
     <Box
@@ -102,4 +107,4 @@ const Orders = ({ userDetails, setuserDetails, navigate, toast }) => {
     </Box>
   );
 };
-export default Orders;
+export default memo(Orders);

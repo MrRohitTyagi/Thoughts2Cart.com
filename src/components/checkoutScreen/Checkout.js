@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { Box, Grid, Image, Text } from "grommet";
-import React from "react";
+import React, { memo } from "react";
 import { countUnique } from "../../controllers/cartcomtroller";
 import WishListCard from "../../VersitileComponents/productCards/WishListCard";
 import CheckoutForm from "./CheckoutForm";
@@ -63,4 +63,4 @@ const Checkout = ({ userDetails, setuserDetails, toast, allcatagories }) => {
   );
 };
 
-export default Checkout;
+export default memo(Checkout);

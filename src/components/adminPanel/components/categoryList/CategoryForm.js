@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Box, Layer, Text, Grid } from "grommet";
+import React, { memo, useState } from "react";
+import { Box, Layer, Text } from "grommet";
 import ForwardIcon from "@mui/icons-material/Forward";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
-import Paper from "@mui/material/Paper";
 
 import { Button, IconButton, TextField, Avatar, Divider } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -110,7 +109,7 @@ const EditCategoryForm = ({
         round="small"
         margin={"small"}
         elevation={"large"}
-        border
+        border={true}
         height={"100%"}
         pad="small"
       >
@@ -308,7 +307,8 @@ function ChipsArray({ setFieldValue, subs, chipData, setChipData, toast }) {
             name="subCategory"
             label="Enter Sub category"
           />
-          <Button title="Add"
+          <Button
+            title="Add"
             onClick={() => {
               let val = document.getElementById("subCategoryAdd").value;
               if (val === "") return;
@@ -331,4 +331,4 @@ function ChipsArray({ setFieldValue, subs, chipData, setChipData, toast }) {
   );
 }
 
-export default EditCategoryForm;
+export default memo(EditCategoryForm);

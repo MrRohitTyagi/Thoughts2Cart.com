@@ -1,7 +1,6 @@
-import { Button, InputAdornment, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import { Box, Text } from "grommet";
-import { Close, Search } from "grommet-icons";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
@@ -10,25 +9,10 @@ const Datatable = ({
   onRowclick,
   data,
   createNewClick,
-  stateToBeUpdated,
   createNewText,
-  fetch,
-  searchKey = "name",
   header,
 }) => {
   const [pageSize, setPageSize] = useState(10);
-  const [search, setsearch] = useState("");
-
-  const handleSearch = (q) => {
-    if (q === "") fetch();
-    let filterArr = data.filter((ele) => {
-      return ele[searchKey].toLowerCase().includes(q.toLowerCase());
-    });
-
-    if (filterArr.length > 0) {
-      stateToBeUpdated(filterArr);
-    }
-  };
   return (
     <Box
       animation={{ duration: 400, type: "fadeIn" }}
@@ -93,4 +77,4 @@ const Datatable = ({
   );
 };
 
-export default Datatable;
+export default memo(Datatable);

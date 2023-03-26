@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Box, Text, Layer, Spinner as OnlySpinner } from "grommet";
 
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { Button, Avatar, TextField } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Formik } from "formik";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import { getUser, regesterUser } from "../../controllers/userController";
@@ -135,7 +134,6 @@ const ProfileOptions = ({ navigate, toast }) => {
                           height: "200px",
                           width: "200px",
                         }}
-                        alt={<AccountCircleIcon />}
                         src={userDetails.profile}
                       />
 
@@ -376,4 +374,4 @@ const ProfileOptions = ({ navigate, toast }) => {
   );
 };
 
-export default ProfileOptions;
+export default memo(ProfileOptions);

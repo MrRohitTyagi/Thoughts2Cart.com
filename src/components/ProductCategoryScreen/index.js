@@ -1,5 +1,5 @@
 import { Box } from "grommet";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCategorisedProducts } from "../../controllers/productController";
 import MobileCard from "../../VersitileComponents/productCards/MobileCard";
@@ -19,7 +19,7 @@ const CategoryPage = () => {
       setAllProducts(data.response);
       setcount(data.count);
     })();
-  }, [page]);
+  }, [currentCategory, page]);
 
   function handleProductOnclick(item) {
     navigate(`/product/${item._id}`);
@@ -63,4 +63,4 @@ const CategoryPage = () => {
   );
 };
 
-export default CategoryPage;
+export default memo(CategoryPage);

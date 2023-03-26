@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo } from "react";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
@@ -9,7 +9,6 @@ import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import EditIcon from "@mui/icons-material/Edit";
-import Address from "../../VersitileComponents/Address";
 import { Layer, Text } from "grommet";
 import HomeIcon from "@mui/icons-material/Home";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
@@ -138,4 +137,4 @@ const TemporaryDrawer = ({
     </>
   );
 };
-export default TemporaryDrawer;
+export default memo(TemporaryDrawer);

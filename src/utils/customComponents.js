@@ -1,4 +1,4 @@
-import { Text, Box, Image } from "grommet";
+import {  Box, Image } from "grommet";
 import styled from "styled-components";
 
 export const ZoomImage = styled(Image)`

@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { getAllProducts } from "../../../../controllers/productController";
+import React, { memo, useEffect } from "react";
 import { Box } from "grommet";
 import { useState } from "react";
 import Spinner from "../../../../assets/Spinner";
@@ -54,4 +53,4 @@ const OrdersList = ({ toast }) => {
   );
 };
 
-export default OrdersList;
+export default memo(OrdersList);

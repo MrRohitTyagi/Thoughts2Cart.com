@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-
+import React, { memo, useEffect, useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
-import { InputAdornment, TextField } from "@mui/material";
-import { Box, Text } from "grommet";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { TextField } from "@mui/material";
+import { Text } from "grommet";
 import { addressFinder } from "../utils/helpFunctions";
 
 const Address = () => {
@@ -33,4 +31,4 @@ const Address = () => {
   );
 };
 
-export default Address;
+export default memo(Address);

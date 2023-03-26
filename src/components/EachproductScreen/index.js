@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { memo, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Box,
@@ -294,4 +294,4 @@ function MiddleSection({ ele }) {
   );
 }
 
-export default EachProductScreen;
+export default memo(EachProductScreen);

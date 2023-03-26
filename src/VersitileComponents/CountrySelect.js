@@ -9,9 +9,10 @@ const countries = getAllCountries().map((ele) => {
 });
 
 export default function CountrySelect({ onChange, error, value }) {
+  
   return (
     <Autocomplete
-      isOptionEqualToValue={(option, value) => option.label == value}
+      isOptionEqualToValue={(option, value) => option.label === value}
       value={value}
       onChange={(e) => {
         onChange(e.target.textContent);

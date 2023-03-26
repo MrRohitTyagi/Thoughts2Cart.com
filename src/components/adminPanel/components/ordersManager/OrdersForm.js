@@ -1,46 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Box, Layer, Text, Grid, Button as Gbutton } from "grommet";
+import React, { memo } from "react";
+import { Box, Layer, Text, Button as Gbutton } from "grommet";
 import ForwardIcon from "@mui/icons-material/Forward";
 import { useFormik } from "formik";
-import * as yup from "yup";
-import { styled } from "@mui/material/styles";
-import Chip from "@mui/material/Chip";
-import Paper from "@mui/material/Paper";
 
-import {
-  Button,
-  IconButton,
-  TextField,
-  Avatar,
-  Divider,
-  Select,
-  MenuItem,
-} from "@mui/material";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Button, Divider, Select, MenuItem } from "@mui/material";
 
 import {
   addAllPrices,
   convertDatetime,
-  encodeImageFileAsURL,
   getDateNDaysAheadOfAGivenDate,
   toTitleCase,
-  uploadImage,
 } from "../../../../utils/helpFunctions";
 import { StyledButton } from "../../../../assets/StyledItems";
 
-import {
-  deletecategory,
-  regestercategory,
-} from "../../../../controllers/categoryController";
-import { Add, Trash } from "grommet-icons";
 import WishListCard from "../../../../VersitileComponents/productCards/WishListCard";
 import { deleteOrder, updateOrder } from "../../../../controllers/orderRoute";
-
-const validationSchema = yup.object({
-  name: yup.string().required("Name is required"),
-  image: yup.string(),
-  subCategory: yup.array(),
-});
 
 const EditOrderForm = ({
   toast,
@@ -53,7 +27,6 @@ const EditOrderForm = ({
       orderStatus: editProductLayer?.orderStatus || "",
       id: editProductLayer?._id || "",
     },
-    validationSchema: validationSchema,
 
     onSubmit: (values) => {},
   });
@@ -269,4 +242,4 @@ const EditOrderForm = ({
   );
 };
 
-export default EditOrderForm;
+export default memo(EditOrderForm);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { Spinner as CircularProgress } from "grommet";
 import { Box, Text } from "grommet";
@@ -30,4 +30,4 @@ const Spinner = (props) => {
   );
 };
 
-export default Spinner;
+export default memo(Spinner);

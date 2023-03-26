@@ -9,7 +9,7 @@ import {
   Box,
   Spinner,
 } from "grommet/components";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styled from "styled-components";
 import { dateNDaysAhead, productUrlCopy } from "../../utils/helpFunctions";
 import { UserDetailsContext } from "../../App";
@@ -139,4 +139,4 @@ const MobileCard = ({ ele, onClick }) => {
   );
 };
 
-export default MobileCard;
+export default memo(MobileCard);

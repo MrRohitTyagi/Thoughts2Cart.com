@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Box, Image, Text, Spinner } from "grommet";
 import {
   TextField,
@@ -9,7 +9,6 @@ import {
   Badge,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import logo from "../assets/logo.png";
 import SignupForm from "./login/SignupForm";
@@ -24,6 +23,7 @@ const Navbar = ({
   navigate,
   toast,
   userAddress,
+  adminSettings,
 }) => {
   const { pathname } = useLocation();
   const [profileDrawerlayer, setprofileDrawerlayer] = useState(false);
@@ -36,7 +36,7 @@ const Navbar = ({
     <>
       <Box
         animation={{ duration: 400, type: "fadeIn" }}
-        background={"#121921"}
+        background={adminSettings?.theme?.navbarColor || "#121921"}
         direction="row"
         justify="between"
         width={"100%"}
@@ -132,7 +132,6 @@ const Navbar = ({
                   border: "1px solid #EED971FF",
                   cursor: "pointer",
                 }}
-                alt={<AccountCircleIcon />}
                 src={userDetails.profile}
               />
             </Tooltip>
@@ -186,4 +185,4 @@ const Navbar = ({
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

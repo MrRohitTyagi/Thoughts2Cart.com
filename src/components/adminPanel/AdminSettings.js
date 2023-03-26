@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef } from "react";
+import React, { useEffect, useContext, useRef, memo } from "react";
 import { Button } from "@mui/material";
 import { Box } from "grommet";
 import {
@@ -17,7 +17,7 @@ const AdminSettings = ({ toast }) => {
       let { data } = await fetchAdminSettinsg();
       setadminSettings(data);
     })();
-  }, []);
+  }, [setadminSettings]);
 
   return (
     <Box
@@ -62,7 +62,7 @@ const AdminSettings = ({ toast }) => {
         color="success"
         sx={{ position: "absolute", right: "15px", bottom: "15px" }}
         onClick={async () => {
-          saveSettings(adminSettings, toast, isChanged);
+          saveSettings(adminSettings, toast, setadminSettings);
         }}
       >
         Save Settings
@@ -70,16 +70,16 @@ const AdminSettings = ({ toast }) => {
     </Box>
   );
 };
-async function saveSettings(adminSettings, toast, isChanged) {
+async function saveSettings(adminSettings, toast, setadminSettings) {
   try {
     let { data } = await saveAdminSettinsg({
       data: adminSettings,
       id: "63f03b189619f30d7dec1def",
     });
-
+    setadminSettings(data);
     toast.success("Settings Saved Successfully!");
   } catch (error) {
     toast.error(error.message || "Unabel to save save settings");
   }
 }
-export default AdminSettings;
+export default memo(AdminSettings);

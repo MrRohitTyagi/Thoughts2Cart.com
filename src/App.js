@@ -1,9 +1,8 @@
-import React, { useEffect, useState, createContext } from "react";
-import { Box, Grommet, Text } from "grommet";
+import React, { useEffect, useState, createContext, memo } from "react";
+import { Box, Grommet } from "grommet";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { grommet } from "grommet/themes";
-import { Avatar } from "@mui/material";
 import { deepMerge } from "grommet/utils";
 
 import Navbar from "./components/Navbar";
@@ -18,6 +17,7 @@ import { getUser } from "./controllers/userController";
 import { getAllcategory } from "./controllers/categoryController";
 import { fetchAdminSettinsg } from "./controllers/settingsController";
 import Checkout from "./components/checkoutScreen/Checkout";
+import SpeedDialTooltipOpen from "./VersitileComponents/QuickAccess/QuickAccess";
 
 export const UserDetailsContext = createContext();
 export const AdminSettingsContext = createContext();
@@ -51,29 +51,6 @@ const App = () => {
   const [userDetails, setuserDetails] = useState("");
   const [adminSettings, setadminSettings] = useState({});
 
-  function welcoometoast(data) {
-    toast((t) => {
-      t.duration = 2000;
-      return (
-        <span>
-          <Box animation={{ duration: 400, type: "fadeIn" }} direction="row">
-            <Avatar src={data.user.profile} />
-            <Box
-              animation={{ duration: 400, type: "fadeIn" }}
-              direction="column"
-              margin={{ left: "10px" }}
-            >
-              <Text size="small">
-                Hi {data.user.name} Welcome Thoughts2Cart.com
-              </Text>
-              <Text size="small">Happy Shopping !</Text>
-            </Box>
-          </Box>
-        </span>
-      );
-    });
-  }
-
   useEffect(() => {
     setuserDetails("LOADING");
     let id = localStorage.getItem("userId");
@@ -82,7 +59,6 @@ const App = () => {
       let { data } = await getUser({ id: id });
       if (data.success) {
         setuserDetails(data.user);
-        // welcoometoast(data);
       } else {
         setuserDetails("NOT_FOUND");
       }
@@ -119,10 +95,11 @@ const App = () => {
           <Box
             animation={{ duration: 400, type: "fadeIn" }}
             height={{ min: "100vh" }}
-            background={"#F2F2F2"}
+            background={adminSettings?.theme?.background || "#F2F2F2"}
           >
             <Navbar
               {...{
+                adminSettings,
                 userDetails,
                 setuserDetails,
                 navigate,
@@ -130,19 +107,21 @@ const App = () => {
               }}
             />
             <Routes>
-              {["/viewProfile/:id/:ordercode", "/viewProfile"].map(
-                (path, i) => (
-                  <Route
-                    key={i}
-                    path={path}
-                    element={
-                      <UserPanel
-                        {...{ userDetails, setuserDetails, navigate, toast }}
-                      />
-                    }
-                  />
-                )
-              )}
+              {[
+                "/viewProfile/:id/:ordercode",
+                "/viewProfile",
+                "/viewProfile/:id",
+              ].map((path, i) => (
+                <Route
+                  key={i}
+                  path={path}
+                  element={
+                    <UserPanel
+                      {...{ userDetails, setuserDetails, navigate, toast }}
+                    />
+                  }
+                />
+              ))}
               <Route
                 path="/"
                 element={
@@ -200,8 +179,9 @@ const App = () => {
           />
         </UserDetailsContext.Provider>
       </AdminSettingsContext.Provider>
+      <SpeedDialTooltipOpen {...{ navigate }} />
     </Grommet>
   );
 };
 
-export default App;
+export default memo(App);

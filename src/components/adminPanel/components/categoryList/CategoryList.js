@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import DataTable from "../../../../VersitileComponents/datatable/Datatable";
 import Spinner from "../../../../assets/Spinner";
 import { categorycolumns } from "../../../../utils/constants";
@@ -49,4 +49,4 @@ const CategoryList = ({ toast }) => {
   );
 };
 
-export default CategoryList;
+export default memo(CategoryList);

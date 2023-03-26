@@ -8,7 +8,6 @@ import Button from "@mui/material/Button";
 import CheckoutAddressForm from "./CheckoutAddressForm";
 import { useFormik } from "formik";
 import { regesterUser } from "../../controllers/userController";
-import * as yup from "yup";
 import ConfirmDetailsForm from "./ConfirmDetailsForm";
 import { Box as Gbox, Text } from "grommet";
 import { processpayment } from "../../controllers/paymentController";
@@ -125,6 +124,7 @@ export default function VerticalLinearStepper({ userDetails, setuserDetails }) {
     const { address, country, district, state } = formik.values;
     let obj = { address, country, district, state };
     let haserr = false;
+    // eslint-disable-next-line array-callback-return
     Object.keys(obj).map((ele) => {
       if (formik.values?.[ele] === "") {
         formik.setFieldError(ele, `${ele} is a required field`);

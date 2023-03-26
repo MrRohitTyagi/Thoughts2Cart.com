@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Layer, Box, Text, Image } from "grommet";
 import CloseIcon from "@mui/icons-material/Close";
 import { StyledButton } from "../assets/StyledItems";
@@ -111,4 +111,4 @@ const CartItems = ({ userDetails, setuserDetails, setcartLayer, navigate }) => {
   );
 };
 
-export default CartItems;
+export default memo(CartItems);

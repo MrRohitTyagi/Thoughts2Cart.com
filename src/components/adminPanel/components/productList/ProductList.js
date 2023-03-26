@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { getAllProducts } from "../../../../controllers/productController";
 import { Box } from "grommet";
 import { useState } from "react";
@@ -46,4 +46,4 @@ const ProductList = ({ toast, allcatagories }) => {
   );
 };
 
-export default ProductList;
+export default memo(ProductList);

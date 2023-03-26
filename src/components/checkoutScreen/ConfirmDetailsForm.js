@@ -1,15 +1,8 @@
 import { TextField } from "@mui/material";
 import { Box, Grid } from "grommet";
-import React from "react";
+import React, { memo } from "react";
 
-const ConfirmDetailsForm = ({
-  userDetails,
-  setuserDetails,
-  values,
-  handleChange,
-  touched,
-  errors,
-}) => {
+const ConfirmDetailsForm = ({ values }) => {
   let obj = {
     name: values.name,
     email: values.email,
@@ -53,4 +46,4 @@ const ConfirmDetailsForm = ({
   );
 };
 
-export default ConfirmDetailsForm;
+export default memo(ConfirmDetailsForm);

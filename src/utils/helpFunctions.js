@@ -142,10 +142,10 @@ function getCookie(cname) {
   let ca = decodedCookie.split(";");
   for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
-    while (c.charAt(0) == " ") {
+    while (c.charAt(0) === " ") {
       c = c.substring(1);
     }
-    if (c.indexOf(name) == 0) {
+    if (c.indexOf(name) === 0) {
       return c.substring(name.length, c.length);
     }
   }
@@ -180,7 +180,7 @@ function addAllPrices(data) {
   if (Array.isArray(data)) {
     for (let i = 0; i < data.length; i++) {
       if (data[i].hasOwnProperty("price")) {
-        sum += data[i].price *data[i].quantity;
+        sum += data[i].price * data[i].quantity;
       }
     }
   } else if (typeof data === "object") {

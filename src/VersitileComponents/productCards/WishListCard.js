@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Text, Box, Image, Spinner, Anchor } from "grommet";
 import { Button, Divider, Rating } from "@mui/material";
 
@@ -161,4 +161,4 @@ const WishListCard = ({
   );
 };
 
-export default WishListCard;
+export default memo(WishListCard);

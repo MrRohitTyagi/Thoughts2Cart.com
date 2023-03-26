@@ -4,7 +4,7 @@ import { Button, TextField } from "@mui/material";
 import { getUser } from "../../controllers/userController";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { useState, useContext } from "react";
+import { useState, useContext, memo } from "react";
 import { Formik } from "formik";
 import { UserDetailsContext } from "../../App";
 import { regesterUser } from "../../controllers/userController";
@@ -460,4 +460,4 @@ const SignupForm = ({ setSigninLayer, toast }) => {
   );
 };
 
-export default SignupForm;
+export default memo(SignupForm);

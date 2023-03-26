@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { getAllUsers } from "../../../../controllers/userController";
 
 import DataTable from "../../../../VersitileComponents/datatable/Datatable";
@@ -52,4 +52,4 @@ const UserList = ({ toast }) => {
   );
 };
 
-export default UserList;
+export default memo(UserList);

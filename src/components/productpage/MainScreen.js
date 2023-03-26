@@ -1,5 +1,5 @@
 import { Box, Image } from "grommet";
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, memo } from "react";
 import Categorys from "./Categorys";
 import { Emitter } from "../../utils/eventemmiter";
 import { AdminSettingsContext } from "../../App";
@@ -39,7 +39,7 @@ const MainScreen = ({ userDetails, navigate, toast, allcatagories }) => {
             {adminSettings?.images?.map((ele, i) => (
               <div className="image" key={i}>
                 <Image fit="cover" src={ele} loading="lazy" />
-                <div class="fade"></div>
+                <div className="fade"></div>
               </div>
             ))}
           </Carousel>
@@ -56,10 +56,10 @@ const MainScreen = ({ userDetails, navigate, toast, allcatagories }) => {
         style={{ zIndex: 3 }}
         margin={{ bottom: "30rem", horizontal: "small" }}
       >
-        <TopDiscountedProducts navigate={navigate} userDetails={userDetails}/>
+        <TopDiscountedProducts navigate={navigate} userDetails={userDetails} />
       </Box>
     </Box>
   );
 };
 
-export default MainScreen;
+export default memo(MainScreen);
